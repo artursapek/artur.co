@@ -1,10 +1,10 @@
 img, video {
   display: inline-block;
-  margin-bottom: 20px;
 }
 p {
   padding: 0;
+  margin: 6px 0;
 }
 article {
-  padding-bottom: 30px;
+  margin-bottom: 30px;
 }
