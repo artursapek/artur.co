@@ -1,5 +1,11 @@
 title: Test Album
 date: 2/16/15
 photos:
-- src: "2015/04/IMG_7206.JPG"
-  caption: "test image!"
+- src: "2015/04/IMG_7139.JPG"
+- src: "2015/04/IMG_7151.JPG"
+- src: "2015/04/IMG_7157.JPG"
+- src: "2015/04/IMG_7160.JPG"
+- src: "2015/04/IMG_7163.JPG"
+- src: "2015/04/IMG_7185.JPG"
+- src: "2015/04/IMG_7191.JPG"
+  caption: It's a big world!
