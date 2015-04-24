@@ -23,6 +23,7 @@ _testmain.go
 *.test
 *.prof
 
+config.yml
 bin/
 content/photos/raw
 content/photos/resized
