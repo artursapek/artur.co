@@ -12,8 +12,8 @@ import (
 func main() {
 	router := httprouter.New()
 
-	router.GET("/photos/photo/*path", photos.PhotoHandler)
-	router.GET("/photos/album/:slug", photos.AlbumHandler)
+	router.GET("/albums/:slug", photos.AlbumHandler)
+	router.GET("/photos/*path", photos.PhotoHandler)
 	router.GET("/assets/*path", index.AssetsHandler)
 	router.GET("/", index.IndexHandler)
 
