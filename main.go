@@ -12,7 +12,9 @@ import (
 func main() {
 	router := httprouter.New()
 
+	router.GET("/photos/photo/*path", photos.PhotoHandler)
 	router.GET("/photos/album/:slug", photos.AlbumHandler)
+	router.GET("/assets/*path", index.AssetsHandler)
 	router.GET("/", index.IndexHandler)
 
 	log.Fatal(http.ListenAndServe(":8080", router))

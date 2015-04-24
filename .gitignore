@@ -24,3 +24,5 @@ _testmain.go
 *.prof
 
 bin/
+content/photos/raw
+content/photos/resized

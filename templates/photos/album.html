@@ -3,11 +3,17 @@
 		<title>
 			{{ $.Title }}
 		</title>
-		<link rel="stylesheet" href="../photos.css" />
+		<link rel="stylesheet" href="/assets/styles/photos/album.css" />
 	</head>
 
 	<body>
 		<h1>{{ $.Title }}</h1>
 		<h3>{{ $.Date }}</h3>
+
+		<main>
+			{{ range $i, $photo := $.Photos }}
+				{{ $photo.Src }}
+			{{ end }}
+		</main>
 	</body>
 </html>
