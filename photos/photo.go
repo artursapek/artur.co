@@ -50,7 +50,7 @@ func PhotoHandler(w http.ResponseWriter, r *http.Request, params httprouter.Para
 			return
 		}
 
-		resized := imaging.Fit(original, maxDimension, maxDimension, imaging.BSpline)
+		resized := imaging.Fit(original, maxDimension, maxDimension, imaging.Lanczos)
 
 		// Ensure directory structure exists
 		dir := filepath.Dir(p.ResizedPath())
