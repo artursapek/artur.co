@@ -10,6 +10,9 @@ import (
 type AppConfig struct {
 	RawRoot     string `yaml:"raw_root"`
 	ResizedRoot string `yaml:"resized_root"`
+
+	RawURLPrefix     string `yaml:"raw_url_prefix"`
+	ResizedURLPrefix string `yaml:"resized_url_prefix"`
 }
 
 var Config AppConfig

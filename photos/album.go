@@ -19,10 +19,6 @@ var (
 	albumNotFoundError = errors.New("Album not found")
 )
 
-type Photo struct {
-	Src, Caption string
-}
-
 type Album struct {
 	Title  string
 	Date   string
@@ -81,6 +77,9 @@ func AlbumHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 			http.Error(w, "internal error", 500)
 		}
 	} else {
-		albumTemplate.Execute(w, a)
+		renderErr := albumTemplate.Execute(w, a)
+		if renderErr != nil {
+			log.Fatal(renderErr)
+		}
 	}
 }

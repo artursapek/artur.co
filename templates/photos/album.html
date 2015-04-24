@@ -12,7 +12,9 @@
 
 		<main>
 			{{ range $i, $photo := $.Photos }}
-				{{ $photo.Src }}
+				<a href="{{ $photo.RawURL }}">
+					<img src="{{ $photo.ResizedURL }}" />
+				</a>
 			{{ end }}
 		</main>
 	</body>
