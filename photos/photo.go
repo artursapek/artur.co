@@ -40,7 +40,17 @@ func PhotoHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 		resized := imaging.Fit(original, maxDimension, maxDimension, imaging.BSpline)
 
-		imaging.Save(resized, resizedPath)
+		// Ensure directory structure exists
+		dir := filepath.Dir(resizedPath)
+		mkdirErr := os.MkdirAll(dir, 0700)
+		if mkdirErr != nil {
+			log.Fatal(mkdirErr)
+		}
+
+		saveErr := imaging.Save(resized, resizedPath)
+		if saveErr != nil {
+			log.Fatal(saveErr)
+		}
 	}
 
 	http.ServeFile(w, r, resizedPath)
