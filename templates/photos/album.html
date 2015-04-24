@@ -12,9 +12,14 @@
 
 		<main>
 			{{ range $i, $photo := $.Photos }}
-				<a href="{{ $photo.RawURL }}">
-					<img src="{{ $photo.ResizedURL }}" />
-				</a>
+				<article>
+					<a href="{{ $photo.RawURL }}">
+						<img src="{{ $photo.ResizedURL }}" />
+					</a>
+					{{ if $photo.Caption }}
+					<p>{{ $photo.Caption }}</p>
+					{{ end }}
+				</article>
 			{{ end }}
 		</main>
 	</body>

@@ -3,5 +3,8 @@ img, video {
   margin-bottom: 20px;
 }
 p {
-  padding-top: 30px;
+  padding: 0;
+}
+article {
+  padding-bottom: 30px;
 }

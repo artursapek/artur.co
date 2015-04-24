@@ -47,6 +47,7 @@ func PhotoHandler(w http.ResponseWriter, r *http.Request, params httprouter.Para
 		original, openErr := imaging.Open(p.RawPath())
 		if openErr != nil {
 			http.Error(w, "photo not found", 404)
+			return
 		}
 
 		resized := imaging.Fit(original, maxDimension, maxDimension, imaging.BSpline)
