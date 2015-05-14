@@ -20,9 +20,9 @@ var (
 )
 
 type Album struct {
-	Title  string
-	Date   string
-	Photos []Photo
+	Title   string
+	Date    string
+	Content []ContentItem
 }
 
 const (

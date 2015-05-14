@@ -11,15 +11,19 @@
 		<h3>{{ $.Date }}</h3>
 
 		<main>
-			{{ range $i, $photo := $.Photos }}
+			{{ range $i, $item := $.Content }}
 				<article>
-					<a href="{{ $photo.RawURL }}">
-						<img src="{{ $photo.ResizedURL }}" />
-					</a>
-					{{ if $photo.Caption }}
-					<p>{{ $photo.Caption }}</p>
-					{{ end }}
-				</article>
+          {{ if eq $item.Type "photo" }}
+            <a href="{{ $item.RawURL }}">
+              <img src="{{ $item.ResizedURL }}" />
+            </a>
+            {{ if $item.Caption }}
+            <p>{{ $item.Caption }}</p>
+            {{ end }}
+          {{ else if eq $item.Type "video" }}
+            <video src="{{ $item.RawURL }}" controls />
+          {{ end }}
+        </article>
 			{{ end }}
 		</main>
 	</body>
