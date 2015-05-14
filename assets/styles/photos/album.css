@@ -10,7 +10,8 @@ p {
   margin: 6px 0;
 }
 article {
-  margin-bottom: 30px;
+  margin-top: 5px;
+  padding-top: 30px;
 }
 header {
   border-bottom: 1px solid black;
@@ -18,4 +19,28 @@ header {
 }
 main {
   margin: 10px;
+}
+
+article .photo-opts {
+  display: none;
+}
+
+article:hover .photo-opts {
+  float: right;
+  display: inline-block;
+  padding: 10px;
+  margin-top: -10px;
+}
+
+article .photo-opts a {
+  color: #969696;
+  opacity: 0.5;
+  text-decoration: none;
+  display: block;
+  text-align: right;
+}
+
+article:hover .photo-opts a:hover {
+  opacity: 1;
+  text-decoration: underline;
 }

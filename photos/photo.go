@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	maxDimension = 800
+	maxDimension = 700
 )
 
 type ContentItem struct {
@@ -29,6 +29,10 @@ func (item ContentItem) ResizedPath() string {
 	} else {
 		return filepath.Join(config.Config.ResizedRoot, item.Src)
 	}
+}
+
+func (item ContentItem) BaseFilename() string {
+	return filepath.Base(item.ResizedPath())
 }
 
 func (item ContentItem) RawURL() string {
@@ -74,4 +78,8 @@ func PhotoHandler(w http.ResponseWriter, r *http.Request, params httprouter.Para
 	}
 
 	http.ServeFile(w, r, item.ResizedPath())
+}
+
+func PhotosRedirectHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+	http.Redirect(w, r, "/albums", 302)
 }

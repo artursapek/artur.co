@@ -16,17 +16,28 @@
       <h3>{{ $.Date }}</h3>
 
 			{{ range $i, $item := $.Content }}
-				<article>
+        <article id="{{ $item.BaseFilename }}">
+          <div class="photo-opts">
+            <a 
+              href="#{{ $item.BaseFilename }}"
+              title="Permalink to this {{ $item.Type }}"
+            >permalink</a>
+            {{ if eq $item.Type "photo" }}
+              <a 
+                href="{{ $item.RawURL }}"
+                title="Raw copy of this {{ $item.Type }}"
+              >raw</a>
+            {{ end }}
+          </div>
           {{ if eq $item.Type "photo" }}
-            <a href="{{ $item.RawURL }}">
-              <img src="{{ $item.ResizedURL }}" />
-            </a>
+            <img src="{{ $item.ResizedURL }}" />
             {{ if $item.Caption }}
             <p>{{ $item.Caption }}</p>
             {{ end }}
           {{ else if eq $item.Type "video" }}
-            <video src="{{ $item.RawURL }}" controls />
+            <video src="{{ $item.RawURL }}" controls></video>
           {{ end }}
+
         </article>
 			{{ end }}
 		</main>

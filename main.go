@@ -12,7 +12,9 @@ import (
 func main() {
 	router := httprouter.New()
 
+	router.GET("/albums", photos.AlbumsIndexHandler)
 	router.GET("/albums/:slug", photos.AlbumHandler)
+	router.GET("/photos", photos.PhotosRedirectHandler)
 	router.GET("/photos/*path", photos.PhotoHandler)
 	router.GET("/assets/*path", index.AssetsHandler)
 	router.GET("/", index.IndexHandler)

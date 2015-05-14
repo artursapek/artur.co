@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<title>
+			Photo Albums
+		</title>
+		<link rel="stylesheet" href="/assets/styles/photos/album.css" />
+	</head>
+
+	<body>
+    <header id="breadcrumbs">
+      <a href="/">artur.co</a> &gt; albums
+    </header>
+
+    <main>
+      <h1>Photo Albums</h1>
+      <table>
+
+			{{ range $i, $album := . }}
+        <tr>
+          <td width="100">
+            {{ $album.Date }}
+          </td>
+          <td>
+            <a href="/albums/{{ $album.Slug }}">{{ $album.Title }}</a>
+          </td>
+        </tr>
+      {{ end }}
+      </table>
+
+
+      <br><br><br>
+      <i>Old albums are still being migrated. They are still accessible <a href="/oldphotos">here</a>.</i>
+		</main>
+	</body>
+</html>

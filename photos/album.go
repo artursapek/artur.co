@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"launchpad.net/goyaml"
@@ -20,6 +21,7 @@ var (
 )
 
 type Album struct {
+	Slug    string
 	Title   string
 	Date    string
 	Content []ContentItem
@@ -49,6 +51,7 @@ func loadAlbum(slug string) (a Album, err error) {
 			}
 
 			a.Date = date.Format(dateOutputFormat)
+			a.Slug = slug
 
 			return a, nil
 		}
@@ -56,14 +59,18 @@ func loadAlbum(slug string) (a Album, err error) {
 }
 
 var (
-	albumTemplate *template.Template
+	albumTemplate, albumIndexTemplate *template.Template
 )
 
 func init() {
-	var tParseErr error
-	albumTemplate, tParseErr = template.ParseFiles("templates/photos/album.html")
-	if tParseErr != nil {
-		log.Fatal(tParseErr)
+	var showParseErr, indexParseErr error
+	albumTemplate, showParseErr = template.ParseFiles("templates/photos/album.html")
+	if indexParseErr != nil {
+		log.Fatal(showParseErr)
+	}
+	albumIndexTemplate, indexParseErr = template.ParseFiles("templates/photos/index.html")
+	if indexParseErr != nil {
+		log.Fatal(indexParseErr)
 	}
 }
 
@@ -81,5 +88,29 @@ func AlbumHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		if renderErr != nil {
 			log.Fatal(renderErr)
 		}
+	}
+}
+
+func AlbumsIndexHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	var albums []Album
+
+	albumFiles, globErr := filepath.Glob(filepath.Join("content", "photos", "albums", "*.yml"))
+
+	for _, fp := range albumFiles {
+		slug := strings.Split(filepath.Base(fp), ".")[0]
+		album, loadErr := loadAlbum(slug)
+		if loadErr != nil {
+			log.Fatal(loadErr)
+		} else {
+			albums = append(albums, album)
+		}
+	}
+
+	if globErr != nil {
+		log.Fatal(globErr)
+	}
+	renderErr := albumIndexTemplate.Execute(w, albums)
+	if renderErr != nil {
+		log.Fatal(renderErr)
 	}
 }
