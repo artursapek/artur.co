@@ -29,13 +29,15 @@
               >raw</a>
             {{ end }}
           </div>
+
           {{ if eq $item.Type "photo" }}
             <img src="{{ $item.ResizedURL }}" />
-            {{ if $item.Caption }}
-            <p>{{ $item.Caption }}</p>
-            {{ end }}
           {{ else if eq $item.Type "video" }}
             <video src="{{ $item.RawURL }}" controls></video>
+          {{ end }}
+
+          {{ if $item.Caption }}
+            <p>{{ $item.Caption }}</p>
           {{ end }}
 
         </article>
