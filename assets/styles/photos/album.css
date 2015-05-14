@@ -1,3 +1,7 @@
+html, body {
+  padding: 0;
+  margin: 0;
+}
 img, video {
   display: inline-block;
 }
@@ -7,4 +11,11 @@ p {
 }
 article {
   margin-bottom: 30px;
+}
+header {
+  border-bottom: 1px solid black;
+  padding: 10px;
+}
+main {
+  margin: 10px;
 }

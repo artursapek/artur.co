@@ -7,10 +7,14 @@
 	</head>
 
 	<body>
-		<h1>{{ $.Title }}</h1>
-		<h3>{{ $.Date }}</h3>
+    <header id="breadcrumbs">
+      <a href="/">artur.co</a> &gt; <a href="/albums">albums</a> &gt; {{ $.Title }}
+    </header>
 
 		<main>
+      <h1>{{ $.Title }}</h1>
+      <h3>{{ $.Date }}</h3>
+
 			{{ range $i, $item := $.Content }}
 				<article>
           {{ if eq $item.Type "photo" }}
