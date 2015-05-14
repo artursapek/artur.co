@@ -19,6 +19,7 @@ header {
 }
 main {
   margin: 10px;
+  margin-bottom: 30px;
 }
 
 article .photo-opts {
