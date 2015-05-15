@@ -1,6 +1,7 @@
 package photos
 
 import (
+	"html/template"
 	"log"
 	"net/http"
 	"os"
@@ -16,7 +17,8 @@ const (
 )
 
 type ContentItem struct {
-	Type, Src, Caption string
+	Type, Src string
+	Caption   template.HTML
 }
 
 func (item ContentItem) RawPath() string {
