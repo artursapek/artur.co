@@ -14,7 +14,6 @@
     <main>
       <h1>Photo Albums</h1>
       <table>
-
 			{{ range $i, $album := . }}
         <tr>
           <td width="100">
@@ -27,9 +26,14 @@
       {{ end }}
       </table>
 
+      <p>
+        <i>Old albums are being migrated. In the meantime they are accessible <a href="https://artur.co/oldphotos/">here</a>.</i>
+      </p>
 
-      <br><br><br>
-      <i>Old albums are being migrated. They are still accessible <a href="https://artur.co/oldphotos/">here</a>.</i>
+      <br>
+
+      <h2>Raw</h2>
+      <p>Access the raw photo &amp; video repository at <a href="http://raw.artur.co">raw.artur.co</a></p>
 		</main>
 	</body>
 </html>
