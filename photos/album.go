@@ -60,6 +60,30 @@ func loadAlbum(slug string) (a Album, err error) {
 	}
 }
 
+func allAlbums() Albums {
+	var albums Albums
+
+	albumFiles, globErr := filepath.Glob(filepath.Join("content", "photos", "albums", "*.yml"))
+
+	if globErr != nil {
+		log.Fatal(globErr)
+	}
+
+	for _, fp := range albumFiles {
+		slug := strings.Split(filepath.Base(fp), ".")[0]
+		album, loadErr := loadAlbum(slug)
+		if loadErr != nil {
+			log.Fatal(loadErr)
+		} else {
+			albums = append(albums, album)
+		}
+	}
+
+	sort.Sort(albums)
+
+	return albums
+}
+
 var (
 	albumTemplate, albumIndexTemplate *template.Template
 )
@@ -76,6 +100,10 @@ func init() {
 	}
 }
 
+type albumHandlerContext struct {
+	Current, Prev, Next Album
+}
+
 func AlbumHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	a, getErr := loadAlbum(p.ByName("slug"))
 	if getErr != nil {
@@ -86,7 +114,30 @@ func AlbumHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 			http.Error(w, "internal error", 500)
 		}
 	} else {
-		renderErr := albumTemplate.Execute(w, a)
+		albums := allAlbums()
+		var thisIndex int
+		for i, album := range albums {
+			if album.Slug == a.Slug {
+				thisIndex = i
+				break
+			}
+		}
+		var prev, next Album
+
+		if thisIndex > 0 {
+			prev = albums[thisIndex-1]
+		}
+		if thisIndex < len(albums)-1 {
+			next = albums[thisIndex+1]
+		}
+
+		context := albumHandlerContext{
+			Current: a,
+			Prev:    prev,
+			Next:    next,
+		}
+
+		renderErr := albumTemplate.Execute(w, context)
 		if renderErr != nil {
 			log.Fatal(renderErr)
 		}
@@ -94,26 +145,7 @@ func AlbumHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 }
 
 func AlbumsIndexHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	var albums Albums
-
-	albumFiles, globErr := filepath.Glob(filepath.Join("content", "photos", "albums", "*.yml"))
-
-	for _, fp := range albumFiles {
-		slug := strings.Split(filepath.Base(fp), ".")[0]
-		album, loadErr := loadAlbum(slug)
-		if loadErr != nil {
-			log.Fatal(loadErr)
-		} else {
-			albums = append(albums, album)
-		}
-	}
-
-	sort.Sort(albums)
-
-	if globErr != nil {
-		log.Fatal(globErr)
-	}
-
+	albums := allAlbums()
 	renderErr := albumIndexTemplate.Execute(w, albums)
 	if renderErr != nil {
 		log.Fatal(renderErr)

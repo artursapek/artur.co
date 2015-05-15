@@ -1,21 +1,21 @@
 <html>
 	<head>
 		<title>
-			{{ $.Title }}
+			{{ $.Current.Title }}
 		</title>
 		<link rel="stylesheet" href="/assets/styles/photos/album.css" />
 	</head>
 
 	<body>
     <header id="breadcrumbs">
-      <a href="/">artur.co</a> &gt; <a href="/albums">albums</a> &gt; {{ $.Title }}
+      <a href="/">artur.co</a> &gt; <a href="/albums">albums</a> &gt; {{ $.Current.Title }}
     </header>
 
 		<main>
-      <h1>{{ $.Title }}</h1>
-      <h3>{{ $.Date }}</h3>
+      <h1>{{ $.Current.Title }}</h1>
+      <h3>{{ $.Current.Date }}</h3>
 
-			{{ range $i, $item := $.Content }}
+			{{ range $i, $item := $.Current.Content }}
         <article id="{{ $item.BaseFilename }}">
           <div class="photo-opts">
             <a 
@@ -42,6 +42,25 @@
 
         </article>
 			{{ end }}
+
 		</main>
+
+    <footer>
+      <table>
+        <tr>
+          <td width="400">
+            {{ if ne $.Prev.Slug "" }}
+            &larr; <a href="/albums/{{ $.Prev.Slug }}">{{ $.Prev.Title }}</a>
+            {{ end }}
+          </td>
+          <td width="400" align="right">
+            {{ if ne $.Next.Slug "" }}
+            <a href="/albums/{{ $.Next.Slug }}">{{ $.Next.Title }}</a> &rarr;
+            {{ end }}
+          </td>
+        </tr>
+      </table>
+    </footer>
+
 	</body>
 </html>

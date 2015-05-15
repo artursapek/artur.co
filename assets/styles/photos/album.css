@@ -45,3 +45,9 @@ article:hover .photo-opts a:hover {
   opacity: 1;
   text-decoration: underline;
 }
+
+footer {
+  border-top: 1px solid;
+  padding: 10px;
+  margin-top: 50px;
+}
