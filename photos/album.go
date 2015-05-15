@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+	"sort"
 	"strings"
 	"time"
 
@@ -24,6 +25,8 @@ type Album struct {
 	Title   string
 	Date    string
 	Content []ContentItem
+
+	unix int64
 }
 
 const (
@@ -49,6 +52,7 @@ func loadAlbum(slug string) (a Album, err error) {
 			}
 
 			a.Date = date.Format(dateOutputFormat)
+			a.unix = date.Unix()
 			a.Slug = slug
 
 			return a, nil
@@ -90,7 +94,7 @@ func AlbumHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 }
 
 func AlbumsIndexHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	var albums []Album
+	var albums Albums
 
 	albumFiles, globErr := filepath.Glob(filepath.Join("content", "photos", "albums", "*.yml"))
 
@@ -104,11 +108,28 @@ func AlbumsIndexHandler(w http.ResponseWriter, r *http.Request, p httprouter.Par
 		}
 	}
 
+	sort.Sort(albums)
+
 	if globErr != nil {
 		log.Fatal(globErr)
 	}
+
 	renderErr := albumIndexTemplate.Execute(w, albums)
 	if renderErr != nil {
 		log.Fatal(renderErr)
 	}
+}
+
+type Albums []Album
+
+func (albums Albums) Len() int {
+	return len(albums)
+}
+
+func (albums Albums) Less(i, j int) bool {
+	return albums[i].unix < albums[j].unix
+}
+
+func (albums Albums) Swap(i, j int) {
+	albums[i], albums[j] = albums[j], albums[i]
 }
