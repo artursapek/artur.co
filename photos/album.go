@@ -2,7 +2,6 @@ package photos
 
 import (
 	"errors"
-	"fmt"
 	"html/template"
 	"io/ioutil"
 	"log"
@@ -40,7 +39,6 @@ func loadAlbum(slug string) (a Album, err error) {
 		return a, albumNotFoundError
 	} else {
 		parseErr := goyaml.Unmarshal(albumContent, &a)
-		fmt.Println(a, parseErr)
 		if parseErr != nil {
 			return a, errors.New("Failed to parse album: " + parseErr.Error())
 		} else {

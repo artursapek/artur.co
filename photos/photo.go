@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	maxDimension = 700
+	maxDimension = 800
 )
 
 type ContentItem struct {
