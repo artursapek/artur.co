@@ -30,6 +30,10 @@ func (loc Location) String() string {
 	return fmt.Sprintf("(%.5f, %.5f)", loc.Lat, loc.Lng)
 }
 
+func (loc Location) Valid() bool {
+	return loc.Lat != 0 && loc.Lng != 0
+}
+
 type Permalink struct {
 	ContentItem
 	time.Time
