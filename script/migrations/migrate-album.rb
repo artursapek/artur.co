@@ -38,11 +38,26 @@ File.open(album_file, "r") do |f|
         images[-1][:caption] = caption
       end
 
+    elsif line =~ /video.*src/
+      src = /src="([^"]*)"/.match(line)[1]
+      if src =~ /http/
+        fn = src
+      else
+        src.gsub!("./","")
+        fn = src.split(".")[0]
+      end
+      video = { type: "video", fn: fn }
+      if pending_caption
+        video[:caption] = pending_caption
+        pending_caption = nil
+      end
+      images << video
+
     elsif line =~ /img.*src/
       src = /src="([^"]*)"/.match(line)[1]
       src.gsub!("./","")
       fn = src.split(".")[0]
-      image = { fn: fn }
+      image = { type: "photo", fn: fn }
       if pending_caption
         image[:caption] = pending_caption
         pending_caption = nil
@@ -59,28 +74,71 @@ yml_file = [
   "content:"
 ]
 
-puts images
-
-puts yml_file
-
-images[0...5].each do |img|
+images[0...20].each do |img|
   fn = img[:fn]
-  puts fn
-  paths = `sshb artur "cd /mnt/raw/photos; find . -name *#{fn}*"`.split("\n")
-  # For the purposes of this script, we can omit anything
-  # before 2014 to eliminate duplicate filenames
-  paths = paths.select{ |p| p.split("/")[1].to_i > 2013 }
 
-  if paths.size > 1
-    puts "Ambiguous fn #{fn}; more than one found path"
-    puts paths.map{|p| "- #{p}"}
-    puts ""
+  if img[:type] == "photo"
+
+    paths = `sshb artur "cd /mnt/raw/photos; find . -name *#{fn}*"`.split("\n")
+    # For the purposes of this script, we can omit anything
+    # before 2014 to eliminate duplicate filenames
+    paths = paths.select{ |p| p.split("/")[1].to_i > 2013 }
+
+    if paths.size > 1
+      puts "Ambiguous fn #{fn}; more than one found path"
+      puts paths.map{|p| "- #{p}"}
+      puts ""
+    elsif paths.size == 0
+      puts "Cannot find raw path for #{fn}"
+    else
+      path = paths[0]
+      if path == ""
+        puts "Cannot find raw path for #{fn}"
+      else
+        year = path.split("/")[1]
+        month = path.split("/")[2]
+        yml_file << "- type: #{img[:type]}"
+        yml_file << "  src: #{[year, month, "#{fn}.JPG"].join("/")}"
+        if img[:caption]
+          yml_file << "  caption: \"#{img[:caption]}\""
+        end
+      end
+    end
   else
-    path = paths[0]
-    year = path.split("/")[1]
-    month = path.split("/")[2]
-    yml_file << "- type: photo"
-    yml_file << "  src: #{[year, month, "#{fn}.JPG"].join("/")}"
+    path_to_video = nil
+    bn = File.basename fn
+    if fn =~ /http/
+      # wget it
+      `sshb artur "cd /tmp/; wget #{fn}"`
+      path_to_video = "/tmp/#{bn}"
+    else
+      # cp it
+      results = `sshb artur "cd /app/artur/photos; find . -name *#{fn}.mov*"`.split("\n")
+      bn = "#{bn}.mov"
+      if results.size == 0
+        puts "Couldn't find video #{fn}"
+        next
+      else
+        path_to_video = results[0].strip
+      end
+    end
+
+    puts "FN #{fn}"
+    puts "RP #{path_to_video}"
+
+    date = Date.parse(
+      `sshb artur "cd /app/artur/photos; ffmpeg -i #{path_to_video} 2>&1 | grep creation_time | tail -n1 | cut -d ':' -f 2"`
+      .strip.split(" ")[0]
+    )
+    puts "DATE #{date}"
+
+    dir = "/mnt/raw/videos/#{date.year}/#{date.month.to_s.rjust(2, '0')}/"
+    puts "DIR #{dir}"
+
+    `sshb artur "cd /app/artur/photos; mkdir -p #{dir}; cp #{path_to_video} #{dir}"`
+
+    yml_file << "- type: #{img[:type]}"
+    yml_file << "  src: #{date.year}/#{date.month.to_s.rjust(2, '0')}/#{bn}"
     if img[:caption]
       yml_file << "  caption: \"#{img[:caption]}\""
     end
