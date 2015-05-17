@@ -50,6 +50,7 @@ func (item ContentItem) Timestamp() time.Time {
 		if ferr != nil {
 			log.Fatal(ferr)
 		} else {
+			defer f.Close()
 			ex, exerr := exif.Decode(f)
 			if exerr != nil {
 				log.Println(exerr)
@@ -72,6 +73,7 @@ func (item ContentItem) Location() Location {
 			return Location{}
 		} else {
 			ex, _ := exif.Decode(f)
+			defer f.Close()
 			lat, lng, err := ex.LatLong()
 			if err == nil {
 				return Location{lat, lng}
