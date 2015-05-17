@@ -50,9 +50,14 @@ func (item ContentItem) Timestamp() time.Time {
 		if ferr != nil {
 			log.Fatal(ferr)
 		} else {
-			ex, _ := exif.Decode(f)
-			datetime, _ := ex.DateTime()
-			return datetime
+			ex, exerr := exif.Decode(f)
+			if exerr != nil {
+				log.Println(exerr)
+				return time.Now()
+			} else {
+				datetime, _ := ex.DateTime()
+				return datetime
+			}
 		}
 	}
 	return time.Now()
