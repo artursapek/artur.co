@@ -6,7 +6,8 @@ caption_style = "before"
 
 
 OptionParser.new do |opts|
-  opts.on("-c", "--captions", "Caption style") do |v|
+  opts.on("-c", "--captions [LOCATION]", String, "Caption style") do |v|
+    puts v
     if v != "before" && v != "after"
       puts "fatal: --captions option must be either \"before\" or \"after\""
       exit 1
