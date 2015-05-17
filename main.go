@@ -20,8 +20,10 @@ func main() {
 	//router.GET("/videos/*path", photos.VideoPermalinkHandler)
 
 	router.GET("/assets/photos/*path", photos.PhotoHandler)
+
 	router.GET("/assets/styles/*path", index.AssetsHandler)
 	router.GET("/assets/data/*path", index.AssetsHandler)
+	router.GET("/assets/scripts/*path", index.AssetsHandler)
 
 	router.GET("/", index.IndexHandler)
 

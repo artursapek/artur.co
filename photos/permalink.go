@@ -39,7 +39,7 @@ type Permalink struct {
 func PhotoPermalinkHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	item := ContentItem{
 		Type: "photo",
-		Src:  params.ByName("path"),
+		Src:  params.ByName("path")[1:],
 	}
 	renderErr := permalinkTemplate.Execute(w, Permalink{
 		ContentItem: item,
