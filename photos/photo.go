@@ -6,10 +6,12 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"time"
 
 	"github.com/artursapek/artur.co/config"
 	"github.com/disintegration/imaging"
 	"github.com/julienschmidt/httprouter"
+	"github.com/rwcarlsen/goexif/exif"
 )
 
 const (
@@ -39,6 +41,41 @@ func (item ContentItem) BaseFilename() string {
 
 func (item ContentItem) RawURL() string {
 	return config.Config.RawURLPrefix + item.Type + "s/" + item.Src
+}
+
+func (item ContentItem) Timestamp() time.Time {
+	switch item.Type {
+	case "video", "photo":
+		f, ferr := os.Open(item.RawPath())
+		if ferr != nil {
+			log.Fatal(ferr)
+		} else {
+			ex, _ := exif.Decode(f)
+			datetime, _ := ex.DateTime()
+			return datetime
+		}
+	}
+	return time.Now()
+}
+
+func (item ContentItem) Location() Location {
+	switch item.Type {
+	case "video", "photo":
+		f, ferr := os.Open(item.RawPath())
+		if ferr != nil {
+			log.Println(ferr)
+			return Location{}
+		} else {
+			ex, _ := exif.Decode(f)
+			lat, lng, err := ex.LatLong()
+			if err == nil {
+				return Location{lat, lng}
+			} else {
+				return Location{}
+			}
+		}
+	}
+	return Location{}
 }
 
 func (item ContentItem) ResizedURL() string {
@@ -73,7 +110,7 @@ func PhotoHandler(w http.ResponseWriter, r *http.Request, params httprouter.Para
 		dir := filepath.Dir(item.ResizedPath())
 		mkdirErr := os.MkdirAll(dir, 0700)
 		if mkdirErr != nil {
-			log.Fatal(mkdirErr)
+			log.Println(mkdirErr)
 		}
 
 		saveErr := imaging.Save(resized, item.ResizedPath())
@@ -83,9 +120,6 @@ func PhotoHandler(w http.ResponseWriter, r *http.Request, params httprouter.Para
 	}
 
 	http.ServeFile(w, r, item.ResizedPath())
-}
-
-func PhotoPermalinkHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 }
 
 func PhotosRedirectHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params) {

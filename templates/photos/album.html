@@ -19,9 +19,13 @@
         <article id="{{ $item.BaseFilename }}">
           <div class="photo-opts">
             <a 
-              href="#{{ $item.BaseFilename }}"
+               href="/{{ $item.Type }}s/{{ $item.Src }}"
               title="Permalink to this {{ $item.Type }}"
             >permalink</a>
+            <a 
+              href="#{{ $item.BaseFilename }}"
+              title="Permalink to this {{ $item.Type }}"
+            >anchor</a>
             {{ if eq $item.Type "photo" }}
               <a 
                 href="{{ $item.RawURL }}"
