@@ -17,7 +17,7 @@ func main() {
 	// Old URL used to be http://artur.co/photos
 	router.GET("/photos", photos.PhotosRedirectHandler)
 	router.GET("/photos/*path", photos.PhotoPermalinkHandler)
-	//router.GET("/videos/*path", photos.VideoPermalinkHandler)
+	router.GET("/videos/*path", photos.VideoPermalinkHandler)
 
 	router.GET("/assets/photos/*path", photos.PhotoHandler)
 
