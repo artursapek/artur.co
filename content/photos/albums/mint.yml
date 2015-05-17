@@ -1,0 +1,59 @@
+title: Mint
+date: 3/12/15
+content:
+- type: photo
+  src: 2015/01/IMG_6385.JPG
+  caption: "Conference call"
+- type: photo
+  src: 2015/03/IMG_6816.JPG
+  caption: "My beautiful family"
+- type: photo
+  src: 2015/03/IMG_6818.JPG
+  caption: "This winter has been hard. The first day we had 50 degree weather, I impulsively bought a bike.<br>It's a <a href=\"http://www.fujibikes.com/bike/details/feather\">Fuji Feather</a>. I've been riding it to work with some of my buddies."
+- type: photo
+  src: 2015/03/IMG_6823.JPG
+  caption: "One morning, we took the ferry across the river."
+- type: photo
+  src: 2015/03/IMG_6824.JPG
+- type: photo
+  src: 2015/03/IMG_6826.JPG
+- type: photo
+  src: 2015/03/IMG_6827.JPG
+- type: photo
+  src: 2015/03/IMG_6834.JPG
+  caption: "We got dinner at a noodle place called <a href=\"http://www.yelp.com/biz/bassanova-ramen-new-york\">Bassanova</a> in Chinatown."
+- type: photo
+  src: 2015/03/IMG_6835.JPG
+- type: photo
+  src: 2015/03/IMG_6836.JPG
+- type: video
+  src: 2015/03/noodle-boy.480.mov
+- type: photo
+  src: 2015/03/IMG_6843.JPG
+- type: photo
+  src: 2015/03/IMG_6845.JPG
+  caption: "Ajax got a baby piano from Magda i Pawel! He knew what to do with it immediately! Dzekujemy!"
+- type: photo
+  src: 2015/03/IMG_6849.JPG
+- type: photo
+  src: 2015/03/IMG_6852.JPG
+- type: video
+  src: 2015/03/chopin.480.mov
+- type: photo
+  src: 2015/03/IMG_6858.JPG
+  caption: "Riding home along the Hudson river"
+- type: photo
+  src: 2015/03/IMG_6860.JPG
+  caption: "To get back to Brooklyn we have to take the Williamsburg Bridge (in the background)"
+- type: photo
+  src: 2015/03/IMG_6862.JPG
+  caption: "Bluez Cluez. Watching this with Ajax is weird, because I remember watching it with Kate."
+- type: video
+  src: 2015/03/zombie.480.mov
+  caption: "This cracks me up:"
+- type: photo
+  src: 2015/03/IMG_6865.JPG
+  caption: "Panorama from the middle of the Williamsburg Bridge on the way home tonight. Manhattan is on the left, Brooklyn on the right. (click for full size)"
+- type: video
+  src: 2015/03/snapping.mov
+  caption: "WIP point snapping algo for <a href=\"https://cryptowat.ch\">Cryptowatch</a> drawing tools"
