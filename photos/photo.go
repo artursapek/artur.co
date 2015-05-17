@@ -42,10 +42,13 @@ func (item ContentItem) RawURL() string {
 }
 
 func (item ContentItem) ResizedURL() string {
-	if item.Type == "video" {
+	switch item.Type {
+	case "video":
 		return item.RawURL()
-	} else {
-		return config.Config.ResizedURLPrefix + item.Type + "s/" + item.Src
+	case "photo":
+		return config.Config.ResizedURLPrefix + "assets/photos/" + item.Src
+	default:
+		return ""
 	}
 }
 
@@ -80,6 +83,9 @@ func PhotoHandler(w http.ResponseWriter, r *http.Request, params httprouter.Para
 	}
 
 	http.ServeFile(w, r, item.ResizedPath())
+}
+
+func PhotoPermalinkHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 }
 
 func PhotosRedirectHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
