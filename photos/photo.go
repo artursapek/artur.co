@@ -47,8 +47,10 @@ func (item ContentItem) Timestamp() time.Time {
 	switch item.Type {
 	case "video", "photo":
 		f, ferr := os.Open(item.RawPath())
+		f.Seek(0, 0)
 		if ferr != nil {
-			log.Fatal(ferr)
+			log.Println(ferr)
+			return time.Now()
 		} else {
 			defer f.Close()
 			ex, exerr := exif.Decode(f)
@@ -68,6 +70,7 @@ func (item ContentItem) Location() Location {
 	switch item.Type {
 	case "video", "photo":
 		f, ferr := os.Open(item.RawPath())
+		f.Seek(0, 0)
 		if ferr != nil {
 			log.Println(ferr)
 			return Location{}
