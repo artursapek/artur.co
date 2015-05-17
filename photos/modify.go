@@ -33,7 +33,7 @@ func PhotoModifyHandler(w http.ResponseWriter, r *http.Request, params httproute
 				return
 			}
 
-			http.Redirect(w, r, redirect, 200)
+			http.Redirect(w, r, redirect, 301)
 		} else {
 			http.Error(w, "No actions to take", 400)
 		}
