@@ -33,12 +33,37 @@ article:hover .photo-opts {
   margin-top: -10px;
 }
 
+article .photo-opts opt {
+  display: block;
+  text-align: right;
+}
 article .photo-opts a {
   color: #969696;
   opacity: 0.5;
   text-decoration: none;
-  display: block;
+}
+article .photo-opts form {
   text-align: right;
+  float: right;
+}
+article .photo-opts menu {
+  color: #969696;
+  opacity: 0.5;
+  width: 200px;
+}
+article .photo-opts form input {
+  color: #969696;
+  background: white;
+  border: 1px solid #969696;
+  opacity: 0.8;
+  float: left;
+  margin-left: 5px;
+  font-family: Serif;
+  font-size: 16px;
+  cursor: pointer;
+}
+article .photo-opts form input:hover {
+  opacity: 1;
 }
 
 article:hover .photo-opts a:hover {

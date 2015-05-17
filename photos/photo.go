@@ -104,7 +104,7 @@ func (item ContentItem) ResizedURL() string {
 // On-the-fly photo resizing that memoizes on disk
 func PhotoHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	var (
-		item = ContentItem{Src: params.ByName("path")}
+		item = ContentItem{Src: params.ByName("path"), Type: "photo"}
 	)
 
 	if _, statErr := os.Stat(item.ResizedPath()); statErr != nil {

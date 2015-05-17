@@ -79,7 +79,7 @@ func allAlbums() Albums {
 		}
 	}
 
-	sort.Reverse(albums)
+	sort.Sort(albums)
 
 	return albums
 }
@@ -159,7 +159,7 @@ func (albums Albums) Len() int {
 }
 
 func (albums Albums) Less(i, j int) bool {
-	return albums[i].unix < albums[j].unix
+	return albums[i].unix > albums[j].unix
 }
 
 func (albums Albums) Swap(i, j int) {
