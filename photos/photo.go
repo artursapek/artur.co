@@ -101,6 +101,29 @@ func (item ContentItem) ResizedURL() string {
 	}
 }
 
+func (item ContentItem) Resize() error {
+	original, openErr := imaging.Open(item.RawPath())
+	if openErr != nil {
+		return openErr
+	}
+
+	resized := imaging.Fit(original, maxDimension, maxDimension, imaging.Lanczos)
+
+	// Ensure directory structure exists
+	dir := filepath.Dir(item.ResizedPath())
+	mkdirErr := os.MkdirAll(dir, 0700)
+	if mkdirErr != nil {
+		return mkdirErr
+	}
+
+	saveErr := imaging.Save(resized, item.ResizedPath())
+	if saveErr != nil {
+		return saveErr
+	}
+
+	return nil
+}
+
 // On-the-fly photo resizing that memoizes on disk
 func PhotoHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	var (
@@ -109,25 +132,9 @@ func PhotoHandler(w http.ResponseWriter, r *http.Request, params httprouter.Para
 
 	if _, statErr := os.Stat(item.ResizedPath()); statErr != nil {
 		// Not resized before, resize on the fly and cache it
-
-		original, openErr := imaging.Open(item.RawPath())
-		if openErr != nil {
-			http.Error(w, "photo not found", 404)
-			return
-		}
-
-		resized := imaging.Fit(original, maxDimension, maxDimension, imaging.Lanczos)
-
-		// Ensure directory structure exists
-		dir := filepath.Dir(item.ResizedPath())
-		mkdirErr := os.MkdirAll(dir, 0700)
-		if mkdirErr != nil {
-			log.Println(mkdirErr)
-		}
-
-		saveErr := imaging.Save(resized, item.ResizedPath())
-		if saveErr != nil {
-			log.Fatal(saveErr)
+		err := item.Resize()
+		if err != nil {
+			http.Error(w, err.Error(), 500)
 		}
 	}
 
