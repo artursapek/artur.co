@@ -79,7 +79,7 @@ func allAlbums() Albums {
 		}
 	}
 
-	sort.Sort(albums)
+	sort.Reverse(albums)
 
 	return albums
 }
