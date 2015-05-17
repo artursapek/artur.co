@@ -29,8 +29,8 @@ File.open(album_file, "r") do |f|
       title = line.gsub(/<\/?h1>/,"").split.map(&:capitalize).join(' ')
     elsif line =~ /h3/
       date = Date.parse(line.gsub(/<\/?h3>/,"").split.map(&:capitalize).join(' '))
-    elsif line =~ /<p>/
-      caption = line.gsub(/<\/?p>/,"").gsub("\n","")
+    elsif line =~ /<p[a-z=\-\"\ ]*>/
+      caption = line.gsub(/<\/?p[a-z=\-\"\ ]*>/,"").gsub("\n","").gsub("\"", "\\\"")
 
       if caption_style == "before"
         pending_caption = caption
@@ -74,7 +74,7 @@ yml_file = [
   "content:"
 ]
 
-images[0...20].each do |img|
+images.each do |img|
   fn = img[:fn]
 
   if img[:type] == "photo"
@@ -136,6 +136,8 @@ images[0...20].each do |img|
     puts "DIR #{dir}"
 
     `sshb artur "cd /app/artur/photos; mkdir -p #{dir}; cp #{path_to_video} #{dir}"`
+
+    `sshb artur "rm #{path_to_video}"` if fn =~ /http/
 
     yml_file << "- type: #{img[:type]}"
     yml_file << "  src: #{date.year}/#{date.month.to_s.rjust(2, '0')}/#{bn}"
