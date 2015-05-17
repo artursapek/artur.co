@@ -74,12 +74,16 @@ func (item ContentItem) Location() Location {
 			log.Println(ferr)
 			return Location{}
 		} else {
-			ex, _ := exif.Decode(f)
-			lat, lng, err := ex.LatLong()
-			if err == nil {
-				return Location{lat, lng}
-			} else {
+			ex, exerr := exif.Decode(f)
+			if exerr != nil {
 				return Location{}
+			} else {
+				lat, lng, err := ex.LatLong()
+				if err == nil {
+					return Location{lat, lng}
+				} else {
+					return Location{}
+				}
 			}
 		}
 	}
