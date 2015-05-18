@@ -13,6 +13,11 @@ article {
   margin-top: 5px;
   padding-top: 30px;
 }
+
+article p {
+  max-width: 600px;
+}
+
 header {
   border-bottom: 1px solid black;
   padding: 10px;
