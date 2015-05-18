@@ -1,13 +1,13 @@
 <html>
-	<head>
-		<title>
-			Photo Albums
-		</title>
-		<link rel="stylesheet" href="/assets/styles/photos/album.css" />
+  <head>
+    <title>
+      Photo Albums
+    </title>
+    <link rel="stylesheet" href="/assets/styles/photos/album.css" />
     <meta name="robots" content="noindex">
-	</head>
+  </head>
 
-	<body>
+  <body>
     <header id="breadcrumbs">
       <a href="/">artur.co</a> &gt; albums
     </header>
@@ -15,7 +15,7 @@
     <main>
       <h1>Photo Albums</h1>
       <table>
-			{{ range $i, $album := .Albums }}
+      {{ range $i, $album := .Albums }}
         <tr>
           <td width="100">
             {{ $album.Date }}
@@ -48,6 +48,6 @@
           </td>
         </tr>
       </table>
-		</main>
-	</body>
+    </main>
+  </body>
 </html>

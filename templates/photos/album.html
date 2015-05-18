@@ -1,22 +1,22 @@
 <html>
-	<head>
-		<title>
-			{{ $.Current.Title }}
-		</title>
-		<link rel="stylesheet" href="/assets/styles/photos/album.css" />
+  <head>
+    <title>
+      {{ $.Current.Title }}
+    </title>
+    <link rel="stylesheet" href="/assets/styles/photos/album.css" />
     <meta name="robots" content="noindex">
-	</head>
+  </head>
 
-	<body>
+  <body>
     <header id="breadcrumbs">
       <a href="/">artur.co</a> &gt; <a href="/albums">albums</a> &gt; {{ $.Current.Title }}
     </header>
 
-		<main>
+    <main>
       <h1>{{ $.Current.Title }}</h1>
       <h3>{{ $.Current.Date }}</h3>
 
-			{{ range $i, $item := $.Current.Content }}
+      {{ range $i, $item := $.Current.Content }}
 
         {{ if eq $item.Type "paragraph" }}
         <article id="p{{ $i }}">
@@ -77,9 +77,9 @@
 
           </article>
         {{ end }}
-			{{ end }}
+      {{ end }}
 
-		</main>
+    </main>
 
     <footer>
       <table>
@@ -98,5 +98,5 @@
       </table>
     </footer>
 
-	</body>
+  </body>
 </html>
