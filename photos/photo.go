@@ -5,7 +5,11 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"os/exec"
 	"path/filepath"
+	"regexp"
+	"strconv"
+	"strings"
 	"time"
 
 	"github.com/artursapek/artur.co/config"
@@ -45,7 +49,21 @@ func (item ContentItem) RawURL() string {
 
 func (item ContentItem) Timestamp() time.Time {
 	switch item.Type {
-	case "video", "photo":
+	case "video":
+		out, _ := exec.Command("ffmpeg", "-i", item.RawPath()).CombinedOutput()
+		for _, line := range strings.Split(string(out), "\n") {
+			if strings.Contains(line, "creation_time") {
+				timeStr := strings.Join(strings.Split(line, ":")[1:], ":")
+				timeStr = strings.Trim(timeStr, " ")
+				t, terr := time.Parse("2006-01-02 15:04:05", timeStr)
+				if terr != nil {
+					log.Println("Video time parse error: " + terr.Error())
+				}
+				return t
+			}
+		}
+
+	case "photo":
 		f, ferr := os.Open(item.RawPath())
 		defer f.Close()
 		if ferr != nil {
@@ -67,7 +85,21 @@ func (item ContentItem) Timestamp() time.Time {
 
 func (item ContentItem) Location() Location {
 	switch item.Type {
-	case "video", "photo":
+	case "video":
+		out, _ := exec.Command("ffmpeg", "-i", item.RawPath()).CombinedOutput()
+		for _, line := range strings.Split(string(out), "\n") {
+			if strings.Contains(line, "location ") {
+				// example: "+40.7224-073.9375+016.678/"
+				locationStr := strings.Split(line, ":")[1]
+				locationStr = strings.Trim(locationStr, " /")
+				locationParts := regexp.MustCompile("[-+][0-9]+\\.[0-9]+").FindAllString(locationStr, -1)
+				lat, _ := strconv.ParseFloat(locationParts[0], 64)
+				lng, _ := strconv.ParseFloat(locationParts[1], 64)
+				return Location{lat, lng}
+			}
+		}
+
+	case "photo":
 		f, ferr := os.Open(item.RawPath())
 		defer f.Close()
 		if ferr != nil {
