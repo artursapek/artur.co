@@ -28,14 +28,14 @@ type ContentItem struct {
 }
 
 func (item ContentItem) RawPath() string {
-	return filepath.Join(config.Config.RawRoot, item.Src)
+	return filepath.Join(config.Config.RawRoot, item.Type+"s", item.Src)
 }
 
 func (item ContentItem) ResizedPath() string {
 	if item.Type == "video" {
 		return item.RawPath()
 	} else {
-		return filepath.Join(config.Config.ResizedRoot, item.Src)
+		return filepath.Join(config.Config.ResizedRoot, item.Type+"s", item.Src)
 	}
 }
 
