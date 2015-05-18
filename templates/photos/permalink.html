@@ -35,10 +35,10 @@
               {{ if ne $.Time.Unix -62135596800 }}
                 <tr>
                   <td>
-                    Timestamp:
+                    Local time:
                   </td>
                   <td align="right">
-                    {{ $.Time.Format "Mon, Jan 1 2006 at 3:04:05pm MST" }}
+                    {{ $.Time.Format "Mon, Jan 1 2006 at 3:04:05pm" }}
                   </td>
                 </tr>
               {{ end }}
