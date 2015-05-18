@@ -13,6 +13,8 @@ type AppConfig struct {
 
 	RawURLPrefix     string `yaml:"raw_url_prefix"`
 	ResizedURLPrefix string `yaml:"resized_url_prefix"`
+
+	RawDeviceName string `yaml:"raw_device_name"`
 }
 
 var Config AppConfig

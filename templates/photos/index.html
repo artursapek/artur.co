@@ -14,7 +14,7 @@
     <main>
       <h1>Photo Albums</h1>
       <table>
-			{{ range $i, $album := . }}
+			{{ range $i, $album := .Albums }}
         <tr>
           <td width="100">
             {{ $album.Date }}
@@ -26,14 +26,27 @@
       {{ end }}
       </table>
 
-      <p>
-        <i>Old albums are being migrated. In the meantime they are accessible <a href="https://artur.co/oldphotos/">here</a>.</i>
-      </p>
+      <br>
+
+      <hr>
 
       <br>
 
-      <h2>Raw</h2>
-      <p>Access the raw photo &amp; video repository at <a href="http://raw.artur.co">raw.artur.co</a></p>
+      <h2>Raw Repository</h2>
+
+      <table>
+        <tr>
+          <td colspan="2" width="100">
+            <a href="http://raw.artur.co">raw.artur.co</a>
+          </td>
+          <td width="100" align="right">
+            {{ $.RawDeviceStats.NumFiles }} files
+          </td>
+          <td width="250" align="right">
+            {{ $.RawDeviceStats.Used }} / {{ $.RawDeviceStats.Blocks }} ({{ $.RawDeviceStats.Usage }}%)
+          </td>
+        </tr>
+      </table>
 		</main>
 	</body>
 </html>

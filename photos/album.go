@@ -2,17 +2,22 @@ package photos
 
 import (
 	"errors"
+	"fmt"
 	"html/template"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os/exec"
 	"path/filepath"
+	"regexp"
 	"sort"
+	"strconv"
 	"strings"
 	"time"
 
 	"launchpad.net/goyaml"
 
+	"github.com/artursapek/artur.co/config"
 	"github.com/julienschmidt/httprouter"
 )
 
@@ -144,9 +149,57 @@ func AlbumHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	}
 }
 
+type RawDeviceStats struct {
+	NumFiles            int32
+	Blocks, Used, Usage int32
+}
+
+var dfOutputMatcher = regexp.MustCompile("([^\\ ]+)\\ +([0-9]+)\\ +([0-9]+)\\ +([0-9]+)\\ +([0-9]+)")
+
+func getRawDeviceStats() RawDeviceStats {
+	findOutput, findErr := exec.Command("find", config.Config.RawRoot, "-type", "f").Output()
+	if findErr != nil {
+		return RawDeviceStats{}
+	}
+	numFiles := len(strings.Split(string(findOutput), "\n"))
+
+	dfOutput, err := exec.Command("df").Output()
+	if err != nil {
+		return RawDeviceStats{}
+	} else {
+		lines := strings.Split(string(dfOutput), "\n")
+		for _, line := range lines {
+			if strings.Contains(line, config.Config.RawDeviceName) {
+				parts := dfOutputMatcher.FindStringSubmatch(line)
+				fmt.Println(line)
+				fmt.Println(parts)
+				fmt.Println(len(parts))
+				blocks, _ := strconv.ParseInt(parts[2], 10, 32)
+				used, _ := strconv.ParseInt(parts[3], 10, 32)
+				capacity, _ := strconv.ParseInt(parts[5], 10, 32)
+				fmt.Println(parts)
+				return RawDeviceStats{
+					NumFiles: int32(numFiles),
+					Blocks:   int32(blocks),
+					Used:     int32(used),
+					Usage:    int32(capacity),
+				}
+			}
+		}
+	}
+	return RawDeviceStats{}
+}
+
+type albumIndexData struct {
+	Albums
+	RawDeviceStats
+}
+
 func AlbumsIndexHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	albums := allAlbums()
-	renderErr := albumIndexTemplate.Execute(w, albums)
+	stats := getRawDeviceStats()
+	fmt.Println(stats)
+	renderErr := albumIndexTemplate.Execute(w, albumIndexData{albums, stats})
 	if renderErr != nil {
 		log.Fatal(renderErr)
 	}
