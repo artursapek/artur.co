@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/julienschmidt/httprouter"
@@ -52,6 +53,10 @@ func permalinkHandler(t string, w http.ResponseWriter, r *http.Request, params h
 	item := ContentItem{
 		Type: t,
 		Src:  params.ByName("path")[1:],
+	}
+	if _, err := os.Stat(item.RawPath()); err != nil {
+		http.Error(w, "No such "+t, 404)
+		return
 	}
 	renderErr := permalinkTemplate.Execute(w, Permalink{
 		ContentItem: item,
