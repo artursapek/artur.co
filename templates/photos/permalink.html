@@ -22,7 +22,7 @@
             {{ end }}
           </td>
 
-          <td valign="top" align="right" width="400">
+          <td valign="top" align="right" width="500">
             <table width="100%" id="exif">
               <tr>
                 <td>
@@ -32,12 +32,22 @@
                   {{ $.Src }}
                 </td>
               </tr>
+              {{ if ne $.Time.Unix -62135596800 }}
+                <tr>
+                  <td>
+                    Timestamp:
+                  </td>
+                  <td align="right">
+                    {{ $.Time.Format "Mon, Jan 1 2006 at 3:04:05pm MST" }}
+                  </td>
+                </tr>
+              {{ end }}
               <tr>
                 <td>
-                  Timestamp:
+                  Raw:
                 </td>
                 <td align="right">
-                  {{ $.Time.Format "Mon, Jan 1 2006 at 3:04:05pm MST" }}
+                  <a href="{{ $.RawURL }}">{{ $.RawURL }}</a>
                 </td>
               </tr>
             </table>

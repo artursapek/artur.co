@@ -68,19 +68,19 @@ func (item ContentItem) Timestamp() time.Time {
 		defer f.Close()
 		if ferr != nil {
 			log.Println(ferr)
-			return time.Now()
+			return time.Time{}
 		} else {
 			ex, exerr := exif.Decode(f)
 			if exerr != nil {
 				log.Println(exerr)
-				return time.Now()
+				return time.Time{}
 			} else {
 				datetime, _ := ex.DateTime()
 				return datetime
 			}
 		}
 	}
-	return time.Now()
+	return time.Time{}
 }
 
 func (item ContentItem) Location() Location {
