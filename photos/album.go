@@ -130,10 +130,10 @@ func AlbumHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		var prev, next Album
 
 		if thisIndex > 0 {
-			prev = albums[thisIndex-1]
+			next = albums[thisIndex-1]
 		}
 		if thisIndex < len(albums)-1 {
-			next = albums[thisIndex+1]
+			prev = albums[thisIndex+1]
 		}
 
 		context := albumHandlerContext{
