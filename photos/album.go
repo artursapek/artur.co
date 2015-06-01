@@ -36,7 +36,7 @@ type Album struct {
 
 const (
 	dateInputFormat  = "1/2/06"
-	dateOutputFormat = "Jan 2, 2006"
+	dateOutputFormat = "January 2, 2006"
 )
 
 func loadAlbum(slug string) (a Album, err error) {
