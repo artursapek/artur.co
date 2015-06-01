@@ -87,7 +87,10 @@ content:
   src: 2015/05/IMG_8446.JPG
 - type: photo
   src: 2015/05/IMG_8447.JPG
-  caption: My favorite part of D.C. was seeing Michelle's vegetable garden and bee hives
+  caption: |
+    My favorite part of D.C. was seeing Michelle's
+    <a href="http://en.wikipedia.org/wiki/White_House_Vegetable_Garden">vegetable garden</a>
+    and <a href="http://content.time.com/time/politics/whitehouse/photos/0,27424,1905584,00.html">bee hives</a>
 - type: photo
   src: 2015/05/IMG_8452.JPG
 - type: photo
