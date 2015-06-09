@@ -93,6 +93,7 @@ content:
   src: 2015/06/IMG_8603.JPG
 - type: photo
   src: 2015/06/IMG_8607.JPG
+  caption: This morning glory was a gift from our neighbor Daphne! Thanks!
 - type: photo
   src: 2015/06/IMG_8609.JPG
 - type: photo
@@ -102,7 +103,9 @@ content:
   caption: Working on a framework for animated UI in Cryptowatch - this was really fun to figure out
 - type: photo
   src: 2015/06/IMG_8619.JPG
-  caption: We had a huge rain storm last night and all the plants noticeably grew a lot, overnight!
+  caption: |
+    We had a huge rain storm last night and all the plants noticeably grew a lot, overnight!
+    You can see a Sandia pepper really starting to take shape on the right.
 - type: video
   src: 2015/06/IMG_8621.MOV
 - type: video
