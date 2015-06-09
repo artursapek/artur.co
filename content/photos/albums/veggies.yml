@@ -68,11 +68,11 @@ content:
   caption: "Another shaved veggie meal: beets, carrots, apple. He was purple at the end"
 - type: video
   src: 2015/06/beets.MOV
-- type: video
-  src: 2015/06/taxi-cab-belly.MOV
 - type: photo
   src: 2015/06/IMG_8572.JPG
   caption: They wouldn't let us use this as his passport photo
+- type: video
+  src: 2015/06/taxi-cab-belly.MOV
 - type: photo
   src: 2015/06/IMG_8573.JPG
 - type: photo
