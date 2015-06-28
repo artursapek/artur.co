@@ -31,6 +31,10 @@ func (item ContentItem) RawPath() string {
 	return filepath.Join(config.Config.RawRoot, item.Type+"s", item.Src)
 }
 
+func (item ContentItem) SrcAsHTML() template.HTML {
+	return template.HTML(item.Src)
+}
+
 func (item ContentItem) ResizedPath() string {
 	if item.Type == "video" {
 		return item.RawPath()

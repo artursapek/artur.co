@@ -20,7 +20,7 @@
 
         {{ if eq $item.Type "paragraph" }}
         <article id="p{{ $i }}">
-          <p>{{ $item.Src }}</p>
+          <p>{{ $item.SrcAsHTML }}</p>
         </article>
         {{ else }}
           <article id="{{ $item.BaseFilename }}">
