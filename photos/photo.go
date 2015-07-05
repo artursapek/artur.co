@@ -36,7 +36,7 @@ func (item ContentItem) SrcAsHTML() template.HTML {
 }
 
 func (item ContentItem) ResizedPath() string {
-	if item.Type == "video" {
+	if item.Type == "video" || item.Type == "audio" {
 		return item.RawPath()
 	} else {
 		return filepath.Join(config.Config.ResizedRoot, item.Type+"s", item.Src)
