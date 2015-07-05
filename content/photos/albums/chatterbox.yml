@@ -1,5 +1,5 @@
-title: Ajak
-date: 07/05/15
+title: Chatterbox
+date: 07/04/15
 content:
 - type: photo
   src: 2015/06/IMG_8781.JPG
@@ -150,41 +150,4 @@ content:
   src: 2015/07/IMG_9073.MOV
 - type: photo
   src: 2015/07/IMG_9076.JPG
-- type: photo
-  src: 2015/07/IMG_9088.JPG
-  caption: "Fourth of July: Amael had a craving for some pork"
-- type: photo
-  src: 2015/07/IMG_9091.JPG
-- type: photo
-  src: 2015/07/IMG_9092.JPG
-- type: photo
-  src: 2015/07/IMG_9093.JPG
-  caption: His kids are not afraid of the pig, in fact before he put it in the grill they were playing with it and talking to it
-- type: video
-  src: 2015/07/IMG_9097.MOV
-  caption: "\"I'm Ajak!\""
-- type: video
-  src: 2015/07/IMG_9099.MOV
-- type: photo
-  src: 2015/07/IMG_9101.JPG
-- type: photo
-  src: 2015/07/IMG_9107.JPG
-- type: photo
-  src: 2015/07/IMG_9112.JPG
-- type: photo
-  src: 2015/07/IMG_9113.JPG
-- type: video
-  src: 2015/07/fireworks.mov
-- type: photo
-  src: 2015/07/IMG_9116.JPG
-- type: photo
-  src: 2015/07/IMG_9120.JPG
-- type: photo
-  src: 2015/07/IMG_9122.JPG
-- type: photo
-  src: 2015/07/IMG_9125.JPG
-- type: photo
-  src: 2015/07/IMG_9128.JPG
-  caption: Ajax kept saying <i>"wowwww!" "wowwww!"</i>
-- type: audio
-  src: 2015/07/wow-fireworks.mp3
+
