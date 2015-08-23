@@ -1,6 +1,8 @@
 title: 44 Mountainview
 date: 08/23/15
 content:
+- type: paragraph
+  src: We went back to see Mountainview today, to see if it is really as good as we remembered.
 - type: photo
   src: 2015/08/IMG_9690.JPG
 - type: photo
@@ -9,8 +11,10 @@ content:
   src: 2015/08/IMG_9692.JPG
 - type: photo
   src: 2015/08/IMG_9693.JPG
+  caption: Retro oven
 - type: photo
   src: 2015/08/IMG_9694.JPG
+  caption: Kitchen
 - type: photo
   src: 2015/08/IMG_9695.JPG
   caption: Main bathroom
