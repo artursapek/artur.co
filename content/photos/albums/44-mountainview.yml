@@ -13,52 +13,68 @@ content:
   src: 2015/08/IMG_9694.JPG
 - type: photo
   src: 2015/08/IMG_9695.JPG
+  caption: Main bathroom
 - type: photo
   src: 2015/08/IMG_9696.JPG
+  caption: "Small bedroom #1"
 - type: photo
   src: 2015/08/IMG_9697.JPG
+  caption: "Small bedroom #2"
 - type: photo
   src: 2015/08/IMG_9698.JPG
 - type: photo
   src: 2015/08/IMG_9699.JPG
 - type: photo
   src: 2015/08/IMG_9700.JPG
-- type: photo
-  src: 2015/08/IMG_9701.JPG
+  caption: "Main area, this is where you enter the house"
 - type: photo
   src: 2015/08/IMG_9702.JPG
+  caption: View of office from kitchen sink
 - type: photo
   src: 2015/08/IMG_9703.JPG
+  caption: Living room
 - type: photo
   src: 2015/08/IMG_9704.JPG
+  caption: Master bedroom
 - type: photo
   src: 2015/08/IMG_9705.JPG
 - type: photo
   src: 2015/08/IMG_9706.JPG
+  caption: Small unfinished bathroom
+- type: photo
+  src: 2015/08/IMG_9772.JPG
+  caption: Shower
 - type: photo
   src: 2015/08/IMG_9707.JPG
+  caption: View of backyard from office
 - type: photo
   src: 2015/08/IMG_9708.JPG
+  caption: Office
 - type: photo
   src: 2015/08/IMG_9709.JPG
+  caption: Stairs to basement
 - type: photo
   src: 2015/08/IMG_9710.JPG
 - type: photo
   src: 2015/08/IMG_9711.JPG
+  caption: Walkway to the deck
 - type: photo
   src: 2015/08/IMG_9712.JPG
 - type: photo
   src: 2015/08/IMG_9713.JPG
+  caption: Basement, laundry
 - type: photo
   src: 2015/08/IMG_9714.JPG
 - type: photo
   src: 2015/08/IMG_9715.JPG
 - type: photo
   src: 2015/08/IMG_9716.JPG
+  caption: Secret exit from basement into backyard
 - type: photo
   src: 2015/08/IMG_9717.JPG
 - type: photo
   src: 2015/08/IMG_9718.JPG
+  caption: Secret exit from outside
 - type: photo
   src: 2015/08/IMG_9719.JPG
 - type: photo
@@ -75,16 +91,19 @@ content:
   src: 2015/08/IMG_9725.JPG
 - type: photo
   src: 2015/08/IMG_9726.JPG
+  caption: Hover and click "Raw" to see full size panoramas
 - type: photo
   src: 2015/08/IMG_9727.JPG
 - type: photo
   src: 2015/08/IMG_9728.JPG
 - type: photo
   src: 2015/08/IMG_9729.JPG
+  caption: This is that electrical line that cuts into the backyard
 - type: photo
   src: 2015/08/IMG_9730.JPG
 - type: photo
   src: 2015/08/IMG_9731.JPG
+  caption: View of deck from edge of the backyard
 - type: photo
   src: 2015/08/IMG_9732.JPG
 - type: photo
@@ -103,26 +122,34 @@ content:
   src: 2015/08/IMG_9739.JPG
 - type: photo
   src: 2015/08/IMG_9740.JPG
+  caption: View of deck from front porch
 - type: photo
   src: 2015/08/IMG_9741.JPG
 - type: photo
   src: 2015/08/IMG_9742.JPG
+  caption: Front of the house
 - type: photo
   src: 2015/08/IMG_9743.JPG
+  caption: 2 car parking spot
 - type: photo
   src: 2015/08/IMG_9744.JPG
+  caption: Garage/Mollie's painting studio
 - type: photo
   src: 2015/08/IMG_9745.JPG
 - type: photo
   src: 2015/08/IMG_9746.JPG
+  caption: View from inside of garage
 - type: photo
   src: 2015/08/IMG_9747.JPG
+  caption: Closest you can get to the neighbors on the property
 - type: photo
   src: 2015/08/IMG_9748.JPG
+  caption: Backyard again, with Ajax for size comparison
 - type: photo
   src: 2015/08/IMG_9749.JPG
 - type: photo
   src: 2015/08/IMG_9750.JPG
+  caption: The second lot of land
 - type: photo
   src: 2015/08/IMG_9751.JPG
 - type: photo
@@ -143,36 +170,44 @@ content:
   src: 2015/08/IMG_9759.JPG
 - type: photo
   src: 2015/08/IMG_9760.JPG
+  caption: "O:"
 - type: photo
   src: 2015/08/IMG_9761.JPG
+  caption: I can't believe this wasn't mentioned on the listing. There's a wooden toilet seat!
 - type: photo
   src: 2015/08/IMG_9762.JPG
+  caption: Ugly showerhead
 - type: photo
   src: 2015/08/IMG_9763.JPG
+  caption: Super ugly mirror
 - type: photo
   src: 2015/08/IMG_9764.JPG
 - type: photo
   src: 2015/08/IMG_9765.JPG
+  caption: 🔥
 - type: photo
   src: 2015/08/IMG_9766.JPG
+  caption: "Walk-thru of kitchen again: the cabinets are cool"
 - type: photo
   src: 2015/08/IMG_9767.JPG
+  caption: View of living room from kitchen
 - type: photo
   src: 2015/08/IMG_9768.JPG
+  caption: He has your couch
 - type: photo
   src: 2015/08/IMG_9769.JPG
+  caption: Love this room
 - type: photo
   src: 2015/08/IMG_9770.JPG
 - type: photo
   src: 2015/08/IMG_9771.JPG
-- type: photo
-  src: 2015/08/IMG_9772.JPG
 - type: photo
   src: 2015/08/IMG_9773.JPG
 - type: photo
   src: 2015/08/IMG_9774.JPG
 - type: photo
   src: 2015/08/IMG_9775.JPG
+  caption: Full view of the house from across the street
 - type: photo
   src: 2015/08/IMG_9776.JPG
 - type: photo
