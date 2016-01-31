@@ -4,10 +4,8 @@ content:
 - type: paragraph
   src: |
     <ul>
-    <li>40% whole wheat, 60% white, 2% salt, 0.2% yeast</li>
-    <li>80% hydration</li>
-    <li>25 minute autolyse</li>
-    <li>5.5 hour bulk fermentation and 12 hour proofing in the fridge</li>
+    <li>40% whole wheat, 60% white, 2% salt, 0.2% yeast, 80% hydration</li>
+    <li>25 minute autolyse, 5.5 hour bulk fermentation and 12 hour proofing in the fridge</li>
     </ul>
 - type: photo
   src: 2016/01/IMG_2928.JPG
