@@ -1,0 +1,126 @@
+title: 2rrible 2s
+date: 02/07/16
+content:
+- type: photo
+  src: 2016/01/IMG_2971.JPG
+  caption: Ajax loves this cafe near my place because it has bagels and toys.
+- type: photo
+  src: 2016/01/IMG_2976.JPG
+  caption: Fishing
+- type: video
+  src: 2016/02/IMG_2978.MOV
+  caption: Ajax's first letter is W
+- type: photo
+  src: 2016/01/IMG_2981.JPG
+- type: photo
+  src: 2016/02/IMG_2984.JPG
+  caption: He says the guy on the left is daddy
+- type: photo
+  src: 2016/02/IMG_2987.JPG
+- type: paragraph
+  src: |
+    White bread. 13 hour poolish, 2.5 hour bulk fermentation, 6.5 hour proofing period in the fridge
+- type: photo
+  src: 2016/02/IMG_2996.JPG
+  caption: The poolish
+- type: photo
+  src: 2016/02/IMG_2997.JPG
+  caption: Dough before proofing period
+- type: photo
+  src: 2016/02/IMG_3002.JPG
+  caption: Dough after proofing period
+- type: photo
+  src: 2016/02/IMG_3003.JPG
+- type: photo
+  src: 2016/02/IMG_3005.JPG
+- type: photo
+  src: 2016/02/IMG_3009.JPG
+- type: photo
+  src: 2016/02/IMG_3012.JPG
+- type: photo
+  src: 2016/02/IMG_3015.JPG
+  caption: I took it to work because we were having salad for lunch that day, and everyone went nuts
+- type: photo
+  src: 2016/02/IMG_3013.JPG
+- type: video
+  src: 2016/02/IMG_3016.MOV
+  caption: Sorry for tha vertical vid, it's mostly for the audio
+- type: photo
+  src: 2016/02/IMG_3021.JPG
+  caption: I'm gonna send Ajax to work in my place
+- type: photo
+  src: 2016/02/IMG_3022.JPG
+- type: photo
+  src: 2016/02/IMG_3023.JPG
+  caption: More snow!
+- type: photo
+  src: 2016/02/IMG_3024.JPG
+  caption: Good day to work from home
+- type: photo
+  src: 2016/02/IMG_3025.JPG
+- type: paragraph
+  src: |
+    <video id="dough-rising" src="https://raw.artur.co/videos/2016/02/IMG_3038.MOV" loop></video>
+    <script>
+      document.querySelector('#dough-rising').playbackRate = 500.0;
+      document.querySelector('#dough-rising').play();
+    </script>
+- type: photo
+  src: 2016/02/IMG_3044.JPG
+- type: photo
+  src: 2016/02/IMG_3046.JPG
+- type: photo
+  src: 2016/02/IMG_3056.JPG
+- type: photo
+  src: 2016/02/IMG_3057.JPG
+  caption: Stockpile
+- type: video
+  src: 2016/02/IMG_3071.MOV
+- type: photo
+  src: 2016/02/IMG_3073.JPG
+  caption: 13 hour poolish based 90% white bread with wheat germ and wheat bran mmmmmmmmmmmm
+- type: photo
+  src: 2016/02/IMG_3075.JPG
+- type: video
+  src: 2016/02/IMG_3079.MOV
+- type: photo
+  src: 2016/02/IMG_3086.JPG
+- type: photo
+  src: 2016/02/IMG_3090.JPG
+  caption: We planted some morning glories
+- type: photo
+  src: 2016/02/IMG_3091.JPG
+  caption: Ajax loves watering the seeds
+- type: photo
+  src: 2016/02/IMG_3095.JPG
+- type: photo
+  src: 2016/02/IMG_3097.JPG
+  caption: Also did some lavender
+- type: photo
+  src: 2016/02/IMG_3102.JPG
+- type: video
+  src: 2016/02/IMG_3105.MOV
+  caption: The title track on this album
+- type: photo
+  src: 2016/02/IMG_3106.JPG
+- type: photo
+  src: 2016/02/IMG_3108.JPG
+- type: photo
+  src: 2016/02/IMG_3113.JPG
+- type: photo
+  src: 2016/02/IMG_3114.JPG
+- type: photo
+  src: 2016/02/IMG_3120.JPG
+  caption: Dat crumb
+- type: photo
+  src: 2016/02/IMG_3121.JPG
+  caption: I made two this time
+- type: photo
+  src: 2016/02/IMG_3126.JPG
+- type: photo
+  src: 2016/02/IMG_3128.JPG
+- type: video
+  src: 2016/02/IMG_3129.MOV
+  caption: Monkey in the middle
+- type: photo
+  src: 2016/02/IMG_3130.JPG
