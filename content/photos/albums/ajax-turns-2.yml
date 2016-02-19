@@ -175,3 +175,9 @@ content:
   src: 2016/02/IMG_3343.JPG
 - type: photo
   src: 2016/02/IMG_3348.JPG
+- type: photo
+  src: 2016/02/IMG_3356.JPG
+- type: video
+  src: 2016/02/poopcar.mov
+  caption: |
+    "Poop car" - Ajax
