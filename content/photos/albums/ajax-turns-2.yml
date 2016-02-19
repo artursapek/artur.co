@@ -135,9 +135,10 @@ content:
     </div>
 - type: photo
   src: 2016/02/IMG_3301.JPG
+  caption: I didn't do it
 - type: photo
   src: 2016/02/IMG_3309.JPG
-  caption: Ajax threw an egg and then he tried to clean it up
+  caption: I can clean it up tho
 - type: photo
   src: 2016/02/IMG_3310.JPG
 - type: photo
