@@ -43,8 +43,8 @@ article .photo-opts opt {
   text-align: right;
 }
 article .photo-opts a {
-  color: #969696;
-  opacity: 0.5;
+  color: #1A8BFF;
+  opacity: 0.8;
   text-decoration: none;
 }
 article .photo-opts form {
@@ -52,14 +52,14 @@ article .photo-opts form {
   float: right;
 }
 article .photo-opts menu {
-  color: #969696;
+  color: #1A8BFF;
   opacity: 0.5;
   width: 200px;
 }
 article .photo-opts form input {
-  color: #969696;
+  color: #1A8BFF;
   background: white;
-  border: 1px solid #969696;
+  border: 1px solid #1A8BFF;
   opacity: 0.8;
   float: left;
   margin-left: 5px;
