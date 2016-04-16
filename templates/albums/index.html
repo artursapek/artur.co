@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <title>
+      Photo Albums
+    </title>
+    <link rel="stylesheet" href="/assets/styles/photos/album.css" />
+    <meta name="robots" content="noindex">
+  </head>
+
+  <body>
+    <header id="breadcrumbs">
+      <a href="/">artur.co</a> &gt; albums
+    </header>
+
+    <main>
+      <h1>Photo Albums</h1>
+      <table>
+      {{ range $i, $album := .Albums }}
+        <tr>
+          <td width="160">
+            {{ $album.Date }}
+          </td>
+          <td>
+            <a href="/albums/{{ $album.Slug }}">{{ $album.Title }}</a>
+          </td>
+        </tr>
+      {{ end }}
+      </table>
+
+      <br>
+
+      <hr>
+
+      <br>
+
+      <h2>Raw Repository</h2>
+
+      <table>
+        <tr>
+          <td colspan="2" width="100">
+            <a href="http://raw.artur.co">raw.artur.co</a>
+          </td>
+          <td width="100" align="right">
+            {{ $.RawDeviceStats.NumFiles }} files
+          </td>
+          <td width="250" align="right">
+            {{ $.RawDeviceStats.Used }} / {{ $.RawDeviceStats.Blocks }} ({{ $.RawDeviceStats.Usage }}%)
+          </td>
+        </tr>
+      </table>
+    </main>
+  </body>
+</html>

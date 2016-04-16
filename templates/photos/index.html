@@ -1,53 +1,50 @@
 <html>
   <head>
     <title>
-      Photo Albums
+      Photo
     </title>
     <link rel="stylesheet" href="/assets/styles/photos/album.css" />
     <meta name="robots" content="noindex">
+  <style>
+    h2, h4 {
+      font-weight: normal;
+    }
+    h2 {
+      margin: 0 0 10px 0;
+      padding: 0;
+    }
+
+    h4 {
+      margin: 0 0 0 20px;
+      padding: 5px;
+      display: inline-block;
+    }
+
+    a:hover h4 {
+      text-decoration: underline;
+    }
+  </style>
   </head>
 
   <body>
     <header id="breadcrumbs">
-      <a href="/">artur.co</a> &gt; albums
+      <a href="/">artur.co</a> &gt; photos
     </header>
 
     <main>
-      <h1>Photo Albums</h1>
-      <table>
-      {{ range $i, $album := .Albums }}
-        <tr>
-          <td width="160">
-            {{ $album.Date }}
-          </td>
-          <td>
-            <a href="/albums/{{ $album.Slug }}">{{ $album.Title }}</a>
-          </td>
-        </tr>
+      <h1>Photos</h1>
+      {{ range $i, $year := .Years }}
+        <div>
+          <h2>
+            {{ $year }}
+          </h2>
+
+          {{ range $ii, $month := ( index $.Months $year) }}
+          <a href="/photos/month/{{ $year }}/{{ $month }}"><h4>{{ $month }}</h4></a> <br />
+          {{ end }}
+        </div>
       {{ end }}
-      </table>
-
-      <br>
-
-      <hr>
-
-      <br>
-
-      <h2>Raw Repository</h2>
-
-      <table>
-        <tr>
-          <td colspan="2" width="100">
-            <a href="http://raw.artur.co">raw.artur.co</a>
-          </td>
-          <td width="100" align="right">
-            {{ $.RawDeviceStats.NumFiles }} files
-          </td>
-          <td width="250" align="right">
-            {{ $.RawDeviceStats.Used }} / {{ $.RawDeviceStats.Blocks }} ({{ $.RawDeviceStats.Usage }}%)
-          </td>
-        </tr>
-      </table>
     </main>
   </body>
 </html>
+

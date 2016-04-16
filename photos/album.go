@@ -90,19 +90,27 @@ func allAlbums() Albums {
 }
 
 var (
-	albumTemplate, albumIndexTemplate *template.Template
+	albumTemplate,
+	albumIndexTemplate,
+	photosIndexTemplate *template.Template
 )
 
 func init() {
 	var showParseErr, indexParseErr error
-	albumTemplate, showParseErr = template.ParseFiles("templates/photos/album.html")
+	albumTemplate, showParseErr = template.ParseFiles("templates/albums/album.html")
 	if indexParseErr != nil {
 		log.Fatal(showParseErr)
 	}
-	albumIndexTemplate, indexParseErr = template.ParseFiles("templates/photos/index.html")
+	albumIndexTemplate, indexParseErr = template.ParseFiles("templates/albums/index.html")
 	if indexParseErr != nil {
 		log.Fatal(indexParseErr)
 	}
+
+	photosIndexTemplate, indexParseErr = template.ParseFiles("templates/photos/index.html")
+	if indexParseErr != nil {
+		log.Fatal(indexParseErr)
+	}
+
 }
 
 type albumHandlerContext struct {

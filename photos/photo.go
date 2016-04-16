@@ -1,6 +1,7 @@
 package photos
 
 import (
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -178,6 +179,7 @@ func (item ContentItem) Resize(maxDimension int, path string) error {
 	return nil
 }
 
+// On-the-fly photo resizing that memoizes on disk
 func OnTheFlyPhotoResizeHandler(maxDimension int) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 		var (
@@ -206,7 +208,50 @@ func OnTheFlyPhotoResizeHandler(maxDimension int) httprouter.Handle {
 	}
 }
 
-// On-the-fly photo resizing that memoizes on disk
+func PhotosIndexHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+	var (
+		yearDirs, _ = filepath.Glob(filepath.Join(config.Config.RawRoot, "photos", "*"))
+
+		years []string
+
+		months = make(map[string][]string)
+	)
+
+	for _, yearDir := range yearDirs {
+		year := filepath.Base(yearDir)
+		years = append(years, year)
+
+		monthDirs, _ := filepath.Glob(filepath.Join(config.Config.RawRoot, "photos", year, "*"))
+
+		fmt.Println(year, monthDirs)
+
+		months[year] = []string{}
+		for _, monthDir := range monthDirs {
+			month := filepath.Base(monthDir)
+			months[year] = append(months[year], month)
+		}
+	}
+
+	renderErr := photosIndexTemplate.Execute(w, struct {
+		Years  []string
+		Months map[string][]string
+	}{
+		Years:  years,
+		Months: months,
+	})
+	if renderErr != nil {
+		log.Fatal(renderErr)
+	}
+
+}
+
+func PhotosYearMonthHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+	var (
+		year       = params.ByName("year")
+		month      = params.ByName("month")
+		photoPaths = filepath.Glob(filepath.Join(config.Config.RawRoot, "photos", year, month, "*.JPG"))
+	)
+}
 
 func PhotosRedirectHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	http.Redirect(w, r, "/albums", 302)
