@@ -23,6 +23,11 @@
     a:hover h4 {
       text-decoration: underline;
     }
+
+    .year {
+      width: 150px;
+      float: left;
+    }
   </style>
   </head>
 
@@ -34,7 +39,7 @@
     <main>
       <h1>Photos</h1>
       {{ range $i, $year := .Years }}
-        <div>
+        <div class="year">
           <h2>
             {{ $year }}
           </h2>
