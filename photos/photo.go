@@ -157,10 +157,17 @@ func (item ContentItem) ThumbURL() string {
 }
 
 func (item ContentItem) Year() string {
+	if item.Src == "" {
+		return ""
+	}
 	return filepath.SplitList(item.Src)[0]
 }
 
 func (item ContentItem) Month() string {
+	if item.Src == "" {
+		return ""
+	}
+	fmt.Println(item.Src)
 	return filepath.SplitList(item.Src)[1]
 }
 
