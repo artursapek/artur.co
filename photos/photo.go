@@ -247,10 +247,12 @@ func PhotosIndexHandler(w http.ResponseWriter, r *http.Request, params httproute
 
 func PhotosYearMonthHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	var (
-		year       = params.ByName("year")
-		month      = params.ByName("month")
-		photoPaths = filepath.Glob(filepath.Join(config.Config.RawRoot, "photos", year, month, "*.JPG"))
+		year          = params.ByName("year")
+		month         = params.ByName("month")
+		photoPaths, _ = filepath.Glob(filepath.Join(config.Config.RawRoot, "photos", year, month, "*.JPG"))
 	)
+
+	fmt.Println(photoPaths)
 }
 
 func PhotosRedirectHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
