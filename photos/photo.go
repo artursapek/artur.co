@@ -11,6 +11,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/artursapek/artur.co/config"
@@ -174,7 +175,11 @@ func (item ContentItem) Base() string {
 	return filepath.Base(item.Src)
 }
 
+var ResizeMutex *sync.Mutex
+
 func (item ContentItem) Resize(maxDimension int, path string) error {
+	ResizeMutex.Lock()
+	defer ResizeMutex.Unlock()
 	original, openErr := imaging.Open(item.RawPath())
 	if openErr != nil {
 		return openErr
