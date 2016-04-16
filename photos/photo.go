@@ -160,16 +160,14 @@ func (item ContentItem) Year() string {
 	if item.Src == "" {
 		return ""
 	}
-	return filepath.SplitList(item.Src)[0]
+	return strings.Split(item.Src, "/")[0]
 }
 
 func (item ContentItem) Month() string {
 	if item.Src == "" {
 		return ""
 	}
-	fmt.Println(item.Src)
-	fmt.Println(filepath.SplitList(item.Src))
-	return filepath.SplitList(item.Src)[1]
+	return strings.Split(item.Src, "/")[1]
 }
 
 func (item ContentItem) Base() string {
