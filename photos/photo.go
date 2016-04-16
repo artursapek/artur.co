@@ -175,7 +175,7 @@ func (item ContentItem) Base() string {
 	return filepath.Base(item.Src)
 }
 
-var ResizeMutex *sync.Mutex
+var ResizeMutex = new(sync.Mutex)
 
 func (item ContentItem) Resize(maxDimension int, path string) error {
 	ResizeMutex.Lock()
