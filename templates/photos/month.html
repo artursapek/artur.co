@@ -9,6 +9,16 @@
     h1 {
       font-weight: normal;
     }
+
+    .thumb {
+      display: flex;
+      width: 100px;
+      height: 100px;
+        display: inline-block;
+    }
+    .thumb img {
+      align-items: center;
+    }
   </style>
   </head>
 
@@ -20,8 +30,9 @@
     <main>
     <h1>{{ $.Year }} / {{ $.Month }}</h1>
       {{ range $i, $photo := .Photos }}
-        <a href="/photos/permalink/{{ $photo.Src }}"><img src="{{ $photo.ThumbURL }}" /></a>
-
+        <div class="thumb">
+          <a href="/photos/permalink/{{ $photo.Src }}"><img src="{{ $photo.ThumbURL }}" /></a>
+        </div>
       {{ end }}
     </main>
   </body>
