@@ -196,6 +196,8 @@ func OnTheFlyPhotoResizeHandler(maxDimension int) httprouter.Handle {
 			return
 		}
 
+		path = filepath.Join(config.Config.RawRoot, path)
+
 		fmt.Println(path)
 
 		if _, statErr := os.Stat(path); statErr != nil {
