@@ -40,7 +40,15 @@ func (item ContentItem) ResizedPath() string {
 	if item.Type == "video" || item.Type == "audio" {
 		return item.RawPath()
 	} else {
-		return filepath.Join(config.Config.ResizedRoot, item.Type+"s", item.Src)
+		return filepath.Join(config.Config.ResizedRoot, item.Type+"s", "expand", item.Src)
+	}
+}
+
+func (item ContentItem) ThumbPath() string {
+	if item.Type == "video" || item.Type == "audio" {
+		return item.RawPath()
+	} else {
+		return filepath.Join(config.Config.ThumbRoot, item.Type+"s", "thumb", item.Src)
 	}
 }
 
@@ -147,7 +155,7 @@ func (item ContentItem) ThumbURL() string {
 	}
 }
 
-func (item ContentItem) Resize(maxDimension int) error {
+func (item ContentItem) Resize(maxDimension int, root string) error {
 	original, openErr := imaging.Open(item.RawPath())
 	if openErr != nil {
 		return openErr
@@ -156,13 +164,13 @@ func (item ContentItem) Resize(maxDimension int) error {
 	resized := imaging.Fit(original, maxDimension, maxDimension, imaging.Lanczos)
 
 	// Ensure directory structure exists
-	dir := filepath.Dir(item.ResizedPath())
+	dir := filepath.Dir(root)
 	mkdirErr := os.MkdirAll(dir, 0700)
 	if mkdirErr != nil {
 		return mkdirErr
 	}
 
-	saveErr := imaging.Save(resized, item.ResizedPath())
+	saveErr := imaging.Save(resized, root)
 	if saveErr != nil {
 		return saveErr
 	}
@@ -176,9 +184,16 @@ func OnTheFlyPhotoResizeHandler(maxDimension int) httprouter.Handle {
 			item = ContentItem{Src: params.ByName("path"), Type: "photo"}
 		)
 
-		if _, statErr := os.Stat(item.ResizedPath()); statErr != nil {
+		var root string
+		if maxDimension == ExpandDimension {
+			root = item.ResizedPath()
+		} else if maxDimension == ThumbDimension {
+			root = item.ThumbPath()
+		}
+
+		if _, statErr := os.Stat(root); statErr != nil {
 			// Not resized before, resize on the fly and cache it
-			err := item.Resize(maxDimension)
+			err := item.Resize(maxDimension, root)
 			if err != nil {
 				http.Error(w, err.Error(), 500)
 			}
