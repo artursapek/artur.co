@@ -24,7 +24,8 @@ func main() {
 	router.POST("/photos/*path", photos.PhotoModifyHandler)
 	router.GET("/videos/*path", photos.VideoPermalinkHandler)
 
-	router.GET("/assets/photos/*path", photos.PhotoHandler)
+	router.GET("/assets/photos/*path", photos.OnTheFlyPhotoResizeHandler(photos.ExpandDimension))
+	router.GET("/assets/thumbs/*path", photos.OnTheFlyPhotoResizeHandler(photos.ThumbDimension))
 
 	router.GET("/assets/styles/*path", index.AssetsHandler)
 	router.GET("/assets/data/*path", index.AssetsHandler)

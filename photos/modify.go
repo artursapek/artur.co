@@ -34,12 +34,12 @@ func PhotoModifyHandler(w http.ResponseWriter, r *http.Request, params httproute
 			}
 
 			// Prime the cache
-			item.Resize()
+			item.Resize(ExpandDimension)
+			item.Resize(ThumbDimension)
 
 			http.Redirect(w, r, redirect, 301)
 		} else {
 			http.Error(w, "No actions to take", 400)
 		}
 	}
-
 }

@@ -19,7 +19,8 @@ import (
 )
 
 const (
-	maxDimension = 800
+	ExpandDimension = 800
+	ThumbDimension  = 100
 )
 
 type ContentItem struct {
@@ -137,7 +138,16 @@ func (item ContentItem) ResizedURL() string {
 	}
 }
 
-func (item ContentItem) Resize() error {
+func (item ContentItem) ThumbURL() string {
+	switch item.Type {
+	case "photo":
+		return config.Config.ResizedURLPrefix + "assets/thumbs/" + item.Src
+	default:
+		return ""
+	}
+}
+
+func (item ContentItem) Resize(maxDimension int) error {
 	original, openErr := imaging.Open(item.RawPath())
 	if openErr != nil {
 		return openErr
@@ -160,22 +170,25 @@ func (item ContentItem) Resize() error {
 	return nil
 }
 
-// On-the-fly photo resizing that memoizes on disk
-func PhotoHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
-	var (
-		item = ContentItem{Src: params.ByName("path"), Type: "photo"}
-	)
+func OnTheFlyPhotoResizeHandler(maxDimension int) httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+		var (
+			item = ContentItem{Src: params.ByName("path"), Type: "photo"}
+		)
 
-	if _, statErr := os.Stat(item.ResizedPath()); statErr != nil {
-		// Not resized before, resize on the fly and cache it
-		err := item.Resize()
-		if err != nil {
-			http.Error(w, err.Error(), 500)
+		if _, statErr := os.Stat(item.ResizedPath()); statErr != nil {
+			// Not resized before, resize on the fly and cache it
+			err := item.Resize(maxDimension)
+			if err != nil {
+				http.Error(w, err.Error(), 500)
+			}
 		}
-	}
 
-	http.ServeFile(w, r, item.ResizedPath())
+		http.ServeFile(w, r, item.ResizedPath())
+	}
 }
+
+// On-the-fly photo resizing that memoizes on disk
 
 func PhotosRedirectHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	http.Redirect(w, r, "/albums", 302)
