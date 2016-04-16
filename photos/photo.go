@@ -156,6 +156,18 @@ func (item ContentItem) ThumbURL() string {
 	}
 }
 
+func (item ContentItem) Year() string {
+	return filepath.SplitList(item.Src)[0]
+}
+
+func (item ContentItem) Month() string {
+	return filepath.SplitList(item.Src)[1]
+}
+
+func (item ContentItem) Base() string {
+	return filepath.Base(item.Src)
+}
+
 func (item ContentItem) Resize(maxDimension int, path string) error {
 	original, openErr := imaging.Open(item.RawPath())
 	if openErr != nil {
