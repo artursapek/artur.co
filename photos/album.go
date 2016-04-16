@@ -92,7 +92,8 @@ func allAlbums() Albums {
 var (
 	albumTemplate,
 	albumIndexTemplate,
-	photosIndexTemplate *template.Template
+	photosIndexTemplate,
+	photosMonthTemplate *template.Template
 )
 
 func init() {
@@ -107,6 +108,11 @@ func init() {
 	}
 
 	photosIndexTemplate, indexParseErr = template.ParseFiles("templates/photos/index.html")
+	if indexParseErr != nil {
+		log.Fatal(indexParseErr)
+	}
+
+	photosMonthTemplate, indexParseErr = template.ParseFiles("templates/photos/month.html")
 	if indexParseErr != nil {
 		log.Fatal(indexParseErr)
 	}

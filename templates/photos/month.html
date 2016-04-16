@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title>
+      Photo
+    </title>
+    <link rel="stylesheet" href="/assets/styles/photos/album.css" />
+    <meta name="robots" content="noindex">
+  <style>
+    h1 {
+      font-weight: normal;
+    }
+  </style>
+  </head>
+
+  <body>
+    <header id="breadcrumbs">
+      <a href="/">artur.co</a> &gt; <a href="/photos">photos</a> &gt; {{ $.Year }} &gt; {{ $.Month }}
+    </header>
+
+    <main>
+    <h1>{{ $.Year }} / {{ $.Month }}</h1>
+      {{ range $i, $photo := .Photos }}
+        <a href="/photos/permalink/{{ $photo.Src }}"><img src="{{ $photo.ThumbURL }}" /></a>
+
+      {{ end }}
+    </main>
+  </body>
+</html>
+
+

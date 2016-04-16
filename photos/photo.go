@@ -250,11 +250,23 @@ func PhotosYearMonthHandler(w http.ResponseWriter, r *http.Request, params httpr
 		year          = params.ByName("year")
 		month         = params.ByName("month")
 		photoPaths, _ = filepath.Glob(filepath.Join(config.Config.RawRoot, "photos", year, month, "*.JPG"))
+
+		photos []ContentItem
 	)
 
-	fmt.Println(photoPaths)
-}
+	for _, path := range photoPaths {
+		photos = append(photos, ContentItem{Src: filepath.Join(year, month, filepath.Base(path)), Type: "photo"})
+	}
 
-func PhotosRedirectHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
-	http.Redirect(w, r, "/albums", 302)
+	renderErr := photosMonthTemplate.Execute(w, struct {
+		Year, Month string
+		Photos      []ContentItem
+	}{
+		Year:   year,
+		Month:  month,
+		Photos: photos,
+	})
+	if renderErr != nil {
+		log.Fatal(renderErr)
+	}
 }

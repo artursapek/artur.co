@@ -45,7 +45,7 @@
           </h2>
 
           {{ range $ii, $month := ( index $.Months $year) }}
-          <a href="/photos/month/{{ $year }}/{{ $month }}"><h4>{{ $month }}</h4></a> <br />
+            <a href="/photos/month/{{ $year }}/{{ $month }}"><h4>{{ $month }}</h4></a> <br />
           {{ end }}
         </div>
       {{ end }}
