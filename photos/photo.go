@@ -168,6 +168,7 @@ func (item ContentItem) Month() string {
 		return ""
 	}
 	fmt.Println(item.Src)
+	fmt.Println(filepath.SplitList(item.Src))
 	return filepath.SplitList(item.Src)[1]
 }
 
