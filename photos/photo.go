@@ -155,7 +155,7 @@ func (item ContentItem) ThumbURL() string {
 	}
 }
 
-func (item ContentItem) Resize(maxDimension int, root string) error {
+func (item ContentItem) Resize(maxDimension int, path string) error {
 	original, openErr := imaging.Open(item.RawPath())
 	if openErr != nil {
 		return openErr
@@ -164,13 +164,13 @@ func (item ContentItem) Resize(maxDimension int, root string) error {
 	resized := imaging.Fit(original, maxDimension, maxDimension, imaging.Lanczos)
 
 	// Ensure directory structure exists
-	dir := filepath.Dir(root)
+	dir := filepath.Dir(path)
 	mkdirErr := os.MkdirAll(dir, 0700)
 	if mkdirErr != nil {
 		return mkdirErr
 	}
 
-	saveErr := imaging.Save(resized, root)
+	saveErr := imaging.Save(resized, path)
 	if saveErr != nil {
 		return saveErr
 	}
@@ -184,22 +184,25 @@ func OnTheFlyPhotoResizeHandler(maxDimension int) httprouter.Handle {
 			item = ContentItem{Src: params.ByName("path"), Type: "photo"}
 		)
 
-		var root string
+		var path string
 		if maxDimension == ExpandDimension {
-			root = item.ResizedPath()
+			path = item.ResizedPath()
 		} else if maxDimension == ThumbDimension {
-			root = item.ThumbPath()
+			path = item.ThumbPath()
+		} else {
+			http.Error(w, "Not found", 404)
+			return
 		}
 
-		if _, statErr := os.Stat(root); statErr != nil {
+		if _, statErr := os.Stat(path); statErr != nil {
 			// Not resized before, resize on the fly and cache it
-			err := item.Resize(maxDimension, root)
+			err := item.Resize(maxDimension, path)
 			if err != nil {
 				http.Error(w, err.Error(), 500)
 			}
 		}
 
-		http.ServeFile(w, r, item.ResizedPath())
+		http.ServeFile(w, r, path)
 	}
 }
 
