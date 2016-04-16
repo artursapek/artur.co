@@ -196,6 +196,8 @@ func OnTheFlyPhotoResizeHandler(maxDimension int) httprouter.Handle {
 			return
 		}
 
+		fmt.Println(path)
+
 		if _, statErr := os.Stat(path); statErr != nil {
 			// Not resized before, resize on the fly and cache it
 			err := item.Resize(maxDimension, path)
