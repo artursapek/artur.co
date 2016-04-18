@@ -42,7 +42,7 @@ func (item ContentItem) ResizedPath() string {
 	if item.Type == "video" || item.Type == "audio" {
 		return item.RawPath()
 	} else {
-		return filepath.Join(config.Config.ResizedRoot, item.Type+"s", "expand", item.Src)
+		return filepath.Join(config.Config.ResizedRoot, "photos", "expand", item.Src)
 	}
 }
 
@@ -50,7 +50,7 @@ func (item ContentItem) ThumbPath() string {
 	if item.Type == "video" || item.Type == "audio" {
 		return item.RawPath()
 	} else {
-		return filepath.Join(config.Config.ThumbRoot, item.Type+"s", "thumb", item.Src)
+		return filepath.Join(config.Config.ResizedRoot, "photos", "thumb", item.Src)
 	}
 }
 
@@ -218,10 +218,6 @@ func OnTheFlyPhotoResizeHandler(maxDimension int) httprouter.Handle {
 			http.Error(w, "Not found", 404)
 			return
 		}
-
-		path = filepath.Join(config.Config.ResizedRoot, path)
-
-		fmt.Println(path)
 
 		if _, statErr := os.Stat(path); statErr != nil {
 			// Not resized before, resize on the fly and cache it
