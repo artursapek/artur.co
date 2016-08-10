@@ -66,11 +66,15 @@ content:
   src: 2015/03/IMG_6824.JPG
 - type: photo
   src: 2015/03/IMG_6863.JPG
+  caption: Testing that file nav! ;D
 - type: photo
   src: 2015/04/IMG_7557.JPG
 - type: photo
   src: 2015/04/IMG_7562.JPG
   caption: what is this world
+- type: photo
+  src: 2015/05/IMG_7947.JPG
+  caption: Regan riding off into the sunset
 - type: photo
   src: 2015/05/IMG_8178.JPG
 - type: photo
