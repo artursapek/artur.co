@@ -130,7 +130,7 @@ func AlbumHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		case albumNotFoundError:
 			http.Error(w, "album not found", 404)
 		default:
-			http.Error(w, "internal error", 500)
+			http.Error(w, "Internal error: "+getErr.Error(), 500)
 		}
 	} else {
 		albums := allAlbums()
