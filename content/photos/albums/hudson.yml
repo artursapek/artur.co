@@ -53,6 +53,8 @@ content:
   src: 2016/12/IMG_5987.JPG
 - type: photo
   src: 2016/12/IMG_5994.JPG
+- type: video
+  src: 2016/12/IMG_5996.MOV
 - type: photo
   src: 2016/12/IMG_5999.JPG
 - type: photo
@@ -270,6 +272,8 @@ content:
 - type: photo
   src: 2016/12/IMG_6393.JPG
   caption: RAMEN
+- type: video
+  src: 2016/12/IMG_6169.MOV
 - type: photo
   src: 2016/12/IMG_6397.JPG
 - type: photo
