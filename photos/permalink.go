@@ -42,6 +42,10 @@ type Permalink struct {
 }
 
 func PhotoPermalinkHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+	if err := albumsAuthWall(w, r); err != nil {
+		return
+	}
+
 	if params.ByName("path") == "" || params.ByName("path") == "/" {
 		http.Redirect(w, r, "/albums", 302)
 		return
@@ -51,6 +55,9 @@ func PhotoPermalinkHandler(w http.ResponseWriter, r *http.Request, params httpro
 }
 
 func VideoPermalinkHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+	if err := albumsAuthWall(w, r); err != nil {
+		return
+	}
 	permalinkHandler("video", w, r, params)
 }
 

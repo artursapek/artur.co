@@ -232,6 +232,10 @@ func OnTheFlyPhotoResizeHandler(maxDimension int) httprouter.Handle {
 }
 
 func PhotosIndexHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+	if err := albumsAuthWall(w, r); err != nil {
+		return
+	}
+
 	var (
 		yearDirs, _ = filepath.Glob(filepath.Join(config.Config.RawRoot, "photos", "*"))
 
@@ -269,6 +273,10 @@ func PhotosIndexHandler(w http.ResponseWriter, r *http.Request, params httproute
 }
 
 func PhotosYearMonthHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+	if err := albumsAuthWall(w, r); err != nil {
+		return
+	}
+
 	var (
 		year          = params.ByName("year")
 		month         = params.ByName("month")

@@ -126,11 +126,7 @@ type albumHandlerContext struct {
 }
 
 func AlbumHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	givenUsername, givenPassword, ok := r.BasicAuth()
-	if !ok || subtle.ConstantTimeCompare([]byte(givenUsername), []byte(username)) != 1 || subtle.ConstantTimeCompare([]byte(givenPassword), []byte(password)) != 1 {
-		w.Header().Set("WWW-Authenticate", "Basic realm=artur-co-albums")
-		w.WriteHeader(401)
-		w.Write([]byte("Unauthorised.\n"))
+	if err := albumsAuthWall(w, r); err != nil {
 		return
 	}
 
@@ -224,12 +220,20 @@ var (
 	password = os.Getenv("PHOTOS_PASSWORD")
 )
 
-func AlbumsIndexHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+func albumsAuthWall(w http.ResponseWriter, r *http.Request) error {
 	givenUsername, givenPassword, ok := r.BasicAuth()
 	if !ok || subtle.ConstantTimeCompare([]byte(givenUsername), []byte(username)) != 1 || subtle.ConstantTimeCompare([]byte(givenPassword), []byte(password)) != 1 {
 		w.Header().Set("WWW-Authenticate", "Basic realm=artur-co-albums")
 		w.WriteHeader(401)
-		w.Write([]byte("Unauthorised.\n"))
+		w.Write([]byte("Unauthorized.\n"))
+		return errors.New("Unauthorized")
+	}
+
+	return nil
+}
+
+func AlbumsIndexHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	if err := albumsAuthWall(w, r); err != nil {
 		return
 	}
 
