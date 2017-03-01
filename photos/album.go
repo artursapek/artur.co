@@ -1,12 +1,14 @@
 package photos
 
 import (
+	"crypto/subtle"
 	"errors"
 	"fmt"
 	"html/template"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"os/exec"
 	"path/filepath"
 	"regexp"
@@ -124,6 +126,14 @@ type albumHandlerContext struct {
 }
 
 func AlbumHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	givenUsername, givenPassword, ok := r.BasicAuth()
+	if !ok || subtle.ConstantTimeCompare([]byte(givenUsername), []byte(username)) != 1 || subtle.ConstantTimeCompare([]byte(givenPassword), []byte(password)) != 1 {
+		w.Header().Set("WWW-Authenticate", "Basic realm=artur-co-albums")
+		w.WriteHeader(401)
+		w.Write([]byte("Unauthorised.\n"))
+		return
+	}
+
 	a, getErr := loadAlbum(p.ByName("slug"))
 	if getErr != nil {
 		switch getErr {
@@ -209,7 +219,20 @@ type albumIndexData struct {
 	RawDeviceStats
 }
 
+var (
+	username = os.Getenv("PHOTOS_USERNAME")
+	password = os.Getenv("PHOTOS_PASSWORD")
+)
+
 func AlbumsIndexHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	givenUsername, givenPassword, ok := r.BasicAuth()
+	if !ok || subtle.ConstantTimeCompare([]byte(givenUsername), []byte(username)) != 1 || subtle.ConstantTimeCompare([]byte(givenPassword), []byte(password)) != 1 {
+		w.Header().Set("WWW-Authenticate", "Basic realm=artur-co-albums")
+		w.WriteHeader(401)
+		w.Write([]byte("Unauthorised.\n"))
+		return
+	}
+
 	albums := allAlbums()
 	stats := getRawDeviceStats()
 	fmt.Println(stats)
