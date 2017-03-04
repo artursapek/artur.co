@@ -237,6 +237,7 @@ func OnTheFlyPhotoResizeHandler(maxDimension int) httprouter.Handle {
 				gz := gzip.NewWriter(w)
 				defer gz.Close()
 				writer = gz
+				w.Header().Set("Content-Encoding", "gzip")
 			}
 
 			io.Copy(writer, f)
