@@ -1,10 +1,8 @@
 package photos
 
 import (
-	"compress/gzip"
 	"fmt"
 	"html/template"
-	"io"
 	"log"
 	"net/http"
 	"os"
@@ -229,22 +227,7 @@ func OnTheFlyPhotoResizeHandler(maxDimension int) httprouter.Handle {
 			}
 		}
 
-		f, ferr := os.Open(path)
-		if ferr == nil {
-			var writer io.Writer = w
-
-			if strings.Contains(r.Header.Get("Accept-Encoding"), "gzip") {
-				gz := gzip.NewWriter(w)
-				defer gz.Close()
-				writer = gz
-				w.Header().Set("Content-Encoding", "gzip")
-			}
-
-			io.Copy(writer, f)
-		} else {
-			http.Error(w, ferr.Error(), 500)
-		}
-
+		http.ServeFile(w, r, path)
 	}
 }
 
