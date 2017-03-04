@@ -177,7 +177,7 @@ func (item ContentItem) Base() string {
 
 var ResizeMutex = new(sync.Mutex)
 
-func (item ContentItem) Resize(maxDimension int, path string) error {
+func (item ContentItem) Resize(maxDimension int, path string, filter imaging.ResampleFilter) error {
 	ResizeMutex.Lock()
 	defer ResizeMutex.Unlock()
 	original, openErr := imaging.Open(item.RawPath())
@@ -185,7 +185,7 @@ func (item ContentItem) Resize(maxDimension int, path string) error {
 		return openErr
 	}
 
-	resized := imaging.Fit(original, maxDimension, maxDimension, imaging.Lanczos)
+	resized := imaging.Fit(original, maxDimension, maxDimension, filter)
 
 	// Ensure directory structure exists
 	dir := filepath.Dir(path)
@@ -207,13 +207,17 @@ func OnTheFlyPhotoResizeHandler(maxDimension int) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 		var (
 			item = ContentItem{Src: params.ByName("path"), Type: "photo"}
+
+			filter imaging.ResampleFilter
 		)
 
 		var path string
 		if maxDimension == ExpandDimension {
 			path = item.ResizedPath()
+			filter = imaging.Lanczos
 		} else if maxDimension == ThumbDimension {
 			path = item.ThumbPath()
+			filter = imaging.Box
 		} else {
 			http.Error(w, "Not found", 404)
 			return
@@ -221,7 +225,7 @@ func OnTheFlyPhotoResizeHandler(maxDimension int) httprouter.Handle {
 
 		if _, statErr := os.Stat(path); statErr != nil {
 			// Not resized before, resize on the fly and cache it
-			err := item.Resize(maxDimension, path)
+			err := item.Resize(maxDimension, path, filter)
 			if err != nil {
 				http.Error(w, err.Error(), 500)
 			}
