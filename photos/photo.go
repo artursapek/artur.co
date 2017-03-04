@@ -217,7 +217,7 @@ func OnTheFlyPhotoResizeHandler(maxDimension int) httprouter.Handle {
 			filter = imaging.Lanczos
 		} else if maxDimension == ThumbDimension {
 			path = item.ThumbPath()
-			filter = imaging.NearestNeighbor
+			filter = imaging.Box
 		} else {
 			http.Error(w, "Not found", 404)
 			return
