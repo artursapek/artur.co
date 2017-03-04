@@ -1,9 +1,12 @@
 package main
 
 import (
+	"crypto/tls"
 	"log"
 	"net/http"
+	"time"
 
+	"github.com/artursapek/artur.co/config"
 	"github.com/artursapek/artur.co/index"
 	"github.com/artursapek/artur.co/photos"
 	"github.com/julienschmidt/httprouter"
@@ -34,5 +37,23 @@ func main() {
 
 	router.GET("/", index.IndexHandler)
 
-	log.Fatal(http.ListenAndServe(":8081", router))
+	c := &tls.Config{}
+	c.Certificates = []tls.Certificate{}
+
+	cert, certErr := tls.LoadX509KeyPair(config.Config.TLSCertFile, config.Config.TLSKeyFile)
+	if certErr != nil {
+		log.Printf("Omitting %s; error loading: %s", config.Config.TLSCertFile, certErr.Error())
+	}
+
+	c.Certificates = append(c.Certificates, cert)
+
+	s := &http.Server{
+		Addr:         ":443",
+		Handler:      router,
+		ReadTimeout:  10 * time.Second,
+		WriteTimeout: 10 * time.Second,
+		TLSConfig:    c,
+	}
+
+	log.Fatal(s.ListenAndServeTLS("", ""))
 }

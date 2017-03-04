@@ -16,6 +16,9 @@ type AppConfig struct {
 	ResizedURLPrefix string `yaml:"resized_url_prefix"`
 
 	RawDeviceName string `yaml:"raw_device_name"`
+
+	TLSCertFile string `yaml:"tls_cert_file"`
+	TLSKeyFile  string `yaml:"tls_key_file"`
 }
 
 var Config AppConfig
