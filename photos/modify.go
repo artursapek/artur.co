@@ -28,7 +28,6 @@ func PhotoModifyHandler(w http.ResponseWriter, r *http.Request, params httproute
 				return
 			}
 			removeErr := exec.Command("rm", item.ResizedPath()).Run()
-			exec.Command("rm", item.ThumbPath()).Run()
 			if removeErr != nil {
 				http.Error(w, "Error while busting cache: "+removeErr.Error(), 500)
 				return

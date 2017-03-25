@@ -1,7 +1,6 @@
 package photos
 
 import (
-	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -22,7 +21,6 @@ import (
 
 const (
 	ExpandDimension = 800
-	ThumbDimension  = 100
 )
 
 type ContentItem struct {
@@ -43,14 +41,6 @@ func (item ContentItem) ResizedPath() string {
 		return item.RawPath()
 	} else {
 		return filepath.Join(config.Config.ResizedRoot, "photos", "expand", item.Src)
-	}
-}
-
-func (item ContentItem) ThumbPath() string {
-	if item.Type == "video" || item.Type == "audio" {
-		return item.RawPath()
-	} else {
-		return filepath.Join(config.Config.ResizedRoot, "photos", "thumb", item.Src)
 	}
 }
 
@@ -148,15 +138,6 @@ func (item ContentItem) ResizedURL() string {
 	}
 }
 
-func (item ContentItem) ThumbURL() string {
-	switch item.Type {
-	case "photo":
-		return config.Config.ResizedURLPrefix + "assets/thumbs/" + item.Src
-	default:
-		return ""
-	}
-}
-
 func (item ContentItem) Year() string {
 	if item.Src == "" {
 		return ""
@@ -215,9 +196,6 @@ func OnTheFlyPhotoResizeHandler(maxDimension int) httprouter.Handle {
 		if maxDimension == ExpandDimension {
 			path = item.ResizedPath()
 			filter = imaging.Lanczos
-		} else if maxDimension == ThumbDimension {
-			path = item.ThumbPath()
-			filter = imaging.Box
 		} else {
 			http.Error(w, "Not found", 404)
 			return
@@ -232,76 +210,5 @@ func OnTheFlyPhotoResizeHandler(maxDimension int) httprouter.Handle {
 		}
 
 		http.ServeFile(w, r, path)
-	}
-}
-
-func PhotosIndexHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
-	if err := albumsAuthWall(w, r); err != nil {
-		return
-	}
-
-	var (
-		yearDirs, _ = filepath.Glob(filepath.Join(config.Config.RawRoot, "photos", "*"))
-
-		years []string
-
-		months = make(map[string][]string)
-	)
-
-	for _, yearDir := range yearDirs {
-		year := filepath.Base(yearDir)
-		years = append(years, year)
-
-		monthDirs, _ := filepath.Glob(filepath.Join(config.Config.RawRoot, "photos", year, "*"))
-
-		fmt.Println(year, monthDirs)
-
-		months[year] = []string{}
-		for _, monthDir := range monthDirs {
-			month := filepath.Base(monthDir)
-			months[year] = append(months[year], month)
-		}
-	}
-
-	renderErr := photosIndexTemplate.Execute(w, struct {
-		Years  []string
-		Months map[string][]string
-	}{
-		Years:  years,
-		Months: months,
-	})
-	if renderErr != nil {
-		log.Fatal(renderErr)
-	}
-
-}
-
-func PhotosYearMonthHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
-	if err := albumsAuthWall(w, r); err != nil {
-		return
-	}
-
-	var (
-		year          = params.ByName("year")
-		month         = params.ByName("month")
-		photoPaths, _ = filepath.Glob(filepath.Join(config.Config.RawRoot, "photos", year, month, "*.JPG"))
-
-		photos []ContentItem
-	)
-
-	for _, path := range photoPaths {
-		photos = append(photos, ContentItem{Src: filepath.Join(year, month, filepath.Base(path)), Type: "photo"})
-	}
-
-	renderErr := photosMonthTemplate.Execute(w, struct {
-		Year, Month string
-		Photos      []ContentItem
-	}{
-		Year:   year,
-		Month:  month,
-		Photos: photos,
-	})
-	if renderErr != nil {
-		log.Fatal(renderErr)
 	}
 }
