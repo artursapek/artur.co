@@ -3,8 +3,8 @@ package photos
 import (
 	"net/http"
 	"os"
-	"os/exec"
 
+	"github.com/disintegration/imaging"
 	"github.com/julienschmidt/httprouter"
 )
 
@@ -21,19 +21,33 @@ func PhotoModifyHandler(w http.ResponseWriter, r *http.Request, params httproute
 			redirect = r.Referer()
 		}
 
+		img, openErr := imaging.Open(item.ResizedPath())
+
+		if openErr != nil {
+			http.Error(w, openErr.Error(), 500)
+			return
+		}
+
 		if rotate := r.PostFormValue("rotate"); rotate != "" {
-			rotateErr := exec.Command("convert", item.RawPath(), "-rotate", rotate, item.RawPath()).Run()
-			if rotateErr != nil {
-				http.Error(w, "Error while rotating: "+rotateErr.Error(), 500)
-				return
-			}
-			removeErr := exec.Command("rm", item.ResizedPath()).Run()
-			if removeErr != nil {
-				http.Error(w, "Error while busting cache: "+removeErr.Error(), 500)
-				return
+			switch rotate {
+			case "90":
+				img = imaging.Rotate90(img)
+			case "180":
+				img = imaging.Rotate180(img)
+			case "-90":
+				img = imaging.Rotate270(img)
+			default:
+				http.Error(w, "Invalid value "+rotate, 400)
 			}
 
-			http.Redirect(w, r, redirect, 301)
+			saveErr := imaging.Save(img, item.ResizedPath())
+
+			if saveErr != nil {
+				http.Error(w, saveErr.Error(), 500)
+			} else {
+				http.Redirect(w, r, redirect, 301)
+			}
+
 		} else {
 			http.Error(w, "No actions to take", 400)
 		}
