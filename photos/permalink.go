@@ -78,7 +78,7 @@ func permalinkHandler(t string, w http.ResponseWriter, r *http.Request, params h
 	var (
 		nextLink, prevLink string
 		base                   = filepath.Dir(item.RawPath())
-		siblings, globErr      = filepath.Glob(base + "*")
+		siblings, globErr      = filepath.Glob(filepath.Join(base + "*"))
 		index              int = -1
 	)
 
