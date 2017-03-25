@@ -77,9 +77,9 @@ func permalinkHandler(t string, w http.ResponseWriter, r *http.Request, params h
 
 	var (
 		nextLink, prevLink string
-		base               = filepath.Base(item.RawPath())
-		siblings, globErr  = filepath.Glob(base + "*")
-		index              int
+		base                   = filepath.Base(item.RawPath())
+		siblings, globErr      = filepath.Glob(base + "*")
+		index              int = -1
 	)
 
 	if globErr == nil {
@@ -91,8 +91,13 @@ func permalinkHandler(t string, w http.ResponseWriter, r *http.Request, params h
 			}
 		}
 
-		nextLink = siblings[index+1]
-		prevLink = siblings[index-1]
+		if index > -1 {
+			log.Println("siblings", len(siblings))
+			log.Println("found", item.RawPath(), index)
+
+			nextLink = siblings[index+1]
+			prevLink = siblings[index-1]
+		}
 	}
 
 	renderErr := permalinkTemplate.Execute(w, Permalink{
