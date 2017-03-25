@@ -96,11 +96,11 @@ func permalinkHandler(t string, w http.ResponseWriter, r *http.Request, params h
 		if index > -1 {
 			log.Println("found", item.RawPath(), index)
 
-			if index < len(siblings)-1 {
-				nextLink = strings.Replace(siblings[index+1], config.Config.RawRoot+"/"+item.Type+"s", "/"+item.Type+"s/permalinks", 1)
-			}
 			if index > 0 {
-				prevLink = strings.Replace(siblings[index-1], config.Config.RawRoot, "/assets/permalinks", 1)
+				prevLink = strings.Replace(siblings[index-1], config.Config.RawRoot+"/"+item.Type+"s", "/"+item.Type+"s/permalink", 1)
+			}
+			if index < len(siblings)-1 {
+				nextLink = strings.Replace(siblings[index+1], config.Config.RawRoot+"/"+item.Type+"s", "/"+item.Type+"s/permalink", 1)
 			}
 		}
 	}
