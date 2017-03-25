@@ -21,19 +21,6 @@
               <video src="{{ $.RawURL }}" controls></video>
             {{ end }}
 
-            <div>
-              {{ if ne $.PrevLink "" }}
-                <a href="{{ $.PrevLink  }}">
-                  Prev
-                </a>
-              {{ end }}
-              <span> - </span>
-              {{ if ne $.NextLink "" }}
-                <a href="{{ $.NextLink }}">
-                  Next
-                </a>
-              {{ end }}
-            </div>
           </td>
 
           <td valign="top" align="right" width="500">
@@ -72,6 +59,26 @@
                   <textarea style="width: 400px; height: 50px" onclick="this.focus();this.select()">
 - type: {{ $.Type }}
   src: {{ $.Src }}</textarea>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                </td>
+                <td>
+                  <div>
+                    {{ if ne $.PrevLink "" }}
+                      <a href="{{ $.PrevLink  }}">
+                        Prev
+                      </a>
+                    {{ end }}
+                    <span> - </span>
+                    {{ if ne $.NextLink "" }}
+                      <a href="{{ $.NextLink }}">
+                        Next
+                      </a>
+                    {{ end }}
+                  </div>
                 </td>
               </tr>
             </table>
