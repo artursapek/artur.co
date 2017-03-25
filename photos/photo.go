@@ -159,8 +159,8 @@ func (item ContentItem) Base() string {
 var ResizeMutex = new(sync.Mutex)
 
 func (item ContentItem) Resize(maxDimension int, path string, filter imaging.ResampleFilter) error {
-	ResizeMutex.Lock()
-	defer ResizeMutex.Unlock()
+	//ResizeMutex.Lock()
+	//defer ResizeMutex.Unlock()
 	original, openErr := imaging.Open(item.RawPath())
 	if openErr != nil {
 		return openErr
