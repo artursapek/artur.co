@@ -199,19 +199,10 @@ func (item ContentItem) Resize(maxDimension int, path string, filter imaging.Res
 func OnTheFlyPhotoResizeHandler(maxDimension int) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 		var (
-			item = ContentItem{Src: params.ByName("path"), Type: "photo"}
-
-			filter imaging.ResampleFilter
-		)
-
-		var path string
-		if maxDimension == ExpandDimension {
-			path = item.ResizedPath(maxDimension)
+			item   = ContentItem{Src: params.ByName("path"), Type: "photo"}
+			path   = item.ResizedPath(maxDimension)
 			filter = imaging.Lanczos
-		} else {
-			http.Error(w, "Not found", 404)
-			return
-		}
+		)
 
 		if _, statErr := os.Stat(path); statErr != nil {
 			// Not resized before, resize on the fly and cache it
