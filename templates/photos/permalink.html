@@ -52,12 +52,17 @@
               </tr>
 			  <tr>
 				<td colspan="2">
-				<a href="{{ $.PrevLink  }}">
-				  {{ $.PrevLink }}
-				</a>
-				<a href="{{ $.NextLink }}">
-				  {{ $.NextLink }}
-				</a>
+				{{ if ne $.PrevLink "" }}
+					<a href="{{ $.PrevLink  }}">
+					  Prev
+					</a>
+				{{ end }}
+				<span> - </span>
+				{{ if ne $.NextLink "" }}
+					<a href="{{ $.NextLink }}">
+					  Next
+					</a>
+				{{ end }}
 				</td>
 			  </tr>
             </table>
