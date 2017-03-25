@@ -34,7 +34,7 @@ func PhotoModifyHandler(w http.ResponseWriter, r *http.Request, params httproute
 				img = imaging.Rotate90(img)
 			case "180":
 				img = imaging.Rotate180(img)
-			case "-90":
+			case "270":
 				img = imaging.Rotate270(img)
 			default:
 				http.Error(w, "Invalid value "+rotate, 400)
