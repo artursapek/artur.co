@@ -1,17 +1,17 @@
 <html>
-	<head>
-		<title>
-			{{ $.Src }}
-		</title>
-		<link rel="stylesheet" href="/assets/styles/photos/album.css" />
-	</head>
+  <head>
+    <title>
+      {{ $.Src }}
+    </title>
+    <link rel="stylesheet" href="/assets/styles/photos/album.css" />
+  </head>
 
-	<body>
+  <body>
     <header id="breadcrumbs">
       <a href="/">artur.co</a> &gt; <a href="/albums">{{ $.Type }}s</a> &gt; <a href="/raw/{{ $.ContentItem.Type }}s/{{ $.ContentItem.Year }}/{{ $.ContentItem.Month }}">{{ $.ContentItem.Year }}/{{ $.ContentItem.Month }}</a> &gt; {{ $.Base }}
     </header>
 
-		<main>
+    <main>
       <table width="100%">
         <tr>
           <td rowspan="2">
@@ -21,19 +21,19 @@
               <video src="{{ $.RawURL }}" controls></video>
             {{ end }}
 
-			<div>
-				{{ if ne $.PrevLink "" }}
-					<a href="{{ $.PrevLink  }}">
-					  Prev
-					</a>
-				{{ end }}
-				<span> - </span>
-				{{ if ne $.NextLink "" }}
-					<a href="{{ $.NextLink }}">
-					  Next
-					</a>
-				{{ end }}
-			</div>
+            <div>
+              {{ if ne $.PrevLink "" }}
+                <a href="{{ $.PrevLink  }}">
+                  Prev
+                </a>
+              {{ end }}
+              <span> - </span>
+              {{ if ne $.NextLink "" }}
+                <a href="{{ $.NextLink }}">
+                  Next
+                </a>
+              {{ end }}
+            </div>
           </td>
 
           <td valign="top" align="right" width="500">
@@ -64,64 +64,73 @@
                   <a href="{{ $.RawURL }}">{{ $.RawURL }}</a>
                 </td>
               </tr>
+              <tr>
+                <td colspan="2">
+                  YAML
+                  <textarea>
+- type: {{ $.Type }}
+  src: {{ $.Src }}
+                  </textarea>
+                </td>
+              </tr>
             </table>
           </td>
         </tr>
         <tr>
-		  <td valign="bottom" align="right" width="400">
+      <td valign="bottom" align="right" width="400">
 
-				{{ if $.Location.Valid }}
-				<div id="map" style="width: 400px; height: 200px; border: 1px solid #ccc"></div>
-				<br>
-				<div><code>{{ $.Location.String }}</code></div>
+        {{ if $.Location.Valid }}
+        <div id="map" style="width: 400px; height: 200px; border: 1px solid #ccc"></div>
+        <br>
+        <div><code>{{ $.Location.String }}</code></div>
 
-				<script src="/assets/scripts/d3.v3.min.js"></script>
-				<script src="/assets/scripts/topojson.v1.min.js"></script>
-				<script>
+        <script src="/assets/scripts/d3.v3.min.js"></script>
+        <script src="/assets/scripts/topojson.v1.min.js"></script>
+        <script>
 
-				  var width = 400,
-					  height = 200;
+          var width = 400,
+            height = 200;
 
-				  var projection = d3.geo.equirectangular()
-					  .scale(70)
-					  .translate([width / 2, height / 2])
-					  .precision(.1);
+          var projection = d3.geo.equirectangular()
+            .scale(70)
+            .translate([width / 2, height / 2])
+            .precision(.1);
 
-				  var path = d3.geo.path()
-					  .projection(projection);
+          var path = d3.geo.path()
+            .projection(projection);
 
-				  var graticule = d3.geo.graticule();
+          var graticule = d3.geo.graticule();
 
-				  var svg = d3.select("#map").append("svg")
-					  .attr("width", width)
-					  .attr("height", height);
+          var svg = d3.select("#map").append("svg")
+            .attr("width", width)
+            .attr("height", height);
 
-				  svg.append("path")
-					  .datum(graticule)
-					  .attr("class", "graticule")
-					  .attr("d", path);
+          svg.append("path")
+            .datum(graticule)
+            .attr("class", "graticule")
+            .attr("d", path);
 
-				  d3.json("/assets/data/world.json", function(error, world) {
-					svg.insert("path", ".graticule")
-						.datum(topojson.feature(world, world.objects.land))
-						.attr("class", "land")
-						.attr("fill", "#CCC")
-						.attr("d", path);
-				  });
+          d3.json("/assets/data/world.json", function(error, world) {
+          svg.insert("path", ".graticule")
+            .datum(topojson.feature(world, world.objects.land))
+            .attr("class", "land")
+            .attr("fill", "#CCC")
+            .attr("d", path);
+          });
 
-				  var coords = projection([{{ $.Lng }}, {{ $.Lat }}]);
+          var coords = projection([{{ $.Lng }}, {{ $.Lat }}]);
 
-				  svg.append("circle")
-					  .attr("cx", coords[0])
-					  .attr("cy", coords[1])
-					  .attr("r", 3)
-					  .attr("fill", "black")
+          svg.append("circle")
+            .attr("cx", coords[0])
+            .attr("cy", coords[1])
+            .attr("r", 3)
+            .attr("fill", "black")
 
-				</script>
-			{{ end }}
-		  </td>
+        </script>
+      {{ end }}
+      </td>
         </tr>
       </table>
     </footer>
-	</body>
+  </body>
 </html>
