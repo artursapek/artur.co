@@ -91,8 +91,9 @@ func permalinkHandler(t string, w http.ResponseWriter, r *http.Request, params h
 			}
 		}
 
+		log.Println("siblings", base, len(siblings))
+
 		if index > -1 {
-			log.Println("siblings", len(siblings))
 			log.Println("found", item.RawPath(), index)
 
 			nextLink = siblings[index+1]

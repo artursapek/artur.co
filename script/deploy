@@ -1,8 +1,8 @@
 #!/bin/sh
 sshb artur <<-CMDS
 cd /app/artur.co
-git fetch
-git reset --hard origin/master
+sudo git fetch
+sudo git reset --hard origin/master
 make
 sudo service artur restart
 CMDS
