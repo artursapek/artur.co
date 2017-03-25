@@ -1,6 +1,7 @@
 package photos
 
 import (
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -36,16 +37,16 @@ func (item ContentItem) SrcAsHTML() template.HTML {
 	return template.HTML(item.Src)
 }
 
-func (item ContentItem) ResizedPath() string {
+func (item ContentItem) ResizedPath(maxDimension int) string {
 	if item.Type == "video" || item.Type == "audio" {
 		return item.RawPath()
 	} else {
-		return filepath.Join(config.Config.ResizedRoot, "photos", "expand", item.Src)
+		return filepath.Join(config.Config.ResizedRoot, "photos", fmt.Sprintf("%d", maxDimension), item.Src)
 	}
 }
 
 func (item ContentItem) BaseFilename() string {
-	return filepath.Base(item.ResizedPath())
+	return filepath.Base(item.Src)
 }
 
 func (item ContentItem) RawURL() string {
@@ -205,7 +206,7 @@ func OnTheFlyPhotoResizeHandler(maxDimension int) httprouter.Handle {
 
 		var path string
 		if maxDimension == ExpandDimension {
-			path = item.ResizedPath()
+			path = item.ResizedPath(maxDimension)
 			filter = imaging.Lanczos
 		} else {
 			http.Error(w, "Not found", 404)
