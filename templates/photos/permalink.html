@@ -22,20 +22,17 @@
             {{ end }}
 
 			<div>
-			  <div>
 				{{ if ne $.PrevLink "" }}
 					<a href="{{ $.PrevLink  }}">
 					  Prev
 					</a>
 				{{ end }}
-			  </div>
-			  <div>
+				<span> - </span>
 				{{ if ne $.NextLink "" }}
 					<a href="{{ $.NextLink }}">
 					  Next
 					</a>
 				{{ end }}
-			  </div>
 			</div>
           </td>
 
