@@ -20,6 +20,23 @@
             {{ else if eq $.Type "video" }}
               <video src="{{ $.RawURL }}" controls></video>
             {{ end }}
+
+			<div>
+			  <div>
+				{{ if ne $.PrevLink "" }}
+					<a href="{{ $.PrevLink  }}">
+					  Prev
+					</a>
+				{{ end }}
+			  </div>
+			  <div>
+				{{ if ne $.NextLink "" }}
+					<a href="{{ $.NextLink }}">
+					  Next
+					</a>
+				{{ end }}
+			  </div>
+			</div>
           </td>
 
           <td valign="top" align="right" width="500">
@@ -50,21 +67,6 @@
                   <a href="{{ $.RawURL }}">{{ $.RawURL }}</a>
                 </td>
               </tr>
-			  <tr>
-				<td colspan="2">
-				{{ if ne $.PrevLink "" }}
-					<a href="{{ $.PrevLink  }}">
-					  Prev
-					</a>
-				{{ end }}
-				<span> - </span>
-				{{ if ne $.NextLink "" }}
-					<a href="{{ $.NextLink }}">
-					  Next
-					</a>
-				{{ end }}
-				</td>
-			  </tr>
             </table>
           </td>
         </tr>
