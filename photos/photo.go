@@ -138,6 +138,17 @@ func (item ContentItem) ResizedURL() string {
 	}
 }
 
+func (item ContentItem) Resized2xURL() string {
+	switch item.Type {
+	case "video":
+		return item.RawURL()
+	case "photo":
+		return config.Config.ResizedURLPrefix + "assets/photos2x/" + item.Src
+	default:
+		return ""
+	}
+}
+
 func (item ContentItem) Year() string {
 	if item.Src == "" {
 		return ""

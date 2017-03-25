@@ -28,6 +28,7 @@ func main() {
 	router.GET("/videos/permalink/*path", photos.VideoPermalinkHandler)
 
 	router.GET("/assets/photos/*path", photos.OnTheFlyPhotoResizeHandler(photos.ExpandDimension))
+	router.GET("/assets/photos2x/*path", photos.OnTheFlyPhotoResizeHandler(photos.ExpandDimension*2))
 
 	router.GET("/assets/styles/*path", index.AssetsHandler)
 	router.GET("/assets/data/*path", index.AssetsHandler)
