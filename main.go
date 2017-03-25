@@ -35,6 +35,9 @@ func main() {
 
 	router.GET("/raw/*path", index.RawHandler)
 
+	router.GET("/static/*path", index.GetAssetHandler("static/"))
+	router.GET("/artur.asc", index.GetSingleAssetHandler("static/artur.asc"))
+
 	router.GET("/", index.IndexHandler)
 
 	c := &tls.Config{}

@@ -1,2 +1,2 @@
 #!/bin/sh
-sshb arturnew "cd /app/artur.co; export GOPATH=/home/ubuntu/go; git fetch; git reset --hard origin/master; make; sudo service arturco restart"
+sshb arturnew "cd /app/artur.co; export GOPATH=/home/ubuntu/go; git fetch; git reset --hard origin/master; make; sudo service artur restart"
