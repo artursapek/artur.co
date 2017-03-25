@@ -68,7 +68,7 @@
             {{ if eq $item.Type "photo" }}
               <img src="{{ $item.ResizedURL }}" />
             {{ else if eq $item.Type "video" }}
-              <video src="{{ $item.RawURL }}" controls preload="none"></video>
+              <video src="{{ $item.RawURL }}" controls preload="metadata"></video>
             {{ else if eq $item.Type "audio" }}
               <audio controls><source src="{{ $item.RawURL }}" type="audio/mp3"></audio>
             {{ end }}
