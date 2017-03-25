@@ -16,7 +16,7 @@
         <tr>
           <td rowspan="2">
             {{ if eq $.Type "photo" }}
-              <img src="{{ $.ResizedURL }}" />
+              <img src="{{ $item.ResizedURL }}" srcset="{{ $item.Resized2xURL }} 2x" style="max-width: 800px; max-height: 800px;" />
             {{ else if eq $.Type "video" }}
               <video src="{{ $.RawURL }}" controls></video>
             {{ end }}
