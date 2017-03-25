@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/julienschmidt/httprouter"
@@ -39,6 +40,9 @@ type Permalink struct {
 	ContentItem
 	time.Time
 	Location
+
+	NextLink string
+	PrevLink string
 }
 
 func PhotoPermalinkHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
@@ -70,10 +74,34 @@ func permalinkHandler(t string, w http.ResponseWriter, r *http.Request, params h
 		http.Error(w, "No such "+t, 404)
 		return
 	}
+
+	var (
+		nextLink, prevLink string
+		base               = filepath.Base(item.RawPath())
+		siblings, globErr  = filepath.Glob(base + "*")
+		index              int
+	)
+
+	if globErr == nil {
+
+		for i, fn := range siblings {
+			if fn == item.RawPath() {
+				index = i
+				break
+			}
+		}
+
+		nextLink = siblings[index+1]
+		prevLink = siblings[index-1]
+	}
+
 	renderErr := permalinkTemplate.Execute(w, Permalink{
 		ContentItem: item,
 		Time:        item.Timestamp(),
 		Location:    item.Location(),
+
+		NextLink: nextLink,
+		PrevLink: prevLink,
 	})
 	if renderErr != nil {
 		log.Fatal(renderErr)
