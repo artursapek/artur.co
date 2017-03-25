@@ -8,7 +8,7 @@
 
 	<body>
     <header id="breadcrumbs">
-      <a href="/">artur.co</a> &gt; <a href="/albums">{{ $.Type }}s</a> &gt; <a href="/photos/month/{{ $.ContentItem.Year }}/{{ $.ContentItem.Month }}">{{ $.ContentItem.Year }}/{{ $.ContentItem.Month }}</a> &gt; {{ $.Base }}
+      <a href="/">artur.co</a> &gt; <a href="/albums">{{ $.Type }}s</a> &gt; <a href="/raw/{{ $.ContentItem.Type }}s/{{ $.ContentItem.Year }}/{{ $.ContentItem.Month }}">{{ $.ContentItem.Year }}/{{ $.ContentItem.Month }}</a> &gt; {{ $.Base }}
     </header>
 
 		<main>
@@ -51,9 +51,13 @@
                 </td>
               </tr>
 			  <tr>
-			    <td colspan="2">
-			      {{ $.NextLink }}
-			      {{ $.PrevLink }}
+				<td colspan="2">
+				<a href="{{ $.PrevLink  }}">
+				  {{ $.PrevLink }}
+				</a>
+				<a href="{{ $.NextLink }}">
+				  {{ $.NextLink }}
+				</a>
 				</td>
 			  </tr>
             </table>

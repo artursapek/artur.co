@@ -7,8 +7,10 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
+	"github.com/artursapek/artur.co/config"
 	"github.com/julienschmidt/httprouter"
 )
 
@@ -77,8 +79,8 @@ func permalinkHandler(t string, w http.ResponseWriter, r *http.Request, params h
 
 	var (
 		nextLink, prevLink string
-		base                   = filepath.Dir(item.RawPath())
-		siblings, globErr      = filepath.Glob(filepath.Join(base + "*"))
+		base                   = filepath.Join(filepath.Dir(item.RawPath()), "*")
+		siblings, globErr      = filepath.Glob(base)
 		index              int = -1
 	)
 
@@ -91,13 +93,15 @@ func permalinkHandler(t string, w http.ResponseWriter, r *http.Request, params h
 			}
 		}
 
-		log.Println("siblings", base, len(siblings))
-
 		if index > -1 {
 			log.Println("found", item.RawPath(), index)
 
-			nextLink = siblings[index+1]
-			prevLink = siblings[index-1]
+			if index < len(siblings)-1 {
+				nextLink = strings.Replace(siblings[index+1], config.Config.RawRoot, "/assets/permalinks", 1)
+			}
+			if index > 0 {
+				prevLink = strings.Replace(siblings[index-1], config.Config.RawRoot, "/assets/permalinks", 1)
+			}
 		}
 	}
 
