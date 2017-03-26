@@ -12,18 +12,27 @@ content:
 - type: photo
   src: 2016/09/IMG_3455.JPG
   caption: Crowded table!
+- type: video
+  src: 2016/09/IMG_3476.MOV
 - type: photo
   src: 2016/09/IMG_3477.JPG
 - type: photo
   src: 2016/09/IMG_3479.JPG
 - type: photo
   src: 2016/09/IMG_3481.JPG
+- type: video
+  src: 2016/09/IMG_3483.MOV
 - type: photo
   src: 2016/09/IMG_3485.JPG
 - type: photo
   src: 2016/09/IMG_3493.JPG
 - type: photo
   src: 2016/09/IMG_3496.JPG
+- type: video
+  src: 2016/09/IMG_3510.MOV
+  caption: Is it cake or pie?
+- type: video
+  src: 2016/09/IMG_3523.MOV
 - type: photo
   src: 2016/09/IMG_3524.JPG
 - type: photo
@@ -48,6 +57,8 @@ content:
 - type: photo
   src: 2016/09/IMG_3583.JPG
   caption: Baby doves
+- type: video
+  src: 2016/09/IMG_3586.MOV
 - type: photo
   src: 2016/09/IMG_3591.JPG
   caption: Jefferson Market Library has awesome stained glass
@@ -70,10 +81,18 @@ content:
 - type: photo
   src: 2016/09/IMG_3626.JPG
   caption: Working remotely > not working remotely
+- type: video
+  src: 2016/09/IMG_3657.MOV
 - type: photo
   src: 2016/09/IMG_3669.JPG
 - type: photo
   src: 2016/09/IMG_3670.JPG
+- type: video
+  src: 2016/09/IMG_3677.MOV
+- type: video
+  src: 2016/09/IMG_3679.MOV
+- type: video
+  src: 2016/09/IMG_3681.MOV
 - type: photo
   src: 2016/09/IMG_3685.JPG
   caption: "Ajax made a friend :D"
@@ -100,6 +119,10 @@ content:
   src: 2016/09/IMG_3755.JPG
 - type: photo
   src: 2016/09/IMG_3761.JPG
+- type: video
+  src: 2016/09/IMG_3774.MOV
+- type: video
+  src: 2016/09/IMG_3775.MOV
 - type: photo
   src: 2016/09/IMG_3785.JPG
   caption: Comfy
@@ -163,6 +186,8 @@ content:
 - type: photo
   src: 2016/09/IMG_3890.JPG
   caption: He was speechless
+- type: video
+  src: 2016/09/IMG_3893.MOV
 - type: photo
   src: 2016/09/IMG_3898.JPG
 - type: photo
@@ -224,10 +249,14 @@ content:
   src: 2016/09/IMG_4097.JPG
 - type: photo
   src: 2016/09/IMG_4098.JPG
+- type: video
+  src: 2016/09/IMG_4099.MOV
 - type: photo
   src: 2016/09/IMG_4100.JPG
 - type: photo
   src: 2016/09/IMG_4109.JPG
+- type: video
+  src: 2016/09/IMG_4117.MOV
 - type: photo
   src: 2016/09/IMG_4118.JPG
 - type: photo
@@ -268,6 +297,8 @@ content:
   src: 2016/09/IMG_4199.JPG
 - type: photo
   src: 2016/09/IMG_4204.JPG
+- type: video
+  src: 2016/09/IMG_4206.MOV
 - type: photo
   src: 2016/09/IMG_4208.JPG
 - type: photo
@@ -278,3 +309,5 @@ content:
   src: 2016/09/IMG_4226.JPG
 - type: photo
   src: 2016/09/IMG_4227.JPG
+- type: video
+  src: 2016/09/IMG_4301.MOV

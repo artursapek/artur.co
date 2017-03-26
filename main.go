@@ -59,5 +59,17 @@ func main() {
 		TLSConfig:    c,
 	}
 
+	ss := &http.Server{
+		Addr: ":80",
+		Handler: http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+			http.Redirect(w, req, "https://artur.co"+req.URL.Path, 302)
+		}),
+		ReadTimeout:  10 * time.Second,
+		WriteTimeout: 10 * time.Second,
+		TLSConfig:    c,
+	}
+
+	go ss.ListenAndServe()
+
 	log.Fatal(s.ListenAndServeTLS("", ""))
 }
