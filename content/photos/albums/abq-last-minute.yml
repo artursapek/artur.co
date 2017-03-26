@@ -173,6 +173,8 @@ content:
 - type: photo
   src: 2016/08/IMG_3015.JPG
   caption: Sup? Nice pup
+- type: video
+  src: 2016/08/IMG_3018.MOV
 - type: photo
   src: 2016/08/IMG_3024.JPG
 - type: photo
@@ -240,6 +242,8 @@ content:
   caption: This is my GitHub photo
 - type: photo
   src: 2016/08/IMG_3168.JPG
+- type: video
+  src: 2016/08/IMG_3169.MOV
 - type: photo
   src: 2016/08/IMG_3174.JPG
 - type: photo
@@ -257,6 +261,12 @@ content:
   src: 2016/08/IMG_3202.JPG
 - type: photo
   src: 2016/08/IMG_3212.JPG
+- type: video
+  src: 2016/08/IMG_3217.MOV
+- type: video
+  src: 2016/08/IMG_3220.MOV
+- type: video
+  src: 2016/08/IMG_3221.MOV
 - type: photo
   src: 2016/08/IMG_3226.JPG
 - type: photo
@@ -276,6 +286,8 @@ content:
   src: 2016/08/IMG_3296.JPG
 - type: photo
   src: 2016/08/IMG_3297.JPG
+- type: video
+  src: 2016/08/IMG_3300.MOV
 - type: photo
   src: 2016/08/IMG_3303.JPG
 - type: photo
@@ -283,12 +295,20 @@ content:
 - type: photo
   src: 2016/08/IMG_3311.JPG
   caption: The original tiny tractor
+- type: video
+  src: 2016/08/IMG_3312.MOV
+  caption: Beautiful rain
 - type: photo
   src: 2016/08/IMG_3315.JPG
 - type: photo
   src: 2016/08/IMG_3320.JPG
+- type: video
+  src: 2016/08/IMG_3324.MOV
 - type: photo
   src: 2016/08/IMG_3328.JPG
+- type: video
+  src: 2016/08/IMG_3333.MOV
+  caption: Peek a boo!
 - type: photo
   src: 2016/08/IMG_3337.JPG
 - type: photo
@@ -312,3 +332,6 @@ content:
   caption: Farina
 - type: photo
   src: 2016/08/IMG_3372.JPG
+- type: video
+  src: 2016/09/IMG_3444.MOV
+  caption: Back in NYC
