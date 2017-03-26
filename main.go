@@ -36,7 +36,7 @@ func main() {
 
 	router.GET("/raw/*path", index.RawHandler)
 
-	router.GET("/recipes/bread.html", index.GetSingleAssetHandler("static/recipes/bread/bread.html"))
+	router.GET("/recipes/bread.html", index.GetSingleAssetHandler("static/bread/bread.html"))
 	router.GET("/static/*path", index.GetAssetHandler("static/"))
 	router.GET("/artur.asc", index.GetSingleAssetHandler("static/artur.asc"))
 
