@@ -178,6 +178,39 @@ func (item ContentItem) Resize(maxDimension int, path string, filter imaging.Res
 		return openErr
 	}
 
+	// Get orientation
+	f, ferr := os.Open(path)
+	if ferr != nil {
+		log.Println(ferr)
+		return ferr
+	}
+	ex, exErr := exif.Decode(f)
+	f.Close()
+	if exErr != nil {
+		log.Println(exErr)
+		return exErr
+	}
+
+	// Rotate if necessary
+	var orientation string
+
+	orientationTag, oerr := ex.Get(exif.Orientation)
+	if oerr != nil {
+		fmt.Println("Couldnt detect orientation for " + path)
+		orientation = "1"
+	} else {
+		orientation = orientationTag.String()
+	}
+
+	switch orientation {
+	case "3":
+		original = imaging.Rotate180(original)
+	case "6":
+		original = imaging.Rotate270(original)
+	case "8":
+		original = imaging.Rotate90(original)
+	}
+
 	resized := imaging.Fit(original, maxDimension, maxDimension, filter)
 
 	// Ensure directory structure exists
