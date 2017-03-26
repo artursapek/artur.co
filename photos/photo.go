@@ -179,7 +179,7 @@ func (item ContentItem) Resize(maxDimension int, path string, filter imaging.Res
 	}
 
 	// Get orientation
-	f, ferr := os.Open(path)
+	f, ferr := os.Open(item.RawPath())
 	if ferr != nil {
 		log.Println(ferr)
 		return ferr
