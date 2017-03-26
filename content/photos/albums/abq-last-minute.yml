@@ -3,6 +3,8 @@ date: 08/31/16
 content:
 - type: photo
   src: 2016/08/IMG_2584.JPG
+- type: video
+  src: 2016/08/IMG_2585.MOV
 - type: photo
   src: 2016/08/IMG_2594.JPG
 - type: photo
@@ -29,8 +31,12 @@ content:
   src: 2016/08/IMG_2642.JPG
 - type: photo
   src: 2016/08/IMG_2650.JPG
+- type: video
+  src: 2016/08/IMG_2661.MOV
 - type: photo
   src: 2016/08/IMG_2666.JPG
+- type: video
+  src: 2016/08/IMG_2679.MOV
 - type: photo
   src: 2016/08/IMG_2688.JPG
   caption: Harvesting
@@ -45,6 +51,8 @@ content:
   src: 2016/08/IMG_2707.JPG
 - type: photo
   src: 2016/08/IMG_2717.JPG
+- type: video
+  src: 2016/08/IMG_2725.MOV
 - type: photo
   src: 2016/08/IMG_2736.JPG
 - type: photo
@@ -119,6 +127,8 @@ content:
   src: 2016/08/IMG_2896.JPG
 - type: photo
   src: 2016/08/IMG_2900.JPG
+- type: video
+  src: 2016/08/IMG_2828.mov
 - type: photo
   src: 2016/08/IMG_2903.JPG
 - type: photo
@@ -132,9 +142,13 @@ content:
   src: 2016/08/IMG_2919.JPG
 - type: photo
   src: 2016/08/IMG_2924.JPG
+- type: video
+  src: 2016/08/IMG_2944.MOV
 - type: photo
   src: 2016/08/IMG_2946.JPG
   caption: Pee-pee on the roses
+- type: video
+  src: 2016/08/IMG_2947.MOV
 - type: photo
   src: 2016/08/IMG_2954.JPG
 - type: photo
@@ -148,6 +162,8 @@ content:
   src: 2016/08/IMG_2974.JPG
 - type: photo
   src: 2016/08/IMG_2977.JPG
+- type: video
+  src: 2016/08/IMG_2984.MOV
 - type: photo
   src: 2016/08/IMG_2985.JPG
 - type: photo
