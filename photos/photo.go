@@ -237,6 +237,8 @@ func OnTheFlyPhotoResizeHandler(maxDimension int) httprouter.Handle {
 			filter = imaging.Lanczos
 		)
 
+		os.MkdirAll(filepath.Dir(path), 0700)
+
 		if _, statErr := os.Stat(path); statErr != nil {
 			// Not resized before, resize on the fly and cache it
 			err := item.Resize(maxDimension, path, filter)
