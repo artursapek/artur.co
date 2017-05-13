@@ -38,7 +38,7 @@
         <h3>Blog</h3>
         {{ range $i, $entry := $.BlogEntries }}
         <p>
-          {{ $entry.DateFormatted }} - <a href="{{ $entry.Id }}">{{ $entry.Title }}</a>
+          {{ $entry.DateFormatted }} - <a href="/blog/{{ $entry.Id }}">{{ $entry.Title }}</a>
         </p>
         {{ end }}
 
