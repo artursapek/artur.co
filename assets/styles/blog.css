@@ -3,15 +3,33 @@ html, body {
   margin: 0;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 header {
   border-bottom: 1px solid black;
   padding: 10px;
 }
 
 main {
-  float: left;
   margin: 10px 10px 10px 20px;
-  width: 700px;
+}
+
+@media only screen and (max-width: 700px) {
+  main {
+  }
+
+  html, body, main {
+    overflow-x: hidden;
+  }
+}
+@media only screen and (min-width: 701px) {
+  main {
+    float: left;
+    width: 700px;
+    margin-right: 20px;
+  }
 }
 
 article.blog-entry {
