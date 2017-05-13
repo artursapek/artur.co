@@ -78,3 +78,9 @@ func main() {
 
 	log.Fatal(s.ListenAndServeTLS("", ""))
 }
+
+func redirect(path string) httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+		http.Redirect(w, r, path, 302)
+	}
+}
