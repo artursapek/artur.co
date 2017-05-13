@@ -1,0 +1,261 @@
+Moving Codecademy to ES6, Webpack, and React
+<h3><i>How we build our web-based learning interface</i></h3>
+<p>
+  When <a href="http://codecademy.com">Codecademy</a> was born in the summer of 2011, the natural choice for a frontend stack was Backbone + jQuery.
+  Backbone was less than a year old and widely considered the state-of-the-art framework for creating frontend applications. Combined with jQuery,
+  one could do a lot of novel things with the web browser. In our case, we built something that helped teach millions of people how to code, interactively, for free.
+</p>
+<table>
+  <tr>
+    <td>
+      <a href="original-composer-01.jpg"><img width="250" src="/static/original-composer-01.jpg" /></a>
+    </td>
+    <td>
+      <a href="original-composer-02.png"><img width="250" src="/static/original-composer-02.png" /></a>
+    </td>
+    <td>
+      <a href="original-composer-03.png"><img width="250" src="/static/original-composer-03.png" /></a>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="3" align="center">
+      <i>Versions 1 and 2 of our learning interface: a code editor and a "Run" button</i>
+    </td>
+  </tr>
+</table>
+
+<p>
+  Over time, the company's mission outgrew that initial product. Teaching people programming skills that make them employable involves a lot more than simply writing code
+  and hitting "Run"; we realized we need an interface which can adapt to different kinds of content and evolve in complexity over time
+  to keep up with our learners' advancing skills.
+</p>
+<p>
+  We wanted the ability to present learners with arbitrary combinations of tools ("components") as they go through
+  the steps of building an application, exploring a technology, learning a command line tool, etc. Some of the
+  components we currently have include a code editor, a terminal, and a web browser.
+</p>
+<p>
+Try it to learn some basics of <a href="http://codecademy.com/learn/make-a-rails-app/">Rails</a>
+or <a href="http://codecademy.com/learn/learn-angularjs/">AngularJS</a>!
+</p>
+<table>
+  <tr>
+    <td>
+      <a href="fcn-01.png"><img width="250" src="/static/fcn-01.png" /></a>
+    </td>
+    <td>
+      <a href="fcn-02.png"><img width="250" src="/static/fcn-02.png" /></a>
+    </td>
+    <td>
+      <a href="fcn-03.png"><img width="250" src="/static/fcn-03.png" /></a>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="3" align="center">
+      <i>Early concepts of an interface which can switch between different stages of developing an application</i>
+    </td>
+  </tr>
+  <tr>
+    <td width="760" align="center" colspan="3">
+      <br><br>
+      <video src="https://s3.amazonaws.com/as-dropbox/codecademy/francine.480p.mov" autoplay loop></video>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="3" align="center">
+      <i>Actual implementation of the interface teaching a user how to generate a Ruby on Rails model and run a database migration (WIP)</i>
+    </td>
+  </tr>
+</table>
+<p>
+  Building this warranted a rewrite, and 3 years later we were faced with more options when it came to choosing a stack.
+  It wasn't an easy decision. Ultimately, we decided to go with React.js with a 
+  <a href="https://www.youtube.com/watch?v=ZM6wXoFTY3o">Flux-like pattern</a> on top. We also took the opportunity to redo
+  our build process and preemptively adopt the next version of JavaScript.
+</p>
+<p>
+  In summary, our frontend stack recently made this transition:
+</p>
+<p>
+  <table class="centered" align="center">
+    <tr>
+      <th width="100">2011-2014</th>
+      <th width="50"></th>
+      <th>2014-2015</th>
+    </tr>
+    <tr>
+      <td>Backbone</td>
+      <td> &rarr; </td>
+      <td style="background:#FCFCE1">React</td>
+    </tr>
+    <tr>
+      <td>mustache</td>
+      <td> &rarr; </td>
+      <td style="background:#FCFCE1">JSX</td>
+    </tr>
+    <tr>
+      <td>jQuery</td>
+      <td> &rarr; </td>
+      <td>much less jQuery</td>
+    </tr>
+    <tr>
+      <td>ECMAScript 5</td>
+      <td> &rarr; </td>
+      <td style="background:#FCFCE1">ECMAScript 6</td>
+    </tr>
+    <tr>
+      <td>require.js</td>
+      <td> &rarr; </td>
+      <td style="background:#FCFCE1">webpack</td>
+    </tr>
+
+  </table>
+</p>
+
+<h2 id="react">React</h2>
+<h3><a href="http://facebook.github.io/react/">http://facebook.github.io/react/</a></h3>
+
+<p>
+  We chose to use React because our application is extremely view-heavy; there is lots of rendering and state change going on as a user advances
+  through our interactive lessons. This is what React excels at. There were also things factored in such as the ability to render
+  everything server-side (something Angular.js cannot do, for example).
+</p>
+
+<p>
+  The team is very happy with it so far. I think we saved weeks in the original 3-month timeline for this rewrite
+  simply by using it. We didn't have to write repetitive boilerplate code for DOM manipulation or view/state synchronization.
+  The amount of work React does for you out of the box is a breath of fresh air.
+</p>
+
+<p>
+  And it seems there's constantly new, innovative things happening in the React ecosystem like
+  <a href="http://jlongster.com/First-Impressions-using-React-Native">React Native</a> and
+  <a href="https://github.com/Flipboard/react-canvas">React Canvas</a>.
+</p>
+
+<h2 id="es6">ECMAScript 6</h2>
+<h3><a href="http://kangax.github.io/compat-table/es6/">http://kangax.github.io/compat-table/es6/</a></h3>
+
+<p>
+  We also went from simply having ES6 "on our radar" to actually embracing it. We automated a simple rewrite of our codebase from using the
+  require.js AMD API to using the new language standard, <code>import</code> and <code>export</code>. It feels good to know we're
+  relying on the language itself rather than continuing to build the company's product in a dying framework and syntax.
+</p>
+<p>
+  The main benefit of adopting ES6 has been developer happiness; boiled down, it's simply a new layer of sugar on top of the JavaScript everybody is already used to.
+  It's also nice to know our codebase is a little more future-proof.
+</p>
+<p>
+  Since ES6 is a purely additive update to the language spec, it wasn't too hard to automatically migrate everything! It took me
+  5 or 6 days of work before we were able to deploy the new build to production.
+</p>
+
+<h2 id="webpack">webpack</h2>
+<h3><a href="http://webpack.github.io/docs/">http://webpack.github.io/docs/</a></h3>
+
+<p>
+  None of this would have been easy or fun without webpack. Our old build process was literally a custom node.js script, an ugly
+  pile of hacky regexes and <code>fs</code> calls.
+</p>
+
+<p>
+  Using webpack together with <a href="http://babeljs.io">babeljs</a> we've been able to stop worrying about our build process altogether; the only thing
+  we have to maintain is a simple config file.
+</p>
+
+<p>
+  The other important point is that webpack is <i>fast</i>. The local page load time for our app went from 30-40 seconds to 2-3 seconds.
+  AMD means you're loading every .js file separately. With webpack, updates are rebuilt in roughly 100ms and we're then only loading one file on the frontend.
+  It was easily an order of magnitude speedup in the feedback loop, which has made for very happy engineers.
+</p>
+
+<p>
+  Webpack is also designed in a very modular way, so playing with new technology like Flowtype is as trivial as installing a loader for it.
+</p>
+
+<h2 id="summary">
+  Summary
+</h2>
+
+<p>
+  Many engineering teams are going through this right now, so I want to give a simple takeaway that might help a few people make their own decisions.
+
+  <table border="1" cellpadding="2" style="border-collapse: collapse">
+    <tr>
+      <th>
+        Technology
+      </th>
+      <th>
+        Why we chose to adopt it
+      </th>
+      <th>
+        Benefits we've seen
+      </th>
+    </tr>
+    <tr>
+      <td align="center">
+        <a href="http://facebook.github.io/react/">React</a>
+      </td>
+      <td align="left" width="460">
+        <ul>
+          <li>Building complicated single page app with big view hierarchy</li>
+          <li>Need server-side rendering</li>
+          <li>Reassured by strong <a href="https://github.com/facebook/react/graphs/contributors">project development momentum</a></li>
+        </ul>
+      </td>
+      <td align="left">
+        <ul>
+          <li>Smaller code base</li>
+          <li>Fewer bugs</li>
+          <li>More performant app</li>
+          <li>Faster development</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <a href="http://kangax.github.io/compat-table/es6/">ES6</a>
+      </td>
+      <td align="left">
+        <ul>
+          <li>Have to eventually :)</li>
+        </ul>
+      </td>
+      <td align="left">
+        <ul>
+          <li>Writing JS is more fun</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <a href="http://webpack.github.io/docs/">Webpack</a>
+      </td>
+      <td align="left">
+        <ul>
+          <li>AMD is slow</li>
+          <li>Want to replace fragile, incomprehensible build process</li>
+          <li>Want flexibility to try out new technology</li>
+        </ul>
+      </td>
+      <td align="left">
+        <ul>
+          <li>10x local page load speedup compared to require.js</li>
+          <li>Easy to link external libraries via <code>npm</code></li>
+          <li>Easy to integrate ES6 "transpilation"</li>
+        </ul>
+      </td>
+    </tr>
+  </table>
+</p>
+
+<p>
+Feel free to reach out if you have questions or want advice related to any of this. And it's worth mentioning that <a href="http://www.codecademy.com/about/jobs">we're hiring</a>, so reach out if you are interested.
+<br>
+<br>
+Artur Sapek
+<br>
+Engineer, Codecademy
+<br>
+<a href="mailto:artur@codecademy.com">artur@codecademy.com</a>
+</p>

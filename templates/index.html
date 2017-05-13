@@ -33,6 +33,15 @@
         <p>
           <a href="https://github.com/artursapek/mondrian">Mondrian</a> - vector graphics editor
         </p>
+
+
+        <h3>Blog</h3>
+        {{ range $i, $entry := $.BlogEntries }}
+        <p>
+          {{ $entry.DateFormatted }} - <a href="{{ $entry.Id }}">{{ $entry.Title }}</a>
+        </p>
+        {{ end }}
+
         <h3>Company</h3>
         <p>
           <a href="http://nicelegs.software">Nice Legs Software</a>
@@ -41,41 +50,30 @@
         <p>
           <a href="https://github.com/artursapek">Github</a>
         </p>
-	<p>
-	  <a href="https://keybase.io/artur">Keybase</a>
-	</p>
-	<p>
-	  <a href="https://online-go.com/user/view/276168">OGS</a>
-	</p>
-	<p>
-	  <a href="https://www.tradingview.com/u/asapek/">TradingView</a>
-	</p>
+        <p>
+          <a href="https://keybase.io/artur">Keybase</a>
+        </p>
+        <p>
+          <a href="https://online-go.com/user/view/276168">OGS</a>
+        </p>
+        <p>
+          <a href="https://www.tradingview.com/u/asapek/">TradingView</a>
+        </p>
 
         <h3>Contact</h3>
-          <p><a href="mailto:me@artur.co">me@artur.co</a></p>
-	  <p><a href="/artur.asc">My PGP key</a></p>
+        <p><a href="mailto:me@artur.co">me@artur.co</a></p>
+        <p><a href="/artur.asc">My PGP key</a></p>
 
-	<h3>Trading</h3>
-          <p><b><a href="https://docs.google.com/spreadsheets/d/1fwuvOuJU6b1WWosyXpdgBWSteenlBHd__WKIRiHi8RM/edit?usp=sharing">Trading log</a></b></p>
-          <ul>
-            <li>
-	      <p><a href="/static/trading/nov-23-16.html">Notes Nov 23, '16</a></p>
-            </li>
-            <li>
-	      <p><a href="/static/trading/jan-14-17.html">Notes Jan 14, '17</a></p>
-            </li>
-            <li>
-	      <p><a href="/static/trading/feb-15-17.html">Notes Feb 15, '17</a> <span style="color: green">&#9733;</span></p>
-            </li>
-          </ul>
+
 
         <h3>Other</h3>
-	  <p><a href="/albums">Photos</a></p>
+    <p><a href="/albums">Photos</a></p>
+          <p><a href="https://docs.google.com/spreadsheets/d/1fwuvOuJU6b1WWosyXpdgBWSteenlBHd__WKIRiHi8RM/edit?usp=sharing">Trading log</a></p>
         <br>
-	<br>
-	<p>
-		<i>"Dream only a dream if work don't follow it"</i>
-	</p>
+  <br>
+  <p>
+    <i>"Dream only a dream if work don't follow it"</i>
+  </p>
       </td>
       <td>
         <img src="/static/me.jpg" height="700" />

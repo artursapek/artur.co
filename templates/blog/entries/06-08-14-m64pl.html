@@ -1,0 +1,296 @@
+m64.pl
+<h3><i>How I learned that the default settings are not production settings</i></h3>
+<p>
+  I got the rare Linode Alert in my email today, claiming 111.8% CPU usage on my modest little 2048 box.
+  When I followed the link to Linode's dashboard, I saw on my charts that it had actually risen to
+  around <b>600%</b> and had been at that level for about 3 hours.
+  What the fuck? What am I doing that could possibly have gone so wrong all of a sudden?
+  I serve a couple webapps on this box but they have always been well-oiled machines.
+</p>
+
+<p>
+  As soon as I ssh in and run <code>top</code>, I'm even more confused.
+  User <code>www</code>, which as far as I know doesn't do anything at all, is throwing a party with a perl script called "m64."
+</p>
+
+<p>
+  I killed that shit as soon as I had collected evidence. I'm surprised and glad Linode didn't shut me down
+  for clobbering their machine like that.
+  Then I started Googling for this script name, to see what it could have been doing. The only thing I could
+  find was <a href="http://ubuntuforums.org/showthread.php?t=2203663">this Feb 2014 post</a> which indicates
+  that it's a Bitcoin mining script. That makes sense, since one of the two things that box serves is my
+  <a href="http://cryptowat.ch">Bitcoin market data tool for traders</a>. It probably drew some attention.
+</p>
+
+<p>
+  Naturally I was curious how someone got a file on my server. It was running as an unprivileged user,
+  which was a slight relief, but nothing compared to the sinking feeling that my beloved Linode had a malevolent
+  stranger creeping around in it. I went through the ssh logs at <code>/var/log/secure</code> and was horrified.
+  In the last 12 hours, there were thousands of failed ssh login attempts mostly as <code>root</code>, <code>admin</code>, and <code>apache</code>, but also many others.
+</p>
+
+<p>
+  Literally tens of thousands of lines of this. A login request every second.
+</p>
+
+<pre>
+Jun  8 16:01:20 meowset sshd[15833]: Failed password for root from 117.21.191.210 port 2643 ssh2
+Jun  8 16:01:22 meowset sshd[15841]: Failed password for root from 117.21.191.210 port 1382 ssh2
+Jun  8 16:01:24 meowset sshd[15833]: Failed password for root from 117.21.191.210 port 2643 ssh2
+Jun  8 16:01:25 meowset sshd[15841]: Failed password for root from 117.21.191.210 port 1382 ssh2
+Jun  8 16:01:26 meowset sshd[15833]: Failed password for root from 117.21.191.210 port 2643 ssh2
+Jun  8 16:01:27 meowset sshd[15841]: Failed password for root from 117.21.191.210 port 1382 ssh2
+Jun  8 16:01:29 meowset sshd[15833]: Failed password for root from 117.21.191.210 port 2643 ssh2
+Jun  8 16:01:29 meowset sshd[15841]: Failed password for root from 117.21.191.210 port 1382 ssh2
+Jun  8 16:01:31 meowset sshd[15833]: Failed password for root from 117.21.191.210 port 2643 ssh2
+Jun  8 16:01:31 meowset sshd[15841]: Failed password for root from 117.21.191.210 port 1382 ssh2
+Jun  8 16:01:31 meowset sshd[15842]: Disconnecting: Too many authentication failures for root
+Jun  8 16:01:31 meowset sshd[15841]: PAM 5 more authentication failures; logname= uid=0 euid=0 tty=ssh ruser= rhost=117.21.191.210  user=root
+Jun  8 16:01:31 meowset sshd[15841]: PAM service(sshd) ignoring max retries; 6 > 3
+Jun  8 16:01:33 meowset sshd[15833]: Failed password for root from 117.21.191.210 port 2643 ssh2
+Jun  8 16:01:33 meowset sshd[15834]: Disconnecting: Too many authentication failures for root
+Jun  8 16:01:33 meowset sshd[15833]: PAM 5 more authentication failures; logname= uid=0 euid=0 tty=ssh ruser= rhost=117.21.191.210  user=root
+Jun  8 16:01:33 meowset sshd[15833]: PAM service(sshd) ignoring max retries; 6 > 3
+Jun  8 16:01:36 meowset sshd[15961]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=117.21.191.210  user=root
+Jun  8 16:01:37 meowset sshd[15940]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=117.21.191.210  user=root
+Jun  8 16:01:39 meowset sshd[15961]: Failed password for root from 117.21.191.210 port 1931 ssh2
+Jun  8 16:01:39 meowset sshd[15940]: Failed password for root from 117.21.191.210 port 2359 ssh2
+Jun  8 16:01:41 meowset sshd[15961]: Failed password for root from 117.21.191.210 port 1931 ssh2
+</pre>
+
+<p>
+  An obvious brute-force attempt, but not completely automated. These are interlaced
+  with seemingly human attempts at logging in as users like <code>shit</code>, and <code>shit2</code>.
+  Pretty futile and confusing.
+</p>
+
+<pre>
+Jun  8 16:34:55 meowset sshd[27949]: Invalid user shit from 195.158.109.185
+Jun  8 16:34:55 meowset sshd[27957]: input_userauth_request: invalid user shit
+Jun  8 16:34:55 meowset sshd[27949]: pam_unix(sshd:auth): check pass; user unknown
+Jun  8 16:34:55 meowset sshd[27949]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=mail.sterling.com.mt
+Jun  8 16:34:55 meowset sshd[27949]: pam_succeed_if(sshd:auth): error retrieving information about user shit
+Jun  8 16:35:02 meowset sshd[27949]: Failed password for invalid user shit from 195.158.109.185 port 56864 ssh2
+Jun  8 16:35:02 meowset sshd[27957]: Received disconnect from 195.158.109.185: 11: Bye Bye
+Jun  8 16:35:04 meowset sshd[28011]: Invalid user shit2 from 195.158.109.185
+Jun  8 16:35:04 meowset sshd[28012]: input_userauth_request: invalid user shit2
+</pre>
+
+<p>
+Here's a full list of invalid users for which login attempts were made, which I find really interesting.
+It looks like a lot of these are coming off
+<a href="https://www.centos.org/docs/5/html/5.1/Deployment_Guide/s1-users-groups-standard-users.html">Centos's standard users</a>,
+which apparently my installation didn't include.
+</p>
+
+
+<pre style="height: 200px; overflow: scroll;">
+admin
+ajay
+ale
+anti
+asterisk
+avahi
+bszsimon
+bwadmin
+cacti
+chem
+cosmos
+csaba
+csanyip
+cskiraly
+cvsadmin
+db2inst1
+deploy
+desiree
+dev
+devteam
+garrysmod
+gdm
+gergely
+git
+gnats
+guest
+guest1
+guest2
+ielm
+jboss
+jessie
+jim
+jira
+johnky
+karakai
+konsti
+krejczinger
+kris
+lhc
+lswang
+magento
+manager
+manon
+master
+meres
+mihaly
+minecraft
+mysql
+nagios
+nam
+ndbao
+news
+nikos
+no-reply
+noreply
+nouser
+oracle
+pappd
+periodic
+photo
+photos
+postgres
+postgres2
+postgress
+postgrestest
+postgresuser
+postmaster
+redmine
+research
+rpcuser
+rsync
+rtorrent
+rvm
+sabayon
+share
+shit
+shit2
+support
+supports
+supporttest
+supportuser
+temp
+test
+test1
+test2
+tom
+tomcat
+tsumura
+upload
+user
+user01
+user1
+user123
+user2
+userfetch
+userftp
+userguest
+userhome
+users
+usr
+usr1
+usr2
+vwalker
+william
+www-data
+xochitl
+yuji
+zabbix
+zimbra
+zsofi
+zspandi
+</pre>
+
+<p>
+
+There were only a handful attempts for each of these.
+Apparently if an attacker detects that a box accepts ssh using a password, they
+try to log in as every possible user that could exist in the hopes of an
+easy password or an empty password.
+</p>
+
+<p>
+Also, for fun, here are all the IPs that tried brute-forcing in as <code>root</code>.
+The majority of them seem to be Chinese.
+</p>
+
+<pre style="height: 200px; overflow: scroll;">
+1.93.33.77
+100.2.156.3
+113.171.10.1
+115.239.248.61
+116.10.191.163
+116.10.191.170
+116.10.191.196
+116.10.191.232
+116.10.191.234
+116.10.191.253
+117.21.191.210
+122.225.103.118
+195.158.109.185
+211.25.206.34
+220.177.198.26
+220.177.198.43
+222.186.40.170
+222.186.56.33
+61.142.106.5
+61.153.105.69
+62.212.141.128
+</pre>
+
+<p>
+  Seeing all this made me a little anxious that perhaps they would manage
+  to knock down the gates any minute. The ssh logs seem to be truncated, so I don't even
+  know how long this has been going on for - relentlessly for all of today at the least.
+</p>
+
+<p>
+  But what about that Bitcoin miner? As the logs show, apparently many different IPs
+  had managed to log in as <code>www</code>. I'm not even sure where that user came from, or what its password was.
+</p>
+
+<pre>
+Jun  8 10:54:03 meowset sshd[2083]: Accepted password for www from 23.102.134.179 port 1168 ssh2
+...
+Jun  8 14:39:51 meowset sshd[18941]: Accepted password for www from 191.238.227.219 port 1048 ssh2
+...
+Jun  8 15:03:28 meowset sshd[27443]: Accepted password for www from 191.236.20.93 port 1056 ssh2
+...
+Jun  8 16:36:25 meowset sshd[28548]: Accepted password for www from 195.158.109.185 port 33915 ssh2
+...
+Jun  8 17:55:00 meowset sshd[24431]: Accepted password for www from 23.96.51.35 port 1072 ssh2
+...
+Jun  8 18:37:27 meowset sshd[7806]: Accepted password for www from 23.96.53.244 port 1160 ssh2
+...
+Jun  8 19:42:04 meowset sshd[31758]: Accepted password for www from 23.102.134.202 port 1064 ssh2
+...
+Jun  8 19:46:13 meowset sshd[765]: Accepted password for www from 188.25.126.228 port 64247 ssh2
+</pre>
+
+<p>
+  And the last successful login attempt was followed by the password being changed. Then shortly after,
+  the miner started.
+</p>
+
+
+<pre>
+Jun  8 19:47:27 meowset passwd: pam_unix(passwd:chauthtok): password changed for www
+</pre>
+
+<h2>The moral of this story</h2>
+<p>
+  What did I learn today? Set up ssh keys! Then in <code>/etc/ssh/sshd_config</code>,
+  change <code>PasswordAuthentication yes</code> to 
+  <code>PasswordAuthentication no</code> :)
+</p>
+
+<p>
+  I hope whoever that was enjoys the three cents they made today.
+</p>
+
+<hr>
+
+<p>
+  For anyone interested, you can download the file that was running. It's a binary. I'm stuck trying to learn more about it,
+  but I'd love to hear it if you can. <a href="mailto:me@artur.co">me@artur.co</a>.
+  <div class="download">
+  <a href="https://s3.amazonaws.com/as-dropbox/m64.pl">m64.pl (518k)</a>
+  </div>
+</p>

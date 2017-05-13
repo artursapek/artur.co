@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <title>
+      Blog
+    </title>
+    <link rel="stylesheet" href="/assets/styles/blog.css" />
+    <meta name="robots" content="noindex">
+  </head>
+
+  <body>
+
+    <header id="breadcrumbs">
+      <a href="/">artur.co</a> &gt; <a href="/blog">blog</a> &gt; {{ $.Entry.Title }}
+    </header>
+
+    <main>
+      <article class="blog-entry">
+        <h2><a href="/blog/{{ $.Entry.Id }}">{{ $.Entry.Title }}</a></h2>
+        <em>{{ $.Entry.DateFormatted }}</em>
+
+        <div class="blog-entry__body">
+          {{ $.Entry.Body }}
+        </div>
+      </article>
+
+    </main>
+
+    <nav>
+      <img src="/static/cows.jpg" width="400" />
+
+      <h1>
+        Artur Sapek's blog
+      </h1>
+      <p>
+        Software, trading, food, parenting, New York...
+      </p>
+      <ol>
+        {{ range $i, $entry := $.Entries }}
+          <li>
+            {{ $entry.DateFormatted }} - 
+            <a href="/blog/{{ $entry.Id }}">
+              {{ $entry.Title }}
+            </a>
+          </li>
+        {{ end }}
+      </ol>
+    </nav>
+
+  </body>
+</html>
+

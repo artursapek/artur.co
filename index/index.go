@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/artursapek/artur.co/blog"
 	"github.com/julienschmidt/httprouter"
 )
 
@@ -21,5 +22,9 @@ func init() {
 }
 
 func IndexHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	indexTemplate.Execute(w, nil)
+	indexTemplate.Execute(w, struct {
+		BlogEntries blog.Entries
+	}{
+		BlogEntries: blog.All[0:3],
+	})
 }

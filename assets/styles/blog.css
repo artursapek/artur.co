@@ -1,0 +1,86 @@
+html, body {
+  padding: 0;
+  margin: 0;
+}
+
+header {
+  border-bottom: 1px solid black;
+  padding: 10px;
+}
+
+main {
+  float: left;
+  margin: 10px 10px 10px 20px;
+  width: 700px;
+}
+
+article.blog-entry {
+  padding-bottom: 40px;
+}
+
+.blog-entry + .blog-entry {
+  padding-top: 40px;
+  border-top: 1px solid #ccc;
+}
+
+article.blog-entry h2 {
+  margin-bottom: 10px;
+  padding-bottom: 0;
+
+}
+
+article.blog-entry h2 a {
+  color: black;
+  text-decoration: none;
+}
+
+article.blog-entry h2 a:hover {
+  color: blue;
+  text-decoration: underline;
+}
+
+.blog-entry__body {
+  margin-top: 20px;
+}
+
+nav {
+  float: left;
+  margin: 20px 100px 100px 100px;
+  width: 600px;
+  padding: 0;
+}
+
+nav ol {
+  margin: 0;
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+/* looks like ravioli lol */
+nav ol li {
+  list-style-type: none;
+}
+
+
+code {
+  color: green;
+  text-decoration: underline;
+}
+
+code, pre {
+  background: rgba(0,0,0,0.07);
+  padding: 3px;
+  overflow: scroll;
+}
+code, pre {
+  font-family: Consolas, Monaco, monospace;
+  font-size: 12px;
+}
+.download {
+  padding: 10px;
+  border: 1px solid black;
+  display: inline-block;
+  white-space: nowrap;
+}
+

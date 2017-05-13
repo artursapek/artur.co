@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/artursapek/artur.co/blog"
 	"github.com/artursapek/artur.co/config"
 	"github.com/artursapek/artur.co/index"
 	"github.com/artursapek/artur.co/photos"
@@ -35,6 +36,9 @@ func main() {
 	router.GET("/assets/scripts/*path", index.AssetsHandler)
 
 	router.GET("/raw/*path", index.RawHandler)
+
+	router.GET("/blog", blog.IndexHandler)
+	router.GET("/blog/:id", blog.EntryHandler)
 
 	router.GET("/recipes/bread.html", index.GetSingleAssetHandler("static/bread/bread.html"))
 	router.GET("/static/*path", index.GetAssetHandler("static/"))

@@ -96,8 +96,8 @@ var (
 func init() {
 	var showParseErr, indexParseErr error
 	albumTemplate, showParseErr = template.ParseFiles("templates/albums/album.html")
-	if indexParseErr != nil {
-		log.Fatal(showParseErr)
+	if showParseErr != nil {
+		log.Fatal(indexParseErr)
 	}
 	albumIndexTemplate, indexParseErr = template.ParseFiles("templates/albums/index.html")
 	if indexParseErr != nil {
