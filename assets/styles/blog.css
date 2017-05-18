@@ -89,7 +89,7 @@ code {
 code, pre {
   background: rgba(0,0,0,0.07);
   padding: 3px;
-  overflow: scroll;
+  overflow: auto;
 }
 code, pre {
   font-family: Consolas, Monaco, monospace;
