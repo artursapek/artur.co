@@ -66,7 +66,7 @@
             </div>
 
             {{ if eq $item.Type "photo" }}
-              <img src="{{ $item.ResizedURL }}" srcset="{{ $item.Resized2xURL }} 2x" style="max-width: 800px; max-height: 800px;" />
+              <img src="{{ $item.ResizedURL }}" srcset="{{ $item.Resized2xURL }} 2x" style="max-width: 1000px; max-height: 1000px;" />
             {{ else if eq $item.Type "video" }}
               <video src="{{ $item.RawURL }}" controls preload="metadata"></video>
             {{ else if eq $item.Type "audio" }}
