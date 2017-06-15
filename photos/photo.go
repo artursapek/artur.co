@@ -21,7 +21,7 @@ import (
 )
 
 const (
-	ExpandDimension = 800
+	ExpandDimension = 1000
 )
 
 type ContentItem struct {
