@@ -7,7 +7,7 @@
     <meta name="robots" content="noindex">
   </head>
 
-  <body>
+  <body id="top">
     <header id="breadcrumbs">
       <a href="/">artur.co</a> &gt; <a href="/albums">albums</a> &gt; {{ $.Current.Title }}
     </header>
@@ -86,12 +86,15 @@
     <footer>
       <table>
         <tr>
-          <td width="400">
+          <td width="250">
             {{ if ne $.Prev.Slug "" }}
             &larr; <a href="/albums/{{ $.Prev.Slug }}">{{ $.Prev.Title }}</a>
             {{ end }}
           </td>
-          <td width="400" align="right">
+          <td width="250" align="center">
+            <a href="#top">Back to top</a>
+          </td>
+          <td width="250" align="right">
             {{ if ne $.Next.Slug "" }}
             <a href="/albums/{{ $.Next.Slug }}">{{ $.Next.Title }}</a> &rarr;
             {{ end }}
