@@ -67,7 +67,11 @@ func main() {
 	ss := &http.Server{
 		Addr: ":80",
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-			http.Redirect(w, req, "https://artur.co"+req.URL.Path, 302)
+			if req.URL.Host == "artur.co" {
+				http.Redirect(w, req, "https://artur.co"+req.URL.Path, 302)
+			} else {
+				router.ServeHTTP(w, req)
+			}
 		}),
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
