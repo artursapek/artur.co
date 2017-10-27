@@ -186,20 +186,17 @@ func (item ContentItem) Resize(maxDimension int, path string, filter imaging.Res
 	}
 	ex, exErr := exif.Decode(f)
 	f.Close()
-	if exErr != nil {
-		log.Println(exErr)
-		return exErr
-	}
 
 	// Rotate if necessary
-	var orientation string
+	var orientation = "1"
 
-	orientationTag, oerr := ex.Get(exif.Orientation)
-	if oerr != nil {
-		fmt.Println("Couldnt detect orientation for " + path)
-		orientation = "1"
-	} else {
-		orientation = orientationTag.String()
+	if exErr == nil && ex != nil {
+		orientationTag, oerr := ex.Get(exif.Orientation)
+		if oerr != nil {
+			fmt.Println("Couldnt detect orientation for " + path)
+		} else {
+			orientation = orientationTag.String()
+		}
 	}
 
 	switch orientation {
