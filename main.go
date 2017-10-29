@@ -60,7 +60,7 @@ func main() {
 	s := &http.Server{
 		Addr: ":443",
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-			fmt.Println(time.Now().Format(time.RFC1123Z), req.URL, req.Referer())
+			fmt.Println(time.Now().Format(time.RFC1123Z), req.Method, req.URL, req.Referer())
 			router.ServeHTTP(w, req)
 		}),
 		ReadTimeout:  10 * time.Second,
@@ -71,7 +71,7 @@ func main() {
 	ss := &http.Server{
 		Addr: ":80",
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-			fmt.Println(time.Now().Format(time.RFC1123Z), req.URL, req.Referer())
+			fmt.Println(time.Now().Format(time.RFC1123Z), req.Method, req.URL, req.Referer())
 			if req.URL.Host == "artur.co" {
 				http.Redirect(w, req, "https://artur.co"+req.URL.Path, 302)
 			} else {
