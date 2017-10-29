@@ -3,8 +3,10 @@ package main
 import (
 	"crypto/tls"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/artursapek/artur.co/blog"
@@ -57,21 +59,29 @@ func main() {
 
 	c.Certificates = append(c.Certificates, cert)
 
+	logRequest := func(req *http.Request) {
+		addr := strings.Split(req.RemoteAddr, ":")[0]
+		fmt.Println(time.Now().Format(time.RFC1123Z), addr, req.Method, req.URL, req.Referer())
+	}
+
+	devNull := log.New(ioutil.Discard, "", 0)
+
 	s := &http.Server{
 		Addr: ":443",
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-			fmt.Println(time.Now().Format(time.RFC1123Z), req.RemoteAddr, req.Method, req.URL, req.Referer())
+			logRequest(req)
 			router.ServeHTTP(w, req)
 		}),
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
 		TLSConfig:    c,
+		ErrorLog:     devNull,
 	}
 
 	ss := &http.Server{
 		Addr: ":80",
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-			fmt.Println(time.Now().Format(time.RFC1123Z), req.RemoteAddr, req.Method, req.URL, req.Referer())
+			logRequest(req)
 			if req.URL.Host == "artur.co" {
 				http.Redirect(w, req, "https://artur.co"+req.URL.Path, 302)
 			} else {
@@ -81,6 +91,7 @@ func main() {
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
 		TLSConfig:    c,
+		ErrorLog:     devNull,
 	}
 
 	go ss.ListenAndServe()
