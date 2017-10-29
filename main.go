@@ -2,6 +2,7 @@ package main
 
 import (
 	"crypto/tls"
+	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -67,6 +68,7 @@ func main() {
 	ss := &http.Server{
 		Addr: ":80",
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+			fmt.Println(time.Now().Format(time.RFC1123Z), req.URL, req.Referer())
 			if req.URL.Host == "artur.co" {
 				http.Redirect(w, req, "https://artur.co"+req.URL.Path, 302)
 			} else {
