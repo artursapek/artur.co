@@ -58,8 +58,11 @@ func main() {
 	c.Certificates = append(c.Certificates, cert)
 
 	s := &http.Server{
-		Addr:         ":443",
-		Handler:      router,
+		Addr: ":443",
+		Handler: http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+			fmt.Println(time.Now().Format(time.RFC1123Z), req.URL, req.Referer())
+			router.ServeHTTP(w, req)
+		}),
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
 		TLSConfig:    c,
