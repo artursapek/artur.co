@@ -52,12 +52,16 @@ func main() {
 	c := &tls.Config{}
 	c.Certificates = []tls.Certificate{}
 
-	cert, certErr := tls.LoadX509KeyPair(config.Config.TLSCertFile, config.Config.TLSKeyFile)
+	var (
+		cert, certErr = tls.LoadX509KeyPair(config.Config.TLSCertFile, config.Config.TLSKeyFile)
+		useTLS        = false
+	)
 	if certErr != nil {
 		log.Printf("Omitting %s; error loading: %s", config.Config.TLSCertFile, certErr.Error())
+	} else {
+		c.Certificates = append(c.Certificates, cert)
+		useTLS = true
 	}
-
-	c.Certificates = append(c.Certificates, cert)
 
 	logRequest := func(req *http.Request) {
 		addr := strings.Split(req.RemoteAddr, ":")[0]
@@ -66,21 +70,25 @@ func main() {
 
 	devNull := log.New(ioutil.Discard, "", 0)
 
-	s := &http.Server{
-		Addr: ":443",
-		Handler: http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-			logRequest(req)
-			router.ServeHTTP(w, req)
-		}),
-		ReadTimeout:  10 * time.Second,
-		WriteTimeout: 10 * time.Second,
-		TLSConfig:    c,
-		ErrorLog:     devNull,
+	if useTLS {
+		s := &http.Server{
+			Addr: ":443",
+			Handler: http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+				logRequest(req)
+				router.ServeHTTP(w, req)
+			}),
+			ReadTimeout:  10 * time.Second,
+			WriteTimeout: 10 * time.Second,
+			TLSConfig:    c,
+			ErrorLog:     devNull,
+		}
+		go s.ListenAndServeTLS("", "")
 	}
 
 	ss := &http.Server{
 		Addr: ":80",
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+			fmt.Println(req)
 			logRequest(req)
 			if req.URL.Host == "artur.co" {
 				http.Redirect(w, req, "https://artur.co"+req.URL.Path, 302)
@@ -90,11 +98,9 @@ func main() {
 		}),
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
-		TLSConfig:    c,
 		ErrorLog:     devNull,
 	}
 
-	go ss.ListenAndServe()
+	log.Fatal(ss.ListenAndServe())
 
-	log.Fatal(s.ListenAndServeTLS("", ""))
 }
