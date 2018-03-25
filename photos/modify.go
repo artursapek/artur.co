@@ -13,7 +13,10 @@ func PhotoModifyHandler(w http.ResponseWriter, r *http.Request, params httproute
 		item = ContentItem{Src: params.ByName("path"), Type: "photo"}
 	)
 
-	if _, statErr := os.Stat(item.ResizedPath(ExpandDimension)); statErr != nil {
+	_, statErr1 := os.Stat(item.ResizedPath(ExpandDimension))
+	_, statErr2 := os.Stat(item.ResizedPath(ExpandDimension * 2))
+
+	if statErr1 != nil && statErr2 != nil {
 		http.Error(w, "Photo doesn't exist", 404)
 	} else {
 		redirect := r.PostFormValue("redirect")
