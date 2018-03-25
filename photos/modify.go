@@ -1,6 +1,7 @@
 package photos
 
 import (
+	"log"
 	"net/http"
 	"os"
 
@@ -33,7 +34,7 @@ func PhotoModifyHandler(w http.ResponseWriter, r *http.Request, params httproute
 			img, openErr := imaging.Open(item.ResizedPath(dimen))
 
 			if openErr != nil {
-				http.Error(w, openErr.Error(), 500)
+				log.Println(openErr)
 				return
 			}
 
