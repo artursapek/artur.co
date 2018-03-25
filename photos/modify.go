@@ -35,7 +35,6 @@ func PhotoModifyHandler(w http.ResponseWriter, r *http.Request, params httproute
 
 			if openErr != nil {
 				log.Println(openErr)
-				return
 			}
 
 			if rotate := r.PostFormValue("rotate"); rotate != "" {
@@ -54,13 +53,12 @@ func PhotoModifyHandler(w http.ResponseWriter, r *http.Request, params httproute
 
 				if saveErr != nil {
 					http.Error(w, saveErr.Error(), 500)
-				} else {
-					http.Redirect(w, r, redirect, 301)
 				}
-
 			} else {
 				http.Error(w, "No actions to take", 400)
 			}
 		}
+
+		http.Redirect(w, r, redirect, 301)
 	}
 }
