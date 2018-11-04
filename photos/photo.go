@@ -27,6 +27,8 @@ const (
 type ContentItem struct {
 	Type, Src string
 	Caption   template.HTML
+
+	timestamp *time.Time
 }
 
 func (item ContentItem) RawPath() string {
@@ -35,6 +37,10 @@ func (item ContentItem) RawPath() string {
 
 func (item ContentItem) SrcAsHTML() template.HTML {
 	return template.HTML(item.Src)
+}
+
+func (item ContentItem) Permalink() string {
+	return "/" + item.Type + "s/permalink/" + item.Year() + "/" + item.Month() + "/" + item.BaseFilename()
 }
 
 func (item ContentItem) ResizedPath(maxDimension int) string {
@@ -53,7 +59,12 @@ func (item ContentItem) RawURL() string {
 	return config.Config.RawURLPrefix + item.Type + "s/" + item.Src
 }
 
-func (item ContentItem) Timestamp() time.Time {
+func (item *ContentItem) Timestamp() time.Time {
+	if item.timestamp != nil {
+		fmt.Println("Using cached timestamp", *item.timestamp)
+		return *item.timestamp
+	}
+
 	switch item.Type {
 	case "video":
 		out, _ := exec.Command("ffmpeg", "-i", item.RawPath()).CombinedOutput()
@@ -65,6 +76,8 @@ func (item ContentItem) Timestamp() time.Time {
 				if terr != nil {
 					log.Println("Video time parse error: " + terr.Error())
 				}
+
+				item.timestamp = &t
 				return t
 			}
 		}
@@ -78,10 +91,12 @@ func (item ContentItem) Timestamp() time.Time {
 		} else {
 			ex, exerr := exif.Decode(f)
 			if exerr != nil {
-				log.Println(exerr)
+				//log.Println(exerr)
 				return time.Time{}
 			} else {
 				datetime, _ := ex.DateTime()
+
+				item.timestamp = &datetime
 				return datetime
 			}
 		}

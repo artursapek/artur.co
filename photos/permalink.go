@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 	"time"
 
@@ -43,6 +44,8 @@ type Permalink struct {
 	time.Time
 	Location
 
+	PrevSiblings, NextSiblings []ContentItem
+
 	NextLink string
 	PrevLink string
 }
@@ -66,43 +69,74 @@ func VideoPermalinkHandler(w http.ResponseWriter, r *http.Request, params httpro
 	}
 	permalinkHandler("video", w, r, params)
 }
-
 func permalinkHandler(t string, w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	item := ContentItem{
 		Type: t,
 		Src:  params.ByName("path")[1:],
 	}
+
 	if _, err := os.Stat(item.RawPath()); err != nil {
 		http.Error(w, "No such "+t, 404)
 		return
 	}
 
 	var (
-		nextLink, prevLink string
-		base                   = filepath.Join(filepath.Dir(item.RawPath()), "*")
-		siblings, globErr      = filepath.Glob(base)
-		index              int = -1
+		nextLink, prevLink    string
+		base                      = filepath.Join(filepath.Dir(item.RawPath()), "*")
+		siblingPaths, globErr     = filepath.Glob(base)
+		currentIndex          int = -1
+
+		siblings ItemsByTimestamp
+
+		prevSibStart, prevSibEnd int
+		nextSibStart, nextSibEnd int
 	)
 
 	if globErr == nil {
+		for _, fn := range siblingPaths {
+			sib := ContentItem{
+				Type: t,
+				Src:  strings.Replace(fn, filepath.Join(config.Config.RawRoot, t+"s")+"/", "", 1),
+			}
 
-		for i, fn := range siblings {
-			if fn == item.RawPath() {
-				index = i
+			if sib.Timestamp().Unix() > 0 {
+				siblings = append(siblings, sib)
+			}
+		}
+
+		for i, sib := range siblings {
+			if sib.RawPath() == item.RawPath() {
+				currentIndex = i
 				break
 			}
 		}
 
-		if index > -1 {
-			log.Println("found", item.RawPath(), index)
+		sort.Sort(siblings)
 
-			if index > 0 {
-				prevLink = strings.Replace(siblings[index-1], config.Config.RawRoot+"/"+item.Type+"s", "/"+item.Type+"s/permalink", 1)
+		if currentIndex > -1 {
+			if currentIndex > 0 {
+				prevLink = strings.Replace(siblingPaths[currentIndex-1], config.Config.RawRoot+"/"+item.Type+"s", "/"+item.Type+"s/permalink", 1)
 			}
-			if index < len(siblings)-1 {
-				nextLink = strings.Replace(siblings[index+1], config.Config.RawRoot+"/"+item.Type+"s", "/"+item.Type+"s/permalink", 1)
+			if currentIndex < len(siblingPaths)-1 {
+				nextLink = strings.Replace(siblingPaths[currentIndex+1], config.Config.RawRoot+"/"+item.Type+"s", "/"+item.Type+"s/permalink", 1)
+			}
+
+			prevSibStart = currentIndex - 10
+			prevSibEnd = currentIndex - 1
+			if prevSibStart < 0 {
+				prevSibStart = 0
+			}
+
+			nextSibStart = currentIndex + 1
+			nextSibEnd = currentIndex + 10
+			if nextSibStart >= len(siblings) {
+				nextSibStart = len(siblings) - 1
+			}
+			if nextSibEnd >= len(siblings) {
+				nextSibEnd = len(siblings) - 1
 			}
 		}
+
 	}
 
 	renderErr := permalinkTemplate.Execute(w, Permalink{
@@ -112,6 +146,9 @@ func permalinkHandler(t string, w http.ResponseWriter, r *http.Request, params h
 
 		NextLink: nextLink,
 		PrevLink: prevLink,
+
+		PrevSiblings: siblings[prevSibStart:prevSibEnd],
+		NextSiblings: siblings[nextSibStart:nextSibEnd],
 	})
 	if renderErr != nil {
 		log.Fatal(renderErr)

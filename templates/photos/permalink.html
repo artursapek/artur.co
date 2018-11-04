@@ -62,33 +62,70 @@
                 </td>
               </tr>
 
-              <tr>
+              <tr style="font-family: monospace">
                 <td>
                 </td>
                 <td>
+                <br />
+                <br />
                   <div>
                     {{ if ne $.PrevLink "" }}
-                      <a href="{{ $.PrevLink  }}">
-                        Prev
-                      </a>
+                      <a href="{{ $.PrevLink  }}">Prev</a>
                     {{ end }}
                     <span> - </span>
                     {{ if ne $.NextLink "" }}
-                      <a href="{{ $.NextLink }}">
-                        Next
-                      </a>
+                      <a href="{{ $.NextLink }}">Next</a>
                     {{ end }}
                   </div>
                 </td>
+              </tr>
+
+              <tr>
+                  <td></td>
+                  <td>
+                      <table style="font-family: monospace">
+                          {{ range $i, $item := $.PrevSiblings }}
+                          <tr>
+                              <td>
+                                  {{ $item.Timestamp.Format "Mon, Jan 2 2006 at 3:04:05pm" }}
+                              </td>
+                              <td>
+                                  <a href="{{ $item.Permalink }}">{{ $item.Src }}</a>
+                              </td>
+                          </tr>
+                          {{ end }}
+
+                          <tr>
+                              <td>
+                                  {{ $.Time.Format "Mon, Jan 2 2006 at 3:04:05pm" }}
+                              </td>
+                              <td>
+                                  <b>{{ $.ContentItem.Src }}</b>
+                              </td>
+                          </tr>
+
+                          {{ range $i, $item := $.NextSiblings }}
+                          <tr>
+                              <td>
+                                  {{ $item.Timestamp.Format "Mon, Jan 2 2006 at 3:04:05pm" }}
+                              </td>
+                              <td>
+                                  <a href="{{ $item.Permalink }}">{{ $item.Src }}</a>
+                              </td>
+                          </tr>
+                          {{ end }}
+                      </td>
+                    </tr>
+                  </table>
+              </td>
               </tr>
             </table>
           </td>
         </tr>
         <tr>
-      <td valign="bottom" align="right" width="400">
-
+      <td align="right" width="400">
         {{ if $.Location.Valid }}
-        <div id="map" style="width: 400px; height: 200px; border: 1px solid #ccc"></div>
+        <div id="map" style="width: 400px; height: 200px; border: 1px solid #ccc; margin-top: 40px"></div>
         <br>
         <div><code>{{ $.Location.String }}</code></div>
 
@@ -137,8 +174,8 @@
         </script>
       {{ end }}
       </td>
-        </tr>
-      </table>
+
+      <td align="right" width="400">
     </footer>
   </body>
 </html>
