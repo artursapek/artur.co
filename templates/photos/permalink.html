@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/assets/styles/photos/album.css" />
   </head>
 
-  <body>
+  <body style="font-family:monospace">
     <header id="breadcrumbs">
       <a href="/">artur.co</a> &gt; <a href="/albums">{{ $.Type }}s</a> &gt; <a href="/raw/{{ $.ContentItem.Type }}s/{{ $.ContentItem.Year }}/{{ $.ContentItem.Month }}">{{ $.ContentItem.Year }}/{{ $.ContentItem.Month }}</a> &gt; {{ $.Base }}
     </header>
@@ -53,7 +53,7 @@
               </tr>
               <tr>
                 <td>
-                  YAML
+                  YAML:
                 </td>
                 <td>
                   <textarea style="width: 400px; height: 50px" onclick="this.focus();this.select()">
@@ -119,63 +119,69 @@
                   </table>
               </td>
               </tr>
+
+			 {{ if $.Location.Valid }}
+				  <tr>
+					  <td>
+						  Geo:
+					  </td>
+					  <td align="right" width="400">
+						<div id="map" style="width: 400px; height: 200px; border: 1px solid #ccc; margin-top: 40px"></div>
+						<br>
+						<div><code>{{ $.Location.String }}</code></div>
+
+						<script src="/assets/scripts/d3.v3.min.js"></script>
+						<script src="/assets/scripts/topojson.v1.min.js"></script>
+						<script>
+
+						  var width = 400,
+							height = 200;
+
+						  var projection = d3.geo.equirectangular()
+							.scale(70)
+							.translate([width / 2, height / 2])
+							.precision(.1);
+
+						  var path = d3.geo.path()
+							.projection(projection);
+
+						  var graticule = d3.geo.graticule();
+
+						  var svg = d3.select("#map").append("svg")
+							.attr("width", width)
+							.attr("height", height);
+
+						  svg.append("path")
+							.datum(graticule)
+							.attr("class", "graticule")
+							.attr("d", path);
+
+						  d3.json("/assets/data/world.json", function(error, world) {
+						  svg.insert("path", ".graticule")
+							.datum(topojson.feature(world, world.objects.land))
+							.attr("class", "land")
+							.attr("fill", "#CCC")
+							.attr("d", path);
+						  });
+
+						  var coords = projection([{{ $.Lng }}, {{ $.Lat }}]);
+
+						  svg.append("circle")
+							.attr("cx", coords[0])
+							.attr("cy", coords[1])
+							.attr("r", 3)
+							.attr("fill", "black")
+
+						</script>
+					  </td>
+				  {{ end }}
+
+			  </tr>
             </table>
           </td>
         </tr>
         <tr>
-      <td align="right" width="400">
-        {{ if $.Location.Valid }}
-        <div id="map" style="width: 400px; height: 200px; border: 1px solid #ccc; margin-top: 40px"></div>
-        <br>
-        <div><code>{{ $.Location.String }}</code></div>
-
-        <script src="/assets/scripts/d3.v3.min.js"></script>
-        <script src="/assets/scripts/topojson.v1.min.js"></script>
-        <script>
-
-          var width = 400,
-            height = 200;
-
-          var projection = d3.geo.equirectangular()
-            .scale(70)
-            .translate([width / 2, height / 2])
-            .precision(.1);
-
-          var path = d3.geo.path()
-            .projection(projection);
-
-          var graticule = d3.geo.graticule();
-
-          var svg = d3.select("#map").append("svg")
-            .attr("width", width)
-            .attr("height", height);
-
-          svg.append("path")
-            .datum(graticule)
-            .attr("class", "graticule")
-            .attr("d", path);
-
-          d3.json("/assets/data/world.json", function(error, world) {
-          svg.insert("path", ".graticule")
-            .datum(topojson.feature(world, world.objects.land))
-            .attr("class", "land")
-            .attr("fill", "#CCC")
-            .attr("d", path);
-          });
-
-          var coords = projection([{{ $.Lng }}, {{ $.Lat }}]);
-
-          svg.append("circle")
-            .attr("cx", coords[0])
-            .attr("cy", coords[1])
-            .attr("r", 3)
-            .attr("fill", "black")
-
-        </script>
-      {{ end }}
-      </td>
-
-      <td align="right" width="400">
+   
     </footer>
   </body>
 </html>
