@@ -14,7 +14,7 @@
     <main>
       <table width="100%">
         <tr>
-          <td width="100%" rowspan="2">
+          <td width="100%" rowspan="2" style="vertical-align:top">
             {{ if eq $.Type "photo" }}
               <img src="{{ $.ResizedURL }}" srcset="{{ $.Resized2xURL }} 2x" style="max-width: 1000px; max-height: 1000px;" />
             {{ else if eq $.Type "video" }}
