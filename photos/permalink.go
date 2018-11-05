@@ -104,6 +104,8 @@ func permalinkHandler(t string, w http.ResponseWriter, r *http.Request, params h
 			}
 		}
 
+		sort.Sort(siblings)
+
 		for i, sib := range siblings {
 			if sib.RawPath() == item.RawPath() {
 				currentIndex = i
@@ -111,18 +113,19 @@ func permalinkHandler(t string, w http.ResponseWriter, r *http.Request, params h
 			}
 		}
 
-		sort.Sort(siblings)
-
 		if currentIndex > -1 {
 			if currentIndex > 0 {
-				prevLink = strings.Replace(siblingPaths[currentIndex-1], config.Config.RawRoot+"/"+item.Type+"s", "/"+item.Type+"s/permalink", 1)
+				prevLink = siblings[currentIndex-1].Permalink()
 			}
-			if currentIndex < len(siblingPaths)-1 {
-				nextLink = strings.Replace(siblingPaths[currentIndex+1], config.Config.RawRoot+"/"+item.Type+"s", "/"+item.Type+"s/permalink", 1)
+			if currentIndex < len(siblings)-1 {
+				nextLink = siblings[currentIndex+1].Permalink()
 			}
 
 			prevSibStart = currentIndex - 10
 			prevSibEnd = currentIndex - 1
+			if prevSibEnd < 0 {
+				prevSibEnd = 0
+			}
 			if prevSibStart < 0 {
 				prevSibStart = 0
 			}

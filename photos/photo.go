@@ -59,10 +59,13 @@ func (item ContentItem) RawURL() string {
 	return config.Config.RawURLPrefix + item.Type + "s/" + item.Src
 }
 
+var (
+	timestampCache = make(map[string]time.Time)
+)
+
 func (item *ContentItem) Timestamp() time.Time {
-	if item.timestamp != nil {
-		fmt.Println("Using cached timestamp", *item.timestamp)
-		return *item.timestamp
+	if cached, ok := timestampCache[item.Src]; ok {
+		return cached
 	}
 
 	switch item.Type {
@@ -77,7 +80,7 @@ func (item *ContentItem) Timestamp() time.Time {
 					log.Println("Video time parse error: " + terr.Error())
 				}
 
-				item.timestamp = &t
+				timestampCache[item.Src] = t
 				return t
 			}
 		}
@@ -96,7 +99,7 @@ func (item *ContentItem) Timestamp() time.Time {
 			} else {
 				datetime, _ := ex.DateTime()
 
-				item.timestamp = &datetime
+				timestampCache[item.Src] = datetime
 				return datetime
 			}
 		}
