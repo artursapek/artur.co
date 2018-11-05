@@ -122,7 +122,7 @@ func permalinkHandler(t string, w http.ResponseWriter, r *http.Request, params h
 			}
 
 			prevSibStart = currentIndex - 10
-			prevSibEnd = currentIndex - 1
+			prevSibEnd = currentIndex
 			if prevSibEnd < 0 {
 				prevSibEnd = 0
 			}
