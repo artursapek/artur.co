@@ -71,6 +71,10 @@ func PhotoPermalinkHandler(w http.ResponseWriter, r *http.Request, params httpro
 }
 
 func PhotoThumbsHandler(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+	if err := albumsAuthWall(w, r); err != nil {
+		return
+	}
+
 	var (
 		item = ContentItem{
 			Type: "photo",
