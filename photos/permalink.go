@@ -83,7 +83,7 @@ func PhotoThumbsHandler(w http.ResponseWriter, r *http.Request, params httproute
 
 		prevSiblings, nextSiblings = getSiblings(item, 20)
 
-		items ItemsByTimestamp
+		items = ItemsByTimestamp{item}
 
 		prev, next string
 	)
@@ -98,9 +98,9 @@ func PhotoThumbsHandler(w http.ResponseWriter, r *http.Request, params httproute
 	}
 
 	if len(nextSiblings) > 20 {
-		items = nextSiblings[0:20]
+		items = append(items, nextSiblings[0:20]...)
 	} else {
-		items = nextSiblings
+		items = append(items, nextSiblings...)
 	}
 
 	terr := thumbsTemplate.Execute(w, struct {
