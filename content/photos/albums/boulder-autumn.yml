@@ -46,6 +46,8 @@ content:
 - type: photo
   src: 2018/09/DSCF9870.JPG
 - type: photo
+  src: 2018/10/IMG_6856.JPG
+- type: photo
   src: 2018/10/DSCF9899.JPG
   caption: It's Tux!
 - type: photo
@@ -72,3 +74,4 @@ content:
   src: 2018/10/DSCF9947.JPG
 - type: photo
   src: 2018/10/IMG_6889.JPG
+
