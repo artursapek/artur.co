@@ -4,11 +4,38 @@ content:
 - type: photo
   src: 2018/09/DSCF9776.JPG
 - type: photo
+  src: 2018/09/IMG_6178.JPG
+- type: photo
+  src: 2018/09/IMG_6180.JPG
+- type: photo
+  src: 2018/09/IMG_6181.JPG
+- type: photo
+  src: 2018/09/IMG_6195.JPG
+- type: photo
+  src: 2018/09/IMG_6212.JPG
+- type: photo
+  src: 2018/10/IMG_6503.JPG
+- type: photo
+  src: 2018/10/IMG_6519.JPG
+  caption: New ride
+- type: photo
+  src: 2018/10/IMG_6545.JPG
+- type: photo
+  src: 2018/10/IMG_6607.JPG
+- type: photo
+  src: 2018/10/IMG_6625.JPG
+- type: photo
+  src: 2018/10/IMG_6627.JPG
+- type: photo
+  src: 2018/10/IMG_6633.JPG
+- type: photo
+  src: 2018/10/IMG_6651.JPG
+- type: photo
   src: 2018/10/IMG_6677.JPG
 - type: photo
   src: 2018/10/IMG_6670.JPG
 - type: video
-  src: 2018/08/IMG_6660.MOV
+  src: 2018/10/IMG_6660.MOV
   caption: Lazzy's first snow
 - type: photo
   src: 2018/10/IMG_6711.JPG
