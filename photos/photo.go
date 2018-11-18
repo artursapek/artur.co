@@ -243,9 +243,16 @@ func (item ContentItem) Resize(maxDimension int, path string, filter imaging.Res
 	return nil
 }
 
+var (
+	resizeMutex = new(sync.Mutex)
+)
+
 // On-the-fly photo resizing that memoizes on disk
 func OnTheFlyPhotoResizeHandler(maxDimension int) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+		resizeMutex.Lock()
+		defer resizeMutex.Unlock()
+
 		var (
 			item   = ContentItem{Src: params.ByName("path"), Type: "photo"}
 			path   = item.ResizedPath(maxDimension)
