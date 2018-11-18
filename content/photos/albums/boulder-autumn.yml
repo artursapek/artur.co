@@ -2,6 +2,8 @@ title: Boulder Autumn
 date: 10/19/18
 content:
 - type: photo
+  src: 2018/09/DSCF9776.JPG
+- type: photo
   src: 2018/10/IMG_6740.JPG
 - type: photo
   src: 2018/10/IMG_6741.JPG
@@ -12,6 +14,8 @@ content:
 - type: photo
   src: 2018/10/IMG_6773.JPG
 - type: photo
+- type: photo
+  src: 2018/10/IMG_6779.JPG
   src: 2018/10/IMG_6796.JPG
 - type: photo
   src: 2018/10/IMG_6799.JPG
@@ -23,8 +27,6 @@ content:
   caption: RIP
 - type: photo
   src: 2018/10/IMG_6809.JPG
-- type: photo
-  src: 2018/09/DSCF9776.JPG
 - type: photo
   src: 2018/09/DSCF9779.JPG
 - type: photo
