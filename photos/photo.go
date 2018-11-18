@@ -256,7 +256,9 @@ func OnTheFlyPhotoResizeHandler(maxDimension int) httprouter.Handle {
 			// Not resized before, resize on the fly and cache it
 			err := item.Resize(maxDimension, path, filter)
 			if err != nil {
-				http.Error(w, err.Error(), 500)
+				fmt.Println(err)
+				http.ServeFile(w, r, "static/placeholder/image.png")
+				return
 			}
 		}
 

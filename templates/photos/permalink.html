@@ -48,9 +48,18 @@
                   Raw:
                 </td>
                 <td align="right">
-                  <a href="{{ $.RawURL }}">{{ $.RawURL }}</a>
+                  <a href="{{ $.RawURL }}">Raw {{ $.Src }}</a>
                 </td>
               </tr>
+              <tr>
+                <td>
+                  Browse:
+                </td>
+                <td align="right">
+                  <a href="/photos/thumbs/{{ $.Src }}">Browse {{ $.Src }}</a>
+                </td>
+              </tr>
+
               <tr>
                 <td>
                   YAML:
@@ -58,7 +67,8 @@
                 <td>
                   <textarea style="width: 400px; height: 50px" onclick="this.focus();this.select()">
 - type: {{ $.Type }}
-  src: {{ $.Src }}</textarea>
+  src: {{ $.Src }}
+</textarea>
                 </td>
               </tr>
 
@@ -180,8 +190,6 @@
             </table>
           </td>
         </tr>
-        <tr>
-   
-    </footer>
+    </main>
   </body>
 </html>

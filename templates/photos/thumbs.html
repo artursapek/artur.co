@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <title>
+      {{ $.Item.Src }}
+    </title>
+    <link rel="stylesheet" href="/assets/styles/photos/album.css" />
+  </head>
+
+  <body>
+    <header id="breadcrumbs">
+      <a href="/">artur.co</a> &gt; <a href="/albums">{{ $.Item.Type }}s</a> &gt; <a href="/raw/{{ $.Item.Type }}s/{{ $.Item.Year }}/{{ $.Item.Month }}">{{ $.Item.Year }}/{{ $.Item.Month }}</a> &gt; {{ $.Item.Base }}
+    </header>
+
+    <main style="font-family:monospace">
+      {{ range $i, $item := $.Items }}
+
+        <div class="item-thumb">
+
+          <div style="width: 300px">
+            <a href="{{ $item.Permalink }}">
+              <img src="{{ $item.ResizedURL }}" style="max-width: 200px; max-height: 200px; margin: 10px auto; display: block" />
+            </a>
+          </div>
+          <div>
+            <textarea style="width: 300px; height: 50px" onclick="this.focus();this.select()">
+  - type: {{ $item.Type }}
+    src: {{ $item.Src }}
+  </textarea>
+        </div>
+      </div>
+
+      {{ end }}
+
+
+      {{ if ne $.Next "" }}
+      <a href="{{ $.Next }}">Next →</a>
+      {{ end }}
+
+
+    </main>
+  </body>
+</html>
+
