@@ -12,6 +12,14 @@
     </header>
 
     <main style="font-family:monospace">
+
+      {{ if ne $.Prev "" }}
+        <div class="item-thumb">
+          <a style="text-align: center" href="{{ $.Prev }}">&larr; Prev</a>
+        </div>
+      {{ end }}
+
+
       {{ range $i, $item := $.Items }}
 
         <div class="item-thumb">
@@ -33,7 +41,9 @@
 
 
       {{ if ne $.Next "" }}
-      <a href="{{ $.Next }}">Next →</a>
+        <div class="item-thumb">
+          <a style="text-align: center" href="{{ $.Next }}">Next &rarr;</a>
+        </div>
       {{ end }}
 
 
