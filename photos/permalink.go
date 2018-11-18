@@ -88,16 +88,20 @@ func PhotoThumbsHandler(w http.ResponseWriter, r *http.Request, params httproute
 		prev, next string
 	)
 
-	if len(prevSiblings) > 0 {
+	if len(prevSiblings) > 10 {
+		prev = "/photos/thumbs/" + prevSiblings[len(prevSiblings)-10].Src
+	} else if len(prevSiblings) > 0 {
 		prev = "/photos/thumbs/" + prevSiblings[0].Src
 	}
 	if len(nextSiblings) > 0 {
 		next = "/photos/thumbs/" + nextSiblings[len(nextSiblings)-1].Src
 	}
 
-	items = append(items, prevSiblings...)
-	items = append(items, item)
-	items = append(items, nextSiblings...)
+	if len(nextSiblings) > 20 {
+		items = nextSiblings[0:20]
+	} else {
+		items = nextSiblings
+	}
 
 	terr := thumbsTemplate.Execute(w, struct {
 		Item  ContentItem
