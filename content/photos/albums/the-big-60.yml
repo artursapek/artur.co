@@ -22,6 +22,8 @@ content:
 - type: photo
   src: 2018/09/IMG_5886.JPG
   caption: Virtuoso
+- type: video
+  src: 2018/08/IMG_5889.MOV
 - type: photo
   src: 2018/09/IMG_5893.JPG
 - type: photo
@@ -63,3 +65,6 @@ content:
   src: 2018/09/IMG_5962.JPG
 - type: photo
   src: 2018/09/IMG_5970.JPG
+- type: video
+  src: 2018/08/IMG_5997.MOV
+  caption: I really have to break this vertical vid habit

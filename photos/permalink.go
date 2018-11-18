@@ -88,8 +88,8 @@ func PhotoThumbsHandler(w http.ResponseWriter, r *http.Request, params httproute
 		prev, next string
 	)
 
-	if len(prevSiblings) > 10 {
-		prev = "/photos/thumbs/" + prevSiblings[len(prevSiblings)-10].Src
+	if len(prevSiblings) == 20 {
+		prev = "/photos/thumbs/" + prevSiblings[len(prevSiblings)-20].Src
 	} else if len(prevSiblings) > 0 {
 		prev = "/photos/thumbs/" + prevSiblings[0].Src
 	}
