@@ -17,14 +17,17 @@ content:
   src: 2020/01/A1_38.jpg
 - type: photo
   src: 2020/01/IMG_0963.jpg
+  caption: Macaw
 - type: photo
   src: 2020/01/IMG_1019.jpg
+  caption: Baby Boa Constrictor
 - type: photo
   src: 2020/01/IMG_1028.jpg
 - type: photo
   src: 2020/01/IMG_1029.jpg
 - type: photo
   src: 2020/01/IMG_1041.jpg
+  caption: She fits right in
 - type: photo
   src: 2020/01/IMG_1042.jpg
 - type: photo
@@ -45,9 +48,8 @@ content:
   src: 2020/01/IMG_1103.jpg
 - type: photo
   src: 2020/01/IMG_1105.jpg
+  caption: Laz gets a taste of his own medicine
 - type: photo
   src: 2020/01/IMG_1139.jpg
 - type: photo
   src: 2020/01/IMG_1146.jpg
-- type: photo
-  src: 2020/01/*.JPG
