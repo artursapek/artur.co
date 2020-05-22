@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"strings"
 
 	"github.com/artursapek/artur.co/blog"
 	"github.com/julienschmidt/httprouter"
@@ -22,6 +23,11 @@ func init() {
 }
 
 func IndexHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	if strings.Contains(r.Referer(), "cryptowat.ch") {
+		http.Redirect(w, r, "https://twitter.com/borrowcheck", 301)
+		return
+	}
+
 	indexTemplate.Execute(w, struct {
 		BlogEntries blog.Entries
 	}{
