@@ -1,5 +1,5 @@
 #!/bin/sh
-sshb artur <<-CMDS
+ssh artur <<-CMDS
 cd /app/artur.co
 sudo git fetch
 sudo git reset --hard origin/master

@@ -89,7 +89,7 @@ func main() {
 	ss := &http.Server{
 		Addr: ":80",
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-			fmt.Println(req)
+			fmt.Println(req.URL.Host)
 			logRequest(req)
 			if req.URL.Host == "artur.co" {
 				http.Redirect(w, req, "https://artur.co"+req.URL.Path, 302)
