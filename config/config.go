@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"log"
 
-	"launchpad.net/goyaml"
+	"github.com/go-yaml/yaml"
 )
 
 type AppConfig struct {
@@ -28,7 +28,7 @@ func init() {
 	if readErr != nil {
 		log.Fatal(readErr)
 	}
-	parseErr := goyaml.Unmarshal(configData, &Config)
+	parseErr := yaml.Unmarshal(configData, &Config)
 	if parseErr != nil {
 		log.Fatal(parseErr)
 	}

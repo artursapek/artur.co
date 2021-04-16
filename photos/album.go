@@ -13,8 +13,7 @@ import (
 	"strings"
 	"time"
 
-	"launchpad.net/goyaml"
-
+	"github.com/go-yaml/yaml"
 	"github.com/julienschmidt/httprouter"
 )
 
@@ -43,7 +42,7 @@ func loadAlbum(slug string) (a Album, err error) {
 	if getContentErr != nil {
 		return a, albumNotFoundError
 	} else {
-		parseErr := goyaml.Unmarshal(albumContent, &a)
+		parseErr := yaml.Unmarshal(albumContent, &a)
 		if parseErr != nil {
 			return a, errors.New("Failed to parse album: " + parseErr.Error())
 		} else {
