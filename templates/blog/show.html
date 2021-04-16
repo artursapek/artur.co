@@ -5,22 +5,23 @@
     </title>
     <link rel="stylesheet" href="/assets/styles/blog.css" />
     <meta property="og:title" content="{{ $.Entry.Title }}" />
-    <meta property="twitter:title" content="{{ $.Entry.Title }}" />
+    <meta name="twitter:title" content="{{ $.Entry.Title }}" />
+    <meta name="twitter:creator" content="@borrowcheck" />
 
     <meta property="og:site_name" content="Artur Sapek" />
 
     <meta property="og:description" content="Artur Sapek's personal blog" />
-    <meta property="twitter:description" content="Artur Sapek's personal blog" />
+    <meta name="twitter:description" content="Artur Sapek's personal blog" />
 
     <meta property="og:type" content="website" />
-    <meta property="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary" />
 
     <meta property="og:url" content="https://artur.co/blog/{{ $.Entry.Id }}" />
-    <meta property="twitter:url" content="https://artur.co/blog/{{ $.Entry.Id }}" />
+    <meta name="twitter:url" content="https://artur.co/blog/{{ $.Entry.Id }}" />
 
     {{ if $.Entry.CoverImage }}
     <meta property="og:image" content="https://artur.co/static/{{ $.Entry.CoverImage }}" />
-    <meta property="twitter:image" content="https://artur.co/static/{{ $.Entry.CoverImage }}" />
+    <meta name="twitter:image" content="https://artur.co/static/{{ $.Entry.CoverImage }}" />
     {{ end }}
   </head>
 
