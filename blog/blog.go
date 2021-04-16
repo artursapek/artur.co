@@ -15,10 +15,11 @@ import (
 )
 
 type Entry struct {
-	Date  time.Time
-	Id    string
-	Title string
-	Body  template.HTML
+	Date       time.Time
+	Id         string
+	Title      string
+	Body       template.HTML
+	CoverImage string
 }
 
 type Entries []Entry
@@ -61,11 +62,20 @@ func init() {
 
 						bodyParts := strings.Split(string(body), "\n")
 
+						coverImage := ""
+						body := strings.Join(bodyParts[1:], "\n")
+
+						if strings.HasPrefix(bodyParts[1], "og:") {
+							coverImage = strings.Replace(bodyParts[1], "og:", "", 1)
+							body = strings.Join(bodyParts[2:], "\n")
+						}
+
 						entry := Entry{
-							Id:    id,
-							Date:  date,
-							Title: bodyParts[0],
-							Body:  template.HTML(strings.Join(bodyParts[1:], "\n")),
+							Id:         id,
+							Date:       date,
+							Title:      bodyParts[0],
+							CoverImage: coverImage,
+							Body:       template.HTML(body),
 						}
 						All = append(All, entry)
 

@@ -1,10 +1,16 @@
 <html>
   <head>
     <title>
-      Blog
+      {{ $.Entry.Title }}
     </title>
     <link rel="stylesheet" href="/assets/styles/blog.css" />
     <meta name="robots" content="noindex">
+    <meta property="og:title" content="{{ $.Entry.Title }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://artur.co/blog/{{ $.Entry.Id }}" />
+    {{ if ne $.Entry.CoverImage "" }}
+    <meta property="og:image" content="https://artur.co/static/{{ $.Entry.CoverImage }}" />
+    {{ end }}
   </head>
 
   <body>
