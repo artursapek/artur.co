@@ -3,6 +3,7 @@ ssh artur <<-CMDS
 cd /app/artur.co
 sudo git fetch
 sudo git reset --hard origin/master
+export GO111MODULE=auto
 make
 sudo service artur restart
 CMDS
