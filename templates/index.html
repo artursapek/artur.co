@@ -31,6 +31,13 @@
           <a href="http://codecademy.com">Codecademy</a> - learn how to code online, for free
         </p>
 
+        <h3><a href="/blog">Blog</a></h3>
+        {{ range $i, $entry := $.BlogEntries }}
+        <p>
+          {{ $entry.DateFormatted }} - <a href="/blog/{{ $entry.Id }}">{{ $entry.Title }}</a>
+        </p>
+        {{ end }}
+
         <h3>Find me</h3>
         <p>
           Twitter: <a href="https://twitter.com/borrowcheck">@borrowcheck</a>
