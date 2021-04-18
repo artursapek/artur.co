@@ -40,9 +40,15 @@ main {
     display: none;
   }
 
+  #find-me {
+    margin: 20px 0;
+  }
+
   #find-me p {
     display: inline-block;
     margin-right: 10px;
+    margin-top: 3px;
+    margin-bottom: 3px;
 
   }
 }
@@ -75,11 +81,6 @@ main {
     margin-top: 20px;
     border-top: 1px solid #ccc;
 }
-
-#archive-mobile #find-me {
-  float: left;
-}
-
 
 article.blog-entry {
   padding-bottom: 40px;
