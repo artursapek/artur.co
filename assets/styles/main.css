@@ -153,7 +153,8 @@ nav ol {
 }
 
 /* looks like ravioli lol */
-nav ol li {
+#archive-desktop ol li,
+#archive-mobile ol li {
   list-style-type: none;
   overflow: hidden;
   text-overflow: ellipsis;
