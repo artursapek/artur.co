@@ -24,7 +24,7 @@ func init() {
 
 func IndexHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	if strings.Contains(r.Referer(), "cryptowat.ch") {
-		http.Redirect(w, r, "https://twitter.com/borrowcheck", 301)
+		http.Redirect(w, r, "https://twitter.com/borrowcheck", 302)
 		return
 	}
 
