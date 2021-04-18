@@ -4,6 +4,7 @@ cd /app/artur.co
 sudo git fetch
 sudo git reset --hard origin/master
 export GO111MODULE=auto
+rm -rf ~/go/src/github.com/artursapek
 make
 sudo service artur restart
 CMDS

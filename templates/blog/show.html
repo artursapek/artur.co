@@ -20,8 +20,8 @@
     <meta name="twitter:url" content="https://artur.co/blog/{{ $.Entry.Id }}" />
 
     {{ if $.Entry.CoverImage }}
-    <meta property="og:image" content="{{ $.Entry.CoverImage }}" />
-    <meta name="twitter:image" content="{{ $.Entry.CoverImage }}" />
+    <meta property="og:image" content="https://artur.co{{ $.Entry.CoverImage }}" />
+    <meta name="twitter:image" content="https://artur.co{{ $.Entry.CoverImage }}" />
     {{ end }}
   </head>
 
