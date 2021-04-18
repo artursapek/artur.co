@@ -33,7 +33,7 @@
 
     <main>
       <article class="blog-entry">
-        <h2><a href="/blog/{{ $.Entry.Id }}">{{ $.Entry.Title }}</a></h2>
+        <h1><a href="/blog/{{ $.Entry.Id }}">{{ $.Entry.Title }}</a></h1>
         <em>{{ $.Entry.DateFormatted }}</em>
 
         <div class="blog-entry__body">
@@ -46,9 +46,9 @@
     <nav>
       <img src="/static/cows.jpg" width="300" />
 
-      <h1>
-        Artur Sapek's blog
-      </h1>
+      <h2>
+        <a href="/blog">Artur Sapek's blog</a>
+      </h2>
       <p>
         Software, trading, food, parenting, gardening...
       </p>

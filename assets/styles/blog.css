@@ -29,6 +29,7 @@ main {
     overflow-x: hidden;
   }
 }
+
 @media only screen and (min-width: 701px) {
   main {
     float: left;
@@ -46,17 +47,27 @@ article.blog-entry {
   border-top: 1px solid #ccc;
 }
 
-article.blog-entry h2 {
+article.blog-entry h1 {
   margin-bottom: 10px;
   padding-bottom: 0;
 }
 
-article.blog-entry h2 a {
+article.blog-entry h1 a {
   color: black;
   text-decoration: none;
 }
 
-article.blog-entry h2 a:hover {
+article.blog-entry h1 a:hover {
+  color: blue;
+  text-decoration: underline;
+}
+
+h2 a {
+  color: black;
+  text-decoration: none;
+}
+
+h2 a:hover {
   color: blue;
   text-decoration: underline;
 }
@@ -68,8 +79,7 @@ article.blog-entry h2 a:hover {
 nav {
   float: left;
   margin: 60px 0 0 50px;
-  width: 360px;
-  padding: 0;
+  width: 400px;
 }
 
 nav ol {
@@ -82,6 +92,10 @@ nav ol {
 /* looks like ravioli lol */
 nav ol li {
   list-style-type: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 3px;
 }
 
 code {
