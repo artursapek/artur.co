@@ -4,22 +4,24 @@
       Artur Sapek
     </title>
     <link rel="stylesheet" href="/assets/styles/main.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=3.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
 
   <body>
 
     <nav>
+      <div id="about-me">
+        <h1>
+          Artur Sapek
+        </h1>
+        <p>Founder <a href="https://cryptowat.ch">Cryptowatch</a>, working at <a href="https://kraken.com">Kraken</a></p>
 
+        <p>
+        Contact: <a href="mailto:me@artur.co">me@artur.co</a> | <a href="/artur.gpg">PGP Key</a>
+        </p>
+      </div>
 
-      <h1>
-        Artur Sapek
-      </h1>
-      <p>Founder <a href="https://cryptowat.ch">Cryptowatch</a>, working at <a href="https://kraken.com">Kraken</a></p>
-
-      <p>
-      Contact: <a href="mailto:me@artur.co">me@artur.co</a> | <a href="/artur.gpg">PGP Key</a>
-      </p>
+      <div id="find-me">
         <p>
         <a href="https://twitter.com/borrowcheck"><img src="/static/logos/twitter.png" width="16" /> @borrowcheck</a>
         </p>
@@ -32,9 +34,10 @@
         <p>
           <a href="https://online-go.com/user/view/276168"><img src="/static/logos/ogs.png" width="16" /> @borrowcheck</a>
         </p>
+      </div>
 
 
-      <div id="archive">
+      <div id="archive-desktop">
         <h3>Archive</h3>
 
         <ol>
@@ -48,8 +51,6 @@
           {{ end }}
         </ol>
       </div>
-
-
     </nav>
 
     <main>
@@ -71,11 +72,28 @@
       <a href="/blog?skip={{ $.NextSkip }}">Next Page</a>
 
 
+
+      <div id="archive-mobile">
+        <h3>Archive</h3>
+
+        <ol>
+          {{ range $i, $entry := $.Entries }}
+            <li>
+              <span class="entry-date">{{ $entry.DateFormatted }} - </span>
+              <a href="/blog/{{ $entry.Id }}">
+                {{ $entry.Title }}
+              </a>
+            </li>
+          {{ end }}
+        </ol>
+      </div>
+
+
+
       <div id="kendrick">
         <hr />
         <i>"Dream only a dream if work don't follow it"</i>
       </div>
-
 
     </main>
 

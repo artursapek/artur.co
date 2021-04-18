@@ -36,8 +36,14 @@ main {
     border-bottom: 1px solid #ccc;
   }
 
-  #archive {
+  #archive-desktop {
     display: none;
+  }
+
+  #find-me p {
+    display: inline-block;
+    margin-right: 10px;
+
   }
 }
 
@@ -57,7 +63,23 @@ main {
     top: 0;
     left: 600px;
   }
+
+  #archive-mobile {
+    display: none;
+  }
+
 }
+
+#archive-mobile {
+    padding-top: 20px;
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+}
+
+#archive-mobile #find-me {
+  float: left;
+}
+
 
 article.blog-entry {
   padding-bottom: 40px;
@@ -96,11 +118,13 @@ nav a:hover {
   text-decoration: underline;
 }
 
+nav h1 a,
 nav h2 a {
   color: black;
   text-decoration: none;
 }
 
+nav h1 a:hover,
 nav h2 a:hover {
   color: blue;
   text-decoration: underline;
