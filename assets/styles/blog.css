@@ -11,7 +11,7 @@ body {
 }
 
 header {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #ccc;
   padding: 10px;
 }
 
@@ -47,30 +47,45 @@ article.blog-entry {
   border-top: 1px solid #ccc;
 }
 
-article.blog-entry h1 {
+article.blog-entry h1,
+article.blog-entry h2 {
   margin-bottom: 10px;
   padding-bottom: 0;
 }
 
-article.blog-entry h1 a {
+article.blog-entry h1 a,
+article.blog-entry h2 a {
   color: black;
   text-decoration: none;
 }
 
-article.blog-entry h1 a:hover {
+article.blog-entry h1 a:hover,
+article.blog-entry h2 a:hover {
   color: blue;
   text-decoration: underline;
 }
 
-h2 a {
+nav a {
+  color: blue;
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: blue;
+  text-decoration: underline;
+}
+
+nav h2 a {
   color: black;
   text-decoration: none;
 }
 
-h2 a:hover {
+nav h2 a:hover {
   color: blue;
   text-decoration: underline;
 }
+
+
 
 .blog-entry__body {
   margin-top: 20px;
@@ -78,15 +93,26 @@ h2 a:hover {
 
 nav {
   float: left;
-  margin: 60px 0 0 50px;
+  margin: 20px 0 0 50px;
+  border-left: 1px solid #ccc;
+  padding-left: 50px;
   width: 400px;
+}
+
+
+nav h3 {
+  margin: 0;
+  margin-top: 40px;
+}
+
+nav .entry-date {
+  color: #646464;
 }
 
 nav ol {
   margin: 0;
-  margin-top: 20px;
-  padding: 10px;
-  border: 1px solid #ccc;
+  margin-top: 10px;
+  padding: 0px;
 }
 
 /* looks like ravioli lol */
@@ -118,4 +144,13 @@ pre {
   border: 1px solid black;
   display: inline-block;
   white-space: nowrap;
+}
+
+#kendrick {
+  margin-top: 50px;
+  font-size: 12px;
+}
+
+#kendrick hr {
+  margin-bottom: 20px;
 }

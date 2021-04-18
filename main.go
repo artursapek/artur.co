@@ -48,7 +48,7 @@ func main() {
 	router.GET("/static/*path", index.GetAssetHandler("static/"))
 	router.GET("/artur.gpg", index.GetSingleAssetHandler("static/artur.gpg"))
 
-	router.GET("/", index.IndexHandler)
+	router.GET("/", blog.IndexHandler)
 
 	c := &tls.Config{}
 	c.Certificates = []tls.Certificate{}
