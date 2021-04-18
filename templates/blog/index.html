@@ -4,10 +4,54 @@
       Artur Sapek
     </title>
     <link rel="stylesheet" href="/assets/styles/main.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=3.0">
   </head>
 
   <body>
+
+    <nav>
+
+
+      <h1>
+        Artur Sapek
+      </h1>
+      <p>Founder <a href="https://cryptowat.ch">Cryptowatch</a>, working at <a href="https://kraken.com">Kraken</a></p>
+
+      <p>
+      Contact: <a href="mailto:me@artur.co">me@artur.co</a> | <a href="/artur.gpg">PGP Key</a>
+      </p>
+        <p>
+        <a href="https://twitter.com/borrowcheck"><img src="/static/logos/twitter.png" width="16" /> @borrowcheck</a>
+        </p>
+        <p>
+        <a href="https://github.com/artursapek"><img src="/static/logos/github.png" width="16" /> @artursapek</a>
+        </p>
+        <p>
+          <a href="https://keybase.io/artur"><img src="/static/logos/keybase.png" width="16" />  @artur</a>
+        </p>
+        <p>
+          <a href="https://online-go.com/user/view/276168"><img src="/static/logos/ogs.png" width="16" /> @borrowcheck</a>
+        </p>
+
+
+      <div id="archive">
+        <h3>Archive</h3>
+
+        <ol>
+          {{ range $i, $entry := $.Entries }}
+            <li>
+              <span class="entry-date">{{ $entry.DateFormatted }} - </span>
+              <a href="/blog/{{ $entry.Id }}">
+                {{ $entry.Title }}
+              </a>
+            </li>
+          {{ end }}
+        </ol>
+      </div>
+
+
+    </nav>
+
     <main>
 
       <div>
@@ -35,47 +79,7 @@
 
     </main>
 
-    <nav>
 
-
-      <h1>
-        Artur Sapek
-      </h1>
-      <p>Founder <a href="https://cryptowat.ch">Cryptowatch</a>, working at <a href="https://kraken.com">Kraken</a></p>
-
-      <p>
-      Contact: <a href="mailto:me@artur.co">me@artur.co</a> | <a href="/artur.gpg">PGP Key</a>
-      </p>
-        <p>
-        <a href="https://twitter.com/borrowcheck"><img src="/static/logos/twitter.png" width="16" /> @borrowcheck</a>
-        </p>
-        <p>
-        <a href="https://github.com/artursapek"><img src="/static/logos/github.png" width="16" /> @artursapek</a>
-        </p>
-        <p>
-          <a href="https://keybase.io/artur"><img src="/static/logos/keybase.png" width="16" />  @artur</a>
-        </p>
-        <p>
-          <a href="https://online-go.com/user/view/276168"><img src="/static/logos/ogs.png" width="16" /> @borrowcheck</a>
-        </p>
-
-
-      <h3>Archive</h3>
-
-
-      <ol>
-        {{ range $i, $entry := $.Entries }}
-          <li>
-            <span class="entry-date">{{ $entry.DateFormatted }} - </span>
-            <a href="/blog/{{ $entry.Id }}">
-              {{ $entry.Title }}
-            </a>
-          </li>
-        {{ end }}
-      </ol>
-
-
-    </nav>
 
 
 
