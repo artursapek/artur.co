@@ -26,10 +26,11 @@ func GetSingleAssetHandler(path string) httprouter.Handle {
 func GetAssetHandler(root string) httprouter.Handle {
 	return func(rw http.ResponseWriter, req *http.Request, p httprouter.Params) {
 		// Cache images
-		if strings.Contains(root, ".png") || strings.Contains(root, ".jpg") {
+		name := p.ByName("path")
+		if strings.Contains(name, ".png") || strings.Contains(name, ".jpg") {
 			rw.Header().Set("Cache-Control", "max-age=86400")
 		}
-		path := filepath.Join(root, p.ByName("path"))
+		path := filepath.Join(root, name)
 		http.ServeFile(rw, req, path)
 	}
 
