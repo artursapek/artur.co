@@ -131,6 +131,11 @@ func (e Entries) Less(i, j int) bool {
 }
 
 func IndexHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	if strings.Contains(r.Referer(), "cryptowat.ch") {
+		http.Redirect(w, r, "https://twitter.com/borrowcheck", 301)
+		return
+	}
+
 	var (
 		toRender Entries
 
