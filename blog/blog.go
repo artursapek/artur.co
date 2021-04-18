@@ -1,6 +1,7 @@
 package blog
 
 import (
+	"bytes"
 	"html/template"
 	"io/ioutil"
 	"log"
@@ -12,6 +13,7 @@ import (
 	"time"
 
 	"github.com/julienschmidt/httprouter"
+	"golang.org/x/net/html"
 )
 
 type Entry struct {
@@ -65,9 +67,31 @@ func init() {
 						coverImage := ""
 						body := strings.Join(bodyParts[1:], "\n")
 
-						if strings.HasPrefix(bodyParts[1], "og:") {
-							coverImage = strings.Replace(bodyParts[1], "og:", "", 1)
-							body = strings.Join(bodyParts[2:], "\n")
+						r := bytes.NewBuffer([]byte(body))
+						z := html.NewTokenizer(r)
+					searchLoop:
+						for {
+							tt := z.Next()
+							if tt == html.ErrorToken {
+								break
+							}
+							if tt == html.SelfClosingTagToken {
+								tagName, _ := z.TagName()
+								if string(tagName) == "img" {
+								attrLoop:
+									for {
+										key, val, more := z.TagAttr()
+										if string(key) == "src" {
+											coverImage = string(val)
+											break searchLoop
+										}
+
+										if !more {
+											break attrLoop
+										}
+									}
+								}
+							}
 						}
 
 						entry := Entry{

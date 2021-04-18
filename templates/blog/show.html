@@ -14,14 +14,14 @@
     <meta name="twitter:description" content="Artur Sapek's personal blog" />
 
     <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
 
     <meta property="og:url" content="https://artur.co/blog/{{ $.Entry.Id }}" />
     <meta name="twitter:url" content="https://artur.co/blog/{{ $.Entry.Id }}" />
 
     {{ if $.Entry.CoverImage }}
-    <meta property="og:image" content="https://artur.co/static/{{ $.Entry.CoverImage }}" />
-    <meta name="twitter:image" content="https://artur.co/static/{{ $.Entry.CoverImage }}" />
+    <meta property="og:image" content="{{ $.Entry.CoverImage }}" />
+    <meta name="twitter:image" content="{{ $.Entry.CoverImage }}" />
     {{ end }}
   </head>
 
