@@ -146,7 +146,8 @@ nav .entry-date {
   color: #646464;
 }
 
-nav ol {
+#archive-desktop ol,
+#archive-mobile ol {
   margin: 0;
   margin-top: 10px;
   padding: 0px;
