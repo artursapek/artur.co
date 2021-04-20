@@ -10,6 +10,11 @@ body {
   box-sizing: border-box;
 }
 
+#content {
+  display: inline-block;
+  margin: 0 auto;
+}
+
 header {
   border-bottom: 1px solid #ccc;
   padding: 10px;
@@ -20,6 +25,14 @@ main {
 }
 
 @media only screen and (max-width: 1105px) {
+  #content {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+
   main {
     max-width: 600px;
   }
@@ -54,8 +67,15 @@ main {
 }
 
 @media only screen and (min-width: 1105px) {
+
+  #content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
   main {
-    float: left;
     width: 600px;
     margin-right: 20px;
   }
@@ -65,9 +85,6 @@ main {
     margin: 20px 0 0 50px;
     padding-left: 50px;
     width: 400px;
-    position: fixed;
-    top: 0;
-    left: 600px;
   }
 
   #archive-mobile {
