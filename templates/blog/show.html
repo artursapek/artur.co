@@ -32,6 +32,34 @@
   </head>
 
   <body>
+    <div id="content">
+    <main>
+      <article class="blog-entry">
+        <h1><a href="/blog/{{ $.Entry.Id }}">{{ $.Entry.Title }}</a></h1>
+        <em>{{ $.Entry.DateFormatted }}</em>
+
+        <div class="blog-entry__body">{{ $.Entry.Body }}</div>
+      </article>
+
+      <div id="archive-mobile">
+        <h3>Archive</h3>
+
+        <ol>
+          {{ range $i, $entry := $.Entries }}
+          <li>
+            <span class="entry-date">{{ $entry.DateFormatted }} - </span>
+            <a href="/blog/{{ $entry.Id }}"> {{ $entry.Title }} </a>
+          </li>
+          {{ end }}
+        </ol>
+      </div>
+
+      <div id="kendrick">
+        <hr />
+        <i>"Dream only a dream if work don't follow it"</i>
+      </div>
+    </main>
+
     <nav>
       <div id="about-me">
         <h1>
@@ -85,31 +113,7 @@
       </div>
     </nav>
 
-    <main>
-      <article class="blog-entry">
-        <h1><a href="/blog/{{ $.Entry.Id }}">{{ $.Entry.Title }}</a></h1>
-        <em>{{ $.Entry.DateFormatted }}</em>
+    </div>
 
-        <div class="blog-entry__body">{{ $.Entry.Body }}</div>
-      </article>
-
-      <div id="archive-mobile">
-        <h3>Archive</h3>
-
-        <ol>
-          {{ range $i, $entry := $.Entries }}
-          <li>
-            <span class="entry-date">{{ $entry.DateFormatted }} - </span>
-            <a href="/blog/{{ $entry.Id }}"> {{ $entry.Title }} </a>
-          </li>
-          {{ end }}
-        </ol>
-      </div>
-
-      <div id="kendrick">
-        <hr />
-        <i>"Dream only a dream if work don't follow it"</i>
-      </div>
-    </main>
   </body>
 </html>

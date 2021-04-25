@@ -21,7 +21,7 @@ header {
 }
 
 main {
-  margin: 10px 10px 10px 20px;
+  padding: 20px;
 }
 
 @media only screen and (max-width: 1105px) {
@@ -34,6 +34,7 @@ main {
 
 
   main {
+    width: 100%;
     max-width: 600px;
   }
 
@@ -68,16 +69,16 @@ main {
 
 @media only screen and (min-width: 1105px) {
 
+  main {
+    width: 600px;
+  }
+
+
   #content {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     justify-content: center;
-  }
-
-  main {
-    width: 600px;
-    margin-right: 20px;
   }
 
   nav {
